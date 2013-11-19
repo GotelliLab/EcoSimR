@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>EcoSimR Version History</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>EcoSimR Version History</h1>
+
+<p>15 June 2013</p>
+
+<p>Version History</p>
+
+<p>EcoSimR - R Code For Null Model Analysis</p>
+
+<p>Nicholas J. Gotelli &amp; Aaron M. Ellison</p>
+
+<p>website: <a href="http://www.uvm.edu/%7Engotelli/EcoSim/EcoSim.html">http://www.uvm.edu/~ngotelli/EcoSim/EcoSim.html</a></p>
+
+<p>Version 1.00
+ 15 June 2013</p>
+
+<p>EcoSimR - Niche Overlap Shell</p>
+
+<p>Update History
+ Version 1.00</p>
+
+<p>Created 2 August 2012 by NJG 
+  Revised 24 January 2013 by AME
+  &ndash; Calls to Niche.Overlap in Analytics Source
+  &ndash; Defaults to Print.Output = &ldquo;file&rdquo;
+    &ndash; Defaults to Plot.Output = &ldquo;screen&rdquo;
+    &ndash; Provide list of choices in User input parameters
+    &ndash; Moved Start.Time, End.Time, Time.Stamp into Null.Model.Engine (General Functions)
+    &ndash; Moved all output functions into General Functions
+    &ndash; Output file now .txt</p>
+
+<p>EcoSimR - Analytics Source</p>
+
+<p>Update History
+ Version 1.00
+ Modified 7 February 2013 by NJG N.Reps error check for &lt; 2</p>
+
+<p>Created 24 January 2013 by AME </p>
+
+<p>Moved Null.Model.Engine function from General Functions Source to Analytics Source
+    Added Elapsed Time and Time Stamp calls into Null.Model.Engine<br/>
+    Include Elapsed Time and Time Stamp into Null.Model.Out list</p>
+
+<p>15 June 2013 eliminated this source and moved elements into general functions by NJG</p>
+
+<p>EcoSimR - Algorithms Source</p>
+
+<p>Update History
+ Version 1.00</p>
+
+<p>Created 20 April 2012 by AME
+ Modified and re-organized 30 July 2012 by NJG</p>
+
+<p>EcoSimR - Graphics Source</p>
+
+<p>Update History
+ Version 1.00</p>
+
+<p>Created 09 August 2012 by NJG
+  Updated 24 January 2013 by AME
+        &ndash;modified Utilization plot to only timestamp if Print.Ouput == file
+        &ndash;modified both plots so that the pdf is called from outside via Output.Results
+ Updated 15 June 2013 by NJG modified plot names for conformance to general graphics function call</p>
+
+<p>EcoSimR - Main Source</p>
+
+<p>Update History
+ Version 1.00</p>
+
+<p>Created 2 August 2012 by NJG 
+ Updated 23 January 2013 by AME 
+  -Added Analytics Source.R to more cleanly segregate functions</p>
+
+<p>EcoSimR - General Functions Source</p>
+
+<p>Update History
+ Version 1.00</p>
+
+<p>Created 20 April 2012 by AME
+ Modified and re-organized 2 August 2012 by NJG
+ Modified 24 January 2013 by AME
+  &ndash;changed &ldquo;Replicates&rdquo; to &ldquo;N.Reps&rdquo; in function &ldquo;Sim&rdquo;
+    &ndash;added function DataMatrix to convert csv to matrix
+    &ndash;Created Output.Results function for more flexibility
+    &ndash;Rebuilt Null.Model.Summary function with text output to file, screen, or none
+    &ndash;Eliminated Print.Results function (replaced by Output.Results function)
+    &ndash;Streamlined random seed generator function to take integer input and use ifelse statement
+ Rewritten 24 January 2013 by AME to allow for nice screen or file output
+ Also eliminates need for Print.Results function</p>
+
+</body>
+
+</html>
+
