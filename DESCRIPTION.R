@@ -1,0 +1,16 @@
+Package: EcoSimR
+Type: Package
+Title: <short description here>
+Version: 0.1.0 
+Date: 2014-02-16
+BugReports: https://github.com/GotelliLab/EcoSimR/issues
+Authors@R: c(person("Nick", "Gotelli", role = c("aut", "cre"),
+                    email = "ngotelli@uvm.edu"),
+             person("Aaron", "Ellison", role = c("aut","cre"),
+                    email = "aellison@fas.harvard.edu"),
+             person("Edmund", "Hart", role = "aut",
+                    email = "edmund.m.hart@gmail.com"))
+LazyLoad: yes
+LazyData: yes
+Description: <longer description here>
+License: MIT
