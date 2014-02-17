@@ -1,8 +1,4 @@
-# History files
 .Rhistory
-
-# Example code in package build process
-*-Ex.R
-
-# Storage folder
 outputs_local
+.Rproj.user
+EcoSimR.Rproj
