@@ -13,12 +13,11 @@
 ## 12 May 2013
 #############################################
 
-#############################################
-## Pianka function
-## Takes a niche utilization matrix
-## returns Pianka's niche overlap index
-##
-##
+
+#' Pianka function
+#' @description Takes a niche utilization matrix returns Pianka's niche overlap index
+#'
+#'
 
 Pianka <- function(m=matrix(rpois(80,1),nrow=10)) 
 
@@ -31,14 +30,11 @@ for (i in 1:nrow(pairwise))
 return(mean(pairwise[,3]))
 }
 
-##
-##
-#############################################
-## Czekanowski function
-## Takes a niche utilization matrix
-## returns Czekanowski niche overlap index
-##
-##
+
+#' Czekanowski function
+#' @description Takes a niche utilization matrix returns Czekanowski niche overlap index
+#'
+#'
 
 Czekanowski <- function(m=matrix(rpois(80,1),nrow=10)) 
 
