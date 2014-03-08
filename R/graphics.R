@@ -13,34 +13,6 @@
 ## 12 May 2013
 ##############################################
 
-#############################################
-## Null.Model.Plot function
-## Generic function for plotting a histogram of simulated values
-## Takes as input a list of Null.Model.Out, with Obs and Sim values
-##
-##
-
-
-Null.Model.Plot <- function (Null.Model.Out=list(Obs=runif(1),Sim=runif(n=1000)),Date.Stamp=date())
-  
-{
-  
-  
-  opar <- par(no.readonly=TRUE)
-  par(cex=1, cex.axis = 1.5,
-      cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1)
-  #------------------------------------------------------
-  hist(Null.Model.Out$Sim, breaks=20, col="royalblue3",
-       
-       xlab="Simulated Metric",ylab="Frequency",main="",
-       xlim=range(c(Null.Model.Out$Sim,Null.Model.Out$Obs)))
-  abline(v=Null.Model.Out$Obs,col="red",lty="solid",lwd=2.5)
-  abline(v=quantile(Null.Model.Out$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
-  abline(v=quantile(Null.Model.Out$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
-  mtext(as.character(Date.Stamp),side=3,adj=1,line=3)
-  
-}
 ##########################################################################################
 ## Niche.Overlap.Plot function
 ## Function for plotting observed and simulated utilization matrix

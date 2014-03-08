@@ -5,6 +5,7 @@ dev_mode()
 install(".")
 library(EcoSimR)
 
-extdat <- read.csv("~/Documents/macwarb.csv",header=T,stringsAsFactors=F)
 
 test <- null_model_engine(macwarb)
+summary(test)
+plot(test)
