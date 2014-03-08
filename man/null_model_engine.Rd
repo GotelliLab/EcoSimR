@@ -2,8 +2,8 @@
 \alias{null_model_engine}
 \title{Run null model}
 \usage{
-  null_model_engine(species_data, algo = "RA3",
-    metric = "Pianka", N.Reps = 1000)
+null_model_engine(species_data, algo = "RA3", metric = "Pianka",
+  N.Reps = 1000)
 }
 \arguments{
   \item{species_data}{a dataframe <put some guidelines in
@@ -21,8 +21,8 @@
   model for}
 }
 \description{
-  Create a null model object <put a better description in
-  here>
+Create a null model object <put a better description in
+here>
 }
 \examples{
 \dontrun{
