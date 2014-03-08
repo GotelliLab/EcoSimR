@@ -2,8 +2,9 @@
 \alias{null_model_engine}
 \title{Run null model}
 \usage{
-null_model_engine(species_data, algo = "RA3", metric = "Pianka",
-  N.Reps = 1000)
+  null_model_engine(species_data, algo = "RA3",
+    metric = "Pianka", n.reps = 1000, row.names = TRUE,
+    random.seed = 0)
 }
 \arguments{
   \item{species_data}{a dataframe <put some guidelines in
@@ -17,16 +18,31 @@ null_model_engine(species_data, algo = "RA3", metric = "Pianka",
   "Czekanowski.var", "Pianka.skew", "Czekanowski.skew";
   default is Pianka}
 
-  \item{N.reps}{the number of replicates to run the null
-  model for}
+  \item{n.reps}{the number of replicates to run the null
+  model.}
+
+  \item{row.names}{Does your dataframe have row names? If
+  yes, they are stripped, otherwise FALSE for data that has
+  no row names}
+
+  \item{random.seed}{Choose a seed to start your random
+  number.  0 will choose a random seed, otherwise set the
+  seed with any integer.}
 }
 \description{
-Create a null model object <put a better description in
-here>
+  Create a null model object <put a better description in
+  here>
 }
 \examples{
 \dontrun{
-Put an example in here
+## Load MacAruthur warbler data
+data(macwarb)
+
+## Run the null model
+warbMod <- null_model_engine(macwarb)
+## Summary and plot info
+summary(warbMod)
+plot(warbMod)
 
 }
 }
