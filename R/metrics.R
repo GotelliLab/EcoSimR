@@ -16,7 +16,7 @@
 
 #' Pianka function
 #' @description Takes a niche utilization matrix returns Pianka's niche overlap index
-#'
+#' @export
 #'
 
 Pianka <- function(m=matrix(rpois(80,1),nrow=10)) 
@@ -33,7 +33,7 @@ return(mean(pairwise[,3]))
 
 #' Czekanowski function
 #' @description Takes a niche utilization matrix returns Czekanowski niche overlap index
-#'
+#'@export
 #'
 
 Czekanowski <- function(m=matrix(rpois(80,1),nrow=10)) 
@@ -47,15 +47,10 @@ for (i in 1:nrow(pairwise))
 return(mean(pairwise[,3]))
 }
 
-##
-##
 
-#############################################
-## Pianka variance function
-## Takes a niche utilization matrix
-## returns variance of Pianka's niche overlap index
-##
-##
+#' Pianka variance function
+#' @description Takes a niche utilization matrix returns variance of Pianka's niche overlap index
+#' @export
 
 Pianka.var <- function(m=matrix(rpois(80,1),nrow=10)) 
   
@@ -71,12 +66,9 @@ Pianka.var <- function(m=matrix(rpois(80,1),nrow=10))
 
 ##
 ##
-#############################################
-## Czekanowski variance function
-## Takes a niche utilization matrix
-## returns variance Czekanowski niche overlap index
-##
-##
+#' Czekanowski variance function
+#' @description Takes a niche utilization matrix returns variance Czekanowski niche overlap index
+#' @export
 
 Czekanowski.var <- function(m=matrix(rpois(80,1),nrow=10)) 
   
@@ -89,14 +81,10 @@ Czekanowski.var <- function(m=matrix(rpois(80,1),nrow=10))
   return(var(pairwise[,3]))
 }
 
-##
-##
-##############################################
-## Pianka skewness function
-## Takes a niche utilization matrix
-## returns skewness of Pianka's niche overlap index
-##
-##
+
+#' Pianka skewness function
+#' @description Takes a niche utilization matrix returns skewness of Pianka's niche overlap index
+#' @export
 
 Pianka.skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   
@@ -114,14 +102,10 @@ Pianka.skew <- function(m=matrix(rpois(80,1),nrow=10))
   return(Pianka.skew)
 }
 
-##
-##
-#############################################
-## Czekanowski skew function
-## Takes a niche utilization matrix
-## returns skew of the Czekanowski niche overlap index
-##
-##
+
+#' Czekanowski skew function
+#' @description Takes a niche utilization matrix returns skew of the Czekanowski niche overlap index
+#' @export
 
 Czekanowski.skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   

@@ -23,8 +23,8 @@ null_model_engine <- function(species_data, algo = "RA3", metric = "Pianka", N.R
   
   
   if (N.Reps < 2) N.Reps <- 2
-  Sim <- replicate(N.Reps,EcoSimR:::metricF(EcoSimR:::algoF(species_data)))
-  Obs <- metric(Data.Matrix)
+  Sim <- replicate(N.Reps,metricF(algoF(species_data)))
+  Obs <- metricF(species_data)
   
   End.Time <- Sys.time()
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)
