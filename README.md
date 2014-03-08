@@ -3,12 +3,21 @@ EcoSimR
 
 Test repository for EcoSimR, by Gotelli, N.J. and A.M. Ellison. 2013. EcoSimR 1.00.  http://www.uvm.edu/~ngotelli/EcoSim/EcoSim.html
 
-Introduction
+QuickStart
 =======
 
-This is the Wiki for the EcoSimR GitHub project. This project is meant to house user-contributed R code for interfacing with the EcoSimR base functions, and to facilitate public commenting on and editing of the base functions and user-contributed code.
+First install the dev branch
+```coffescript
+library(devtools)
+## use dev_mode() if you want to just play with this in a sandbox
+install_github("gotellilab/EcoSimR@dev")
+```
 
-How to contribute
-=======
+Here's a quick example with the MacAurthur Warbler data.
+ 
+```coffeescript
+library(EcoSimR)
 
-If you have written functions that interface with the base EcoSimR functions, please upload it into the "contributed" folder. For instructions how to do so using a Pull Request, please see https://help.github.com/articles/using-pull-requests.
+test <- null_model_engine(macwarb)
+summary(test)
+plot(test)
