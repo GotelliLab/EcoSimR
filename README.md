@@ -10,7 +10,7 @@ First install the dev branch
 ```coffescript
 library(devtools)
 ## use dev_mode() if you want to just play with this in a sandbox
-install_github("gotellilab/EcoSimR@dev")
+install_github("EcoSimR","gotellilab",ref="dev")
 ```
 
 Here's a quick example with the MacAurthur Warbler data.
