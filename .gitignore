@@ -2,3 +2,5 @@
 outputs_local
 .Rproj.user
 EcoSimR.Rproj
+.RData
+.Rbuildignore
