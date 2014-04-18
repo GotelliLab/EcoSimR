@@ -4,3 +4,4 @@ outputs_local
 EcoSimR.Rproj
 .RData
 .Rbuildignore
+tmp.R

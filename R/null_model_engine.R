@@ -32,6 +32,13 @@ null_model_engine <- function(species_data, algo = "RA3", metric = "Pianka", n.r
   if(row.names){
     species_data <- species_data[,-1] 
   }
+  ## Convert to matrix for type consistency
+  if(!is.matrix(species_data)){ species_data <- as.matrix(species_data)}
+  
+  ### check if rownames accidentally was set to FALSE
+  if(is.character(species_data)){stop("Did you forget to set row.names to TRUE?  Your data is non-numeric")}
+  
+  
   algoF <- eval(parse(text = match.arg(algo,choices = c("RA1","RA2","RA3","RA4"))))
   metricF <- eval(parse(text = match.arg(metric,choices = c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"))))
   

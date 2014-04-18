@@ -144,10 +144,10 @@ matrix(VectorSample(m, w=Matrix.Weights),ncol=ncol(m))
 #' @description Randomizes a numeric utilization matrix m by replacing all elements with a random uniform [0,1]
 #' @export
 
-RA1 <- function(m=matrix(rpois(80,1),nrow=10)) 
+RA1 <- function(m=matrix(rpois(80,1),nrow=10)){
 
-matrix(runif(length(m)),ncol=ncol(m))
-	 
+matrix(runif(prod(dim(m2))),ncol=ncol(m2))
+}
 
 #' RA2 Function
 #' @description Randomizes a numeric utilization matrix m by replacing non-zero elements with a random uniform [0,1]
@@ -156,9 +156,9 @@ matrix(runif(length(m)),ncol=ncol(m))
 RA2 <- function(m=matrix(rpois(80,1),nrow=10)) 
 
 {
-z <-which(m>0)
+z <- which(m > 0)
 RM <- m
-RM[z]<-runif(length(z))
+RM[z] <- runif(length(z))
 return(RM)
 }
 
