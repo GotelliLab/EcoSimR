@@ -1,0 +1,11 @@
+help(image)
+help(any)
+help(sample)
+help(resample)
+setwd("~/Dropbox/Rwkspace/EcoSimR/data")
+macwarblers <- read.csv("Macarthur Warblers.csv")
+macwarblers
+colnames(macwarblers) <- c("1T",	"1M"	,"1B",	"2T"	,"2M",	"2B",	"3T",	"3M",	"3B",	"4T",	"4M",	"4B",	"5T",	"5M",	"5B",	"6")
+macwarblers
+colnames(macwarblers) <- c("Species","1T",	"1M"	,"1B",	"2T"	,"2M",	"2B",	"3T",	"3M",	"3B",	"4T",	"4M",	"4B",	"5T",	"5M",	"5B",	"6")
+macwarblers
