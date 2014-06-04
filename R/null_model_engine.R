@@ -1,5 +1,5 @@
 #'Run null model
-#'@description Create a null model object <put a better description in here>
+#'@description This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.
 #'@param species_data a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"
 #'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
@@ -20,7 +20,8 @@
 #'
 #'@export
 
-null_model_engine <- function(species_data, algo = "RA3", metric = "Pianka", n.reps = 1000, row.names = TRUE, random.seed = 0)
+
+null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0)
 {
   ## Set the seed
   ifelse (random.seed==0, RandomInteger <- trunc(runif(1,-2000000000,2000000000)), RandomInteger <- random.seed)
@@ -39,8 +40,8 @@ null_model_engine <- function(species_data, algo = "RA3", metric = "Pianka", n.r
   if(is.character(species_data)){stop("Did you forget to set row.names to TRUE?  Your data is non-numeric")}
   
   
-  algoF <- eval(parse(text = match.arg(algo,choices = c("RA1","RA2","RA3","RA4"))))
-  metricF <- eval(parse(text = match.arg(metric,choices = c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"))))
+  algoF <- eval(parse(text = algo))
+  metricF <- eval(parse(text = metric))
   
   
   Start.Time <- Sys.time()
@@ -55,85 +56,8 @@ null_model_engine <- function(species_data, algo = "RA3", metric = "Pianka", n.r
   Time.Stamp <- date()
   
   Null.Model.Out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = n.reps, RandomInteger = RandomInteger)
-  class(Null.Model.Out) <- "nichenullmod"
+  class(Null.Model.Out) <- "nullmod"
   return(Null.Model.Out)
   
 }
 
-
-
-#' Generic function for calculating null model summary statistics
-#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
-#' @export
-
-summary.nichenullmod <- function(nullmodObj)
-{ 
-  
-
-  
-  
-  #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
-  
-  cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
- # cat("Data File: ", p$Data.File,  "\n")
-#  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
-  cat("Number of Replications: ",nullmodObj$N.Reps,  "\n")
-  cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$Metric,  "\n")
-  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
-  
-  cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
-  cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
-  cat("Variance Of Simulated Index: ",format(var(nullmodObj$Sim),digits=5),  "\n")
-  cat("Lower 95% (1-tail): ",format(quantile(nullmodObj$Sim,0.05),digits=5),  "\n")
-  cat("Upper 95% (1-tail): ",format(quantile(nullmodObj$Sim,0.95),digits=5), "\n")
-  cat("Lower 95% (2-tail): ",format(quantile(nullmodObj$Sim,0.025),digits=5), "\n")
-  cat("Upper 95% (2-tail): ",format(quantile(nullmodObj$Sim,0.975),digits=5),  "\n")
-  
-  #P-values
-  if (nullmodObj$Obs > max(nullmodObj$Sim)) {
-    cat("P(Obs <= null) < ",1/length(nullmodObj$Sim),  "\n")
-    cat("P(Obs >= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
-  } else if (sum(nullmodObj$Obs <= nullmodObj$Sim)==0) {
-    cat("P(Obs <= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
-    cat("P(Obs >= null) < ", 1/length(nullmodObj$Sim), "\n")
-  } else {
-    cat("P(Obs <= null) = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
-    cat("P(Obs >= null) = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
-  }
-  
-  cat("P(Obs = null) = ",format(sum(nullmodObj$Obs == nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
-  cat("Standardized Effect Size (SES): ", format((nullmodObj$Obs - mean(nullmodObj$Sim))/sd(nullmodObj$Sim),digits=5), "\n")
-  
-  #if(!is.null(Output.File)) close(outfile)
-}
-
-
-
-
-#' Null Model Plot function
-#' @description Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
-#' @export
-
-
-
-plot.nichenullmod <- function(nullmodObj)
-{
-  
-  
-  opar <- par(no.readonly=TRUE)
-  par(cex=1, cex.axis = 1.5,
-      cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1)
-  #------------------------------------------------------
-  hist(nullmodObj$Sim, breaks=20, col="royalblue3",
-       
-       xlab="Simulated Metric",ylab="Frequency",main="",
-       xlim=range(c(nullmodObj$Sim,nullmodObj$Obs)))
-  abline(v=nullmodObj$Obs,col="red",lty="solid",lwd=2.5)
-  abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
-  abline(v=quantile(nullmodObj$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
-  mtext(as.character(date()),side=3,adj=1,line=3)
-  
-}

@@ -146,7 +146,7 @@ matrix(VectorSample(m, w=Matrix.Weights),ncol=ncol(m))
 
 RA1 <- function(m=matrix(rpois(80,1),nrow=10)){
 
-matrix(runif(prod(dim(m2))),ncol=ncol(m2))
+matrix(runif(prod(dim(m))),ncol=ncol(m))
 }
 
 #' RA2 Function
