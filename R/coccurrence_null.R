@@ -1,7 +1,7 @@
-#'Niche overlap 
-#'@description Create a niche overlap null model
+#'Co-Occurrence Null model 
+#'@description Create a Co-Occurrence null model
 #'@param species_data a dataframe <put some guidelines in here>
-#'@param algo the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"
+#'@param algo the algorithm to use, must be  "spcombo" "checker" "C.Score" "C.Score.var" "C.Score.skew" "V.Ratio"
 #'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
 #'@param n.reps the number of replicates to run the null model.
 #'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
@@ -39,14 +39,14 @@ niche_null_model <- function(species_data, algo, metric, n.reps = 1000, row.name
 summary.nichenullmod <- function(nullmodObj)
 { 
   
-
+  
   
   
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
- # cat("Data File: ", p$Data.File,  "\n")
-#  cat("Output File: ", p$Output.File,  "\n") 
+  # cat("Data File: ", p$Data.File,  "\n")
+  #  cat("Output File: ", p$Output.File,  "\n") 
   cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
   cat("Number of Replications: ",nullmodObj$N.Reps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
