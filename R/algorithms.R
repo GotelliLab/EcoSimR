@@ -127,6 +127,47 @@ matrix(VectorSample(m,w=Matrix.Weights),ncol=ncol(m))
 }
 
 
+
+###############################################
+######################################################################
+
+#' SIM9 function Takes a binary presence absence matrix returns a new matrix with same number of rows and columns uses swapping function from Denitz
+
+Sim9 <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+  
+{
+  m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
+  
+  Burn.In <- max(c(10*nrow(m),1000)) # set the burn-in
+  # select two random rows and create submatrix
+  for(i in 1:Burn.In)
+  {
+    ran.rows <- sample(nrow(m),2)
+    
+    m.pair <- m[ran.rows,]
+    
+    
+    
+    # find columns if any in pair for which colsum =1; these can be swapped
+    
+    Sum.Is.One <- which(colSums(m.pair)==1)
+    
+    if(length(Sum.Is.One)>1)
+    {
+      # swap them in m.pair.swapped
+      m.pair.swapped <- m.pair
+      m.pair.swapped[,Sum.Is.One] <- m.pair[,sample(Sum.Is.One)]
+      
+      # return the two swapped rows to the original m matrix
+      
+      m[ran.rows,] <- m.pair.swapped
+      
+    }
+  }
+  return(m)
+}
+
+
 #' Sim10 Function
 #' @description Randomizes a binary matrix m by reshuffling all elements Rows & columns proportional to supplied row and column weights Makes a call to the VectorSample
 #' @export
