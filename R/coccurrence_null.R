@@ -20,10 +20,12 @@
 #'
 #'@export
 
-niche_null_model <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0){
+cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, row.names = TRUE, random.seed = 0){
+  m.choice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
+  a.choice <- c(paste("sim",1:10,sep=""),"simFast")
   
-  algo <- match.arg(algo,choices = c("RA1","RA2","RA3","RA4"))
-  metric <- match.arg(metric,choices = c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"))
+  algo <- match.arg(algo,choices = a.choice)
+  metric <- match.arg(metric,choices = m.choice)
   params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
