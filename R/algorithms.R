@@ -218,6 +218,53 @@ Sim9.Single <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 
 
+
+#' simFast function
+#' @description Special implementation of sequential swap
+#' @export
+
+
+
+
+simFast <- function (data.matrix,metric,burn.in,n.reps)
+{
+  Start.Time <- Sys.time()
+  Metric <- eval(parse(text = metric))
+  
+  Obs <- Metric(data.matrix)
+  msim <- data.matrix
+  ifelse(burn.in == 0, Burn.In <- max(1000,10*nrow(msim)),Burn.In <- burn.in)
+  burn.in.metric <- vector(mode="numeric",length=Burn.In)
+  simulated.metric <- vector(mode="numeric",length=n.reps)
+  # run sequential swap for burn in series
+  for (i in 1:Burn.In)
+  {
+    msim <-Sim9.Single(msim)
+    burn.in.metric[i] <- Metric(msim)
+  }
+  
+  # run sequential swap for simulated series
+  for (i in 1:n.reps)
+  {
+    msim <-Sim9.Single(msim)
+    simulated.metric[i] <- Metric(msim)
+  }
+  Sim <- simulated.metric
+  End.Time <- Sys.time()
+  Elapsed.Time <- format(End.Time-Start.Time,digits=2)
+  Time.Stamp <- date()
+  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp)
+  # plot to screen the trace function for the burn in
+  
+  
+  #dev.new()
+  #Burn.In.Plot(v=burn.in.metric, z=Obs)
+  
+  
+  return(sim9.fast.out)
+}
+
+
 #' RA1 Function
 #' @description Randomizes a numeric utilization matrix m by replacing all elements with a random uniform [0,1]
 #' @export
