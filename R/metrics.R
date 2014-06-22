@@ -15,7 +15,7 @@
 #' @export
 #'
 
-Pianka <- function(m=matrix(rpois(80,1),nrow=10)) 
+pianka <- function(m=matrix(rpois(80,1),nrow=10)) 
 
 {
 m <- m/rowSums(m)
@@ -32,7 +32,7 @@ return(mean(pairwise[,3]))
 #'@export
 #'
 
-Czekanowski <- function(m=matrix(rpois(80,1),nrow=10)) 
+czekanowski <- function(m=matrix(rpois(80,1),nrow=10)) 
 
 {
 m <- m/rowSums(m)
@@ -48,7 +48,7 @@ return(mean(pairwise[,3]))
 #' @description Takes a niche utilization matrix returns variance of Pianka's niche overlap index
 #' @export
 
-Pianka.var <- function(m=matrix(rpois(80,1),nrow=10)) 
+pianka_var <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
   m <- m/rowSums(m)
@@ -66,7 +66,7 @@ Pianka.var <- function(m=matrix(rpois(80,1),nrow=10))
 #' @description Takes a niche utilization matrix returns variance Czekanowski niche overlap index
 #' @export
 
-Czekanowski.var <- function(m=matrix(rpois(80,1),nrow=10)) 
+czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
   m <- m/rowSums(m)
@@ -82,7 +82,7 @@ Czekanowski.var <- function(m=matrix(rpois(80,1),nrow=10))
 #' @description Takes a niche utilization matrix returns skewness of Pianka's niche overlap index
 #' @export
 
-Pianka.skew <- function(m=matrix(rpois(80,1),nrow=10)) 
+pianka_skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
   m <- m/rowSums(m)
@@ -103,7 +103,7 @@ Pianka.skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' @description Takes a niche utilization matrix returns skew of the Czekanowski niche overlap index
 #' @export
 
-Czekanowski.skew <- function(m=matrix(rpois(80,1),nrow=10)) 
+czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
   m <- m/rowSums(m)
@@ -130,7 +130,7 @@ Czekanowski.skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' @description Function to Calculate Number Of Species Combinations
 #' @export
 #' 
-Species.Combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
+species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 {
   
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -143,7 +143,7 @@ Species.Combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @export
 
 
-Checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -167,7 +167,7 @@ Checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @description C-score function Takes a binary presence absence matrix returns Stone and Roberts C-score
 #' @export
 
-C.Score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -196,7 +196,7 @@ C.Score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @export
 
 
-C.Score.var <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -225,7 +225,7 @@ C.Score.var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @description C-score skew function Takes a binary presence absence matrix returns skewness of Stone and Roberts C-score
 #' @export
 #' 
-C.Score.skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -253,12 +253,10 @@ C.Score.skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 ######################################################################
-## Schluter's V-ratio function
-## Takes a binary presence absence matrix
-## returns Schluter's V-ratio index
-##
-##
-V.Ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+#' Schluter's V-ratio function
+#' @description Takes a binary presence absence matrix returns Schluter's V-ratio index
+#' @export
+v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
   

@@ -17,7 +17,7 @@
 #' @description Takes an input binary vector and a weight vector Reassigns 1s randomly in proportion to vector weights
 #' @export
 
-VectorSample <- function(v,w) 
+vector_sample <- function(v,w) 
 
 {
 x <- mat.or.vec(length(v),1)                   # creates a vector of 0s
@@ -31,7 +31,7 @@ return(x)
 #' @export
 
 
-Sim1 <- function(m) 
+sim1 <- function(m) 
 
 {
 matrix(sample(m), ncol=ncol(m))
@@ -44,7 +44,7 @@ matrix(sample(m), ncol=ncol(m))
 #' @export
 
 
-Sim2 <- function(m) 
+sim2 <- function(m) 
 
 {
 t(apply(m,1,sample))
@@ -55,7 +55,7 @@ t(apply(m,1,sample))
 #' @description Randomizes a binary matrix m by reshuffling elements within each column equiprobably
 #' @export
 
-Sim3 <- function(m) 
+sim3 <- function(m) 
 
 {
 apply(m,2,sample)
@@ -69,7 +69,7 @@ apply(m,2,sample)
 
 
 
-Sim4 <- function(m) 
+sim4 <- function(m) 
 
 {
 t(apply(m,1,VectorSample,w=colSums(m)))
@@ -81,7 +81,7 @@ t(apply(m,1,VectorSample,w=colSums(m)))
 #' @export
 
 
-Sim5 <- function(m) 
+sim5 <- function(m) 
 
 {
 apply(m,2,VectorSample,w=rowSums(m))
@@ -92,7 +92,7 @@ apply(m,2,VectorSample,w=rowSums(m))
 #' Randomizes a binary matrix m by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.
 #' @export
 
-Sim6 <- function(m) 
+sim6 <- function(m) 
 
 {
 Matrix.Weights <- outer(rep(1,nrow(m)),colSums(m))
@@ -105,7 +105,7 @@ matrix(VectorSample(m, w=Matrix.Weights),ncol=ncol(m))
 #' @export
 
 
-Sim7 <- function(m) 
+sim7 <- function(m) 
 
 {
 Matrix.Weights <- outer(rowSums(m),rep(1,ncol(m)))
@@ -119,7 +119,7 @@ matrix(VectorSample(m, w=Matrix.Weights),ncol=ncol(m))
 #' @export
 
 
-Sim8 <- function(m) 
+sim8 <- function(m) 
 
 {
 Matrix.Weights <- outer(rowSums(m),colSums(m))
@@ -133,7 +133,7 @@ matrix(VectorSample(m,w=Matrix.Weights),ncol=ncol(m))
 
 #' SIM9 function Takes a binary presence absence matrix returns a new matrix with same number of rows and columns uses swapping function from Denitz
 
-Sim9 <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+sim9 <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
@@ -173,7 +173,7 @@ Sim9 <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @export
 
 
-Sim10 <- function(m,Row.Weights,Col.Weights) 
+sim10 <- function(m,Row.Weights,Col.Weights) 
 
 {
 Matrix.Weights <- outer(Row.Weights,Col.Weights)
@@ -181,11 +181,48 @@ matrix(VectorSample(m, w=Matrix.Weights),ncol=ncol(m))
 }
 
 
+##########################################################################################
+#' Sim9.Single function
+#' @description Function for a single iteration of the fast swap
+#' @export
+Sim9.Single <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+  
+{
+  m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
+  
+  
+  # select two random rows and create submatrix
+  ran.rows <- sample(nrow(m),2)
+  
+  m.pair <- m[ran.rows,]
+  
+  
+  
+  # find columns if any in pair for which colsum =1; these can be swapped
+  
+  Sum.Is.One <- which(colSums(m.pair)==1)
+  
+  if(length(Sum.Is.One)>1)
+  {
+    # swap them in m.pair.swapped
+    m.pair.swapped <- m.pair
+    m.pair.swapped[,Sum.Is.One] <- m.pair[,sample(Sum.Is.One)]
+    
+    # return the two swapped rows to the original m matrix
+    
+    m[ran.rows,] <- m.pair.swapped
+    
+  }
+  
+  return(m)
+}
+
+
 #' RA1 Function
 #' @description Randomizes a numeric utilization matrix m by replacing all elements with a random uniform [0,1]
 #' @export
 
-RA1 <- function(m=matrix(rpois(80,1),nrow=10)){
+ra1 <- function(m=matrix(rpois(80,1),nrow=10)){
 
 matrix(runif(prod(dim(m))),ncol=ncol(m))
 }
@@ -194,7 +231,7 @@ matrix(runif(prod(dim(m))),ncol=ncol(m))
 #' @description Randomizes a numeric utilization matrix m by replacing non-zero elements with a random uniform [0,1]
 #' @export
 
-RA2 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra2 <- function(m=matrix(rpois(80,1),nrow=10)) 
 
 {
 z <- which(m > 0)
@@ -209,7 +246,7 @@ return(RM)
 #' @description Randomizes a numeric utilization matrix m by reshuffling the elements within each row
 #' @export
 
-RA3 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra3 <- function(m=matrix(rpois(80,1),nrow=10)) 
 
 {
 RM <- apply(m,1,sample)
@@ -223,7 +260,7 @@ return(RM)
 #' @description Randomizes a numeric utilization matrix m by reshuffling the non-zero elements within each row
 #' @export
 
-RA4 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra4 <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
     #.....................................

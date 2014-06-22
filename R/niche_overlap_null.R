@@ -1,7 +1,7 @@
 #'Niche overlap 
 #'@description Create a niche overlap null model
 #'@param species_data a dataframe <put some guidelines in here>
-#'@param algo the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"
+#'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
 #'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
 #'@param n.reps the number of replicates to run the null model.
 #'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
@@ -20,10 +20,16 @@
 #'
 #'@export
 
-niche_null_model <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0){
+niche_null_model <- function(species_data, algo = "ra3", metric = "Pianka", n.reps = 1000, row.names = TRUE, random.seed = 0){
+  a.choice <- c("ra1","ra2","ra3","ra4")
+  m.choice <- c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew")
+  m.func <- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
+  algo <- match.arg(algo,choices = a.choice)
+  metric <- match.arg(metric,choices = m.choice)
   
-  algo <- match.arg(algo,choices = c("RA1","RA2","RA3","RA4"))
-  metric <- match.arg(metric,choices = c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"))
+  #Now do the substitutions
+  metric <- m.func[which(m.choice==metric)]
+  
   params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
