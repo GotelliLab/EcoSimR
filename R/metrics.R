@@ -102,7 +102,6 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' Czekanowski skew function
 #' @description Takes a niche utilization matrix returns skew of the Czekanowski niche overlap index
 #' @export
-
 czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
@@ -126,10 +125,9 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
 # 25 May 2013
 # NJG
 
-# ###############################################
-#' @description Function to Calculate Number Of Species Combinations
+#' Species combinations
+#' @description Function to Calculate Number Of Species Combinations in a matrix
 #' @export
-#' 
 species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 {
   
@@ -138,11 +136,9 @@ species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(ncol(unique(m,MARGIN=2))) # number of columns in submatrix of uniques
   
 }
-#############################################
-#' @description Checkerboard function function Takes a binary presence absence matrix returns number of checkerboard pairs
+#' Checkerboard function
+#' @description Takes a binary presence absence matrix returns number of checkerboard pairs
 #' @export
-
-
 checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
@@ -163,7 +159,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(sum(shared==0)) # return number of pairs with no shared sites
   
 }
-
+#' calculate c-score
 #' @description C-score function Takes a binary presence absence matrix returns Stone and Roberts C-score
 #' @export
 
@@ -191,7 +187,7 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-
+#' Calculate variance of the c-score
 #' @description C-score variance function Takes a binary presence absence matrix returns variance of Stone and Roberts C-score
 #' @export
 
@@ -222,6 +218,7 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
+#' Calculate the skew of the c-score
 #' @description C-score skew function Takes a binary presence absence matrix returns skewness of Stone and Roberts C-score
 #' @export
 #' 
@@ -252,7 +249,7 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(C.score.skew)  # return skewness of pairwise C-score
   
 }
-######################################################################
+
 #' Schluter's V-ratio function
 #' @description Takes a binary presence absence matrix returns Schluter's V-ratio index
 #' @export
