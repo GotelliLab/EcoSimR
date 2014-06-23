@@ -7,17 +7,27 @@ QuickStart
 =======
 
 First install the dev branch
-```coffescript
+```r
 library(devtools)
 ## use dev_mode() if you want to just play with this in a sandbox
 install_github("EcoSimR","gotellilab",ref="dev")
 ```
-
-Here's a quick example with the MacAurthur Warbler data.
+Currently null models can be run on niche data and co-occurrence data
  
-```coffeescript
+ 
+**Niche null models**
+```r
 library(EcoSimR)
 
-test <- null_model_engine(macwarb)
-summary(test)
-plot(test)
+warbMod <- niche_null_model(macwarb)
+summary(warbMod)
+plot(warbMod)
+```
+
+![Niche Null models](inst/niche.png)
+
+```r
+finchMod <- cooc_null_model(wiFinches, algo="sim3")
+summary(finchMod)
+plot(finchMod)
+```
