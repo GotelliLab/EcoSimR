@@ -7,14 +7,12 @@
 #'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
 #'@examples \dontrun{
-#' ## Load MacAruthur warbler data
-#' data(macwarb)
 #' 
 #' ## Run the null model
-#' warbMod <- null_model_engine(macwarb)
+#' finchMod <- cooc_null_model(wiFinches, algo="sim3")
 #' ## Summary and plot info
-#' summary(warbMod)
-#' plot(warbMod)
+#' summary(finchbMod)
+#' plot(finchMod)
 #'  
 #'}
 #'
@@ -23,9 +21,12 @@
 cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, row.names = TRUE, random.seed = 0){
   m.choice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   a.choice <- c(paste("sim",1:10,sep=""),"simFast")
+  m.func <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
   
   algo <- match.arg(algo,choices = a.choice)
   metric <- match.arg(metric,choices = m.choice)
+  metric <- m.func[which(m.choice==metric)]
+  
   params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
   output <- do.call(null_model_engine,params)
   class(output) <- "coocnullmod"
@@ -93,11 +94,10 @@ summary.coocnullmod <- function(nullmodObj)
 plot.coocnullmod <- function(nullmodObj)
 {
   
-  
-  opar<- par(no.readonly=TRUE)
-  if (Plot.Output == "file") par(mfrow=c(2,1))
-  Fun.Alg <- get(Algorithm)
-  One.Null.Matrix <- Fun.Alg(Data)
+  Date.Stamp=date()
+  par(mfrow=c(1,2))
+  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  One.Null.Matrix <- Fun.Alg(nullmodObj$Data)
   
   # reverse the matrix rows for plotting consistency
   m <- One.Null.Matrix
@@ -122,9 +122,9 @@ plot.coocnullmod <- function(nullmodObj)
   rect(xrec,yrec,xrec+1,yrec+1,col=Color.Vector)
   
   
-  if (Plot.Output=="file") mtext(as.character(Date.Stamp),side=3,adj=1,line=3)
+  mtext(as.character(Date.Stamp),side=3,adj=1,line=3)
   # reverse the matrix rows for plotting consistency
-  m <- Data
+  m <- nullmodObj$Data
   m <- m[rev(1:nrow(m)),]
   
   # setup plotting space
@@ -144,7 +144,5 @@ plot.coocnullmod <- function(nullmodObj)
   
   # Plot and fill rectangles
   rect(xrec,yrec,xrec+1,yrec+1,col=Color.Vector)
-  
-  
-  par(opar)
+
 }

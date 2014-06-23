@@ -11,7 +11,7 @@
 #' data(macwarb)
 #' 
 #' ## Run the null model
-#' warbMod <- null_model_engine(macwarb)
+#' warbMod <- niche_null_model(macwarb)
 #' ## Summary and plot info
 #' summary(warbMod)
 #' plot(warbMod)
