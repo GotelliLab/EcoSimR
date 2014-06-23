@@ -14,9 +14,3 @@ LazyLoad: yes
 LazyData: yes
 Description: <longer description here>
 License: MIT
-Collate:
-    'algorithms.R'
-    'general_functions.R'
-    'graphics.R'
-    'metrics.R'
-    'null_model_engine.R'

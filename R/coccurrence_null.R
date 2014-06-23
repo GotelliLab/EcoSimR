@@ -1,8 +1,8 @@
 #'Co-Occurrence Null model 
 #'@description Create a Co-Occurrence null model
 #'@param species_data a dataframe <put some guidelines in here>
-#'@param algo the algorithm to use, must be  "spcombo" "checker" "C.Score" "C.Score.var" "C.Score.skew" "V.Ratio"
-#'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
+#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
+#'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
 #'@param n.reps the number of replicates to run the null model.
 #'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
@@ -28,7 +28,7 @@ cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", 
   metric <- match.arg(metric,choices = m.choice)
   params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
   output <- do.call(null_model_engine,params)
-  class(output) <- "nichenullmod"
+  class(output) <- "coocnullmod"
   return(output)
   
 }
@@ -38,7 +38,7 @@ cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", 
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @export
 
-summary.nichenullmod <- function(nullmodObj)
+summary.coocnullmod <- function(nullmodObj)
 { 
   
   
@@ -90,22 +90,61 @@ summary.nichenullmod <- function(nullmodObj)
 
 
 
-plot.nichenullmod <- function(nullmodObj)
+plot.coocnullmod <- function(nullmodObj)
 {
   
   
-  opar <- par(no.readonly=TRUE)
-  par(cex=1, cex.axis = 1.5,
-      cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1)
-  #------------------------------------------------------
-  hist(nullmodObj$Sim, breaks=20, col="royalblue3",
-       
-       xlab="Simulated Metric",ylab="Frequency",main="",
-       xlim=range(c(nullmodObj$Sim,nullmodObj$Obs)))
-  abline(v=nullmodObj$Obs,col="red",lty="solid",lwd=2.5)
-  abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
-  abline(v=quantile(nullmodObj$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
-  mtext(as.character(date()),side=3,adj=1,line=3)
+  opar<- par(no.readonly=TRUE)
+  if (Plot.Output == "file") par(mfrow=c(2,1))
+  Fun.Alg <- get(Algorithm)
+  One.Null.Matrix <- Fun.Alg(Data)
   
+  # reverse the matrix rows for plotting consistency
+  m <- One.Null.Matrix
+  m <- m[rev(1:nrow(m)),]
+  
+  # setup plotting space
+  
+  plot(m,xlim=c(0,ncol(m)),ylim=c(0,nrow(m)),type="n",
+       ann=FALSE,axes=FALSE)
+  mtext("Sites",side=1,font=2)
+  mtext("Species",side=2,font=2)
+  mtext("Simulated",side=3,font=2,col="royalblue3")
+  # define coordinate vectors
+  yrec <- rep(0:(nrow(m)-1),ncol(m))
+  xrec <- rep(0:(ncol(m)-1),each=nrow(m))
+  
+  # Set up color labels
+  Plot.cols <- c("white","royalblue3")
+  Color.Vector <- Plot.cols[as.integer(m)+1]
+  
+  # Plot and fill rectangles
+  rect(xrec,yrec,xrec+1,yrec+1,col=Color.Vector)
+  
+  
+  if (Plot.Output=="file") mtext(as.character(Date.Stamp),side=3,adj=1,line=3)
+  # reverse the matrix rows for plotting consistency
+  m <- Data
+  m <- m[rev(1:nrow(m)),]
+  
+  # setup plotting space
+  
+  plot(m,xlim=c(0,ncol(m)),ylim=c(0,nrow(m)),type="n",
+       ann=FALSE,axes=FALSE)
+  mtext("Sites",side=1,font=2)
+  mtext("Species",side=2,font=2)
+  mtext("Observed",side=3,font=2,col="red3")
+  # define coordinate vectors
+  yrec <- rep(0:(nrow(m)-1),ncol(m))
+  xrec <- rep(0:(ncol(m)-1),each=nrow(m))
+  
+  # Set up color labels
+  Plot.cols <- c("white","red3")
+  Color.Vector <- Plot.cols[as.integer(m)+1]
+  
+  # Plot and fill rectangles
+  rect(xrec,yrec,xrec+1,yrec+1,col=Color.Vector)
+  
+  
+  par(opar)
 }
