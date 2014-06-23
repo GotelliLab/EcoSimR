@@ -31,3 +31,5 @@ finchMod <- cooc_null_model(wiFinches, algo="sim3")
 summary(finchMod)
 plot(finchMod)
 ```
+
+![Co-Occurrence null models](inst/cooc.png)
