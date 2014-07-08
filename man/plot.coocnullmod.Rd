@@ -3,7 +3,7 @@
 \alias{plot.coocnullmod}
 \title{Null Model Plot function}
 \usage{
-\method{plot}{coocnullmod}(nullmodObj)
+\method{plot}{coocnullmod}(nullmodObj, type = "hist")
 }
 \description{
 Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values

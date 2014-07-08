@@ -4,7 +4,7 @@
 \title{Co-Occurrence Null model}
 \usage{
 cooc_null_model(species_data, algo = "simFast", metric = "C.Score",
-  n.reps = 1000, row.names = TRUE, random.seed = 0)
+  n.reps = 1000, row.names = TRUE, random.seed = 0, burnin = NA)
 }
 \arguments{
 \item{species_data}{a dataframe <put some guidelines in here>}
@@ -24,14 +24,12 @@ Create a Co-Occurrence null model
 }
 \examples{
 \dontrun{
-## Load MacAruthur warbler data
-data(macwarb)
 
 ## Run the null model
-warbMod <- null_model_engine(macwarb)
+finchMod <- cooc_null_model(wiFinches, algo="sim3")
 ## Summary and plot info
-summary(warbMod)
-plot(warbMod)
+summary(finchbMod)
+plot(finchMod)
 
 }
 }

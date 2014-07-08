@@ -19,6 +19,8 @@ sim9.fast <- function (species_data,algo,metric, n.reps = 1000 ,row.names = TRUE
   if(row.names){
     species_data <- species_data[,-1] 
   }
+  ## Convert to matrix for type consistency
+  if(!is.matrix(species_data)){ species_data <- as.matrix(species_data)}
   
   Start.Time <- Sys.time()
   Metric <- eval(parse(text = metric))
@@ -29,20 +31,28 @@ sim9.fast <- function (species_data,algo,metric, n.reps = 1000 ,row.names = TRUE
   burn.in.metric <- vector(mode="numeric",length = burnin)
   simulated.metric <- vector(mode="numeric",length = n.reps)
   # run sequential swap for burn in series
+  cat("Burn-in Progress \n")
+  
+  bi_pb <- txtProgressBar(min = 0, max = burnin, style = 3)
   for (i in 1:burnin)
   {
-    cat(paste("burnin",i,"\n",sep=" "))
     msim <-sim9.single(msim)
     burn.in.metric[i] <- Metric(msim)
+    setTxtProgressBar(bi_pb, i)
   }
-  
+  close(bi_pb)
   # run sequential swap for simulated series
+  cat("Swap Progress \n")
+  
+  stat_pb <- txtProgressBar(min = 0, max = n.reps, style = 3)
   for (i in 1: n.reps)
   {
-    cat(paste("swap",i,"\n",sep=" "))
     msim <-sim9.single(msim)
-    simulated.metric[i] <- Metric(msim)
+    simulated.metric[i] <- Metric(msim)    
+    setTxtProgressBar(stat_pb, i)
   }
+  close(stat_pb)
+  
   Sim <- simulated.metric
   End.Time <- Sys.time()
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)

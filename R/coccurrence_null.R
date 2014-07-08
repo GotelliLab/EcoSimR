@@ -105,7 +105,12 @@ plot.coocnullmod <- function(nullmodObj, type = "hist")
   if(type == "cooc"){
   Date.Stamp=date()
   par(mfrow=c(1,2))
+  if(is.na(nullmodObj$burn.in)){
   Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  } else {
+    Fun.Alg <- sim9.single
+  }
+  
   One.Null.Matrix <- Fun.Alg(nullmodObj$Data)
   
   # reverse the matrix rows for plotting consistency
@@ -114,8 +119,7 @@ plot.coocnullmod <- function(nullmodObj, type = "hist")
   
   # setup plotting space
   
-  plot(m,xlim=c(0,ncol(m)),ylim=c(0,nrow(m)),type="n",
-       ann=FALSE,axes=FALSE)
+  plot(m,xlim=c(0,ncol(m)),ylim=c(0,nrow(m)),type="n",ann=FALSE,axes=FALSE)
   mtext("Sites",side=1,font=2)
   mtext("Species",side=2,font=2)
   mtext("Simulated",side=3,font=2,col="royalblue3")
@@ -171,4 +175,20 @@ if(type == "hist"){
   mtext(as.character(date()),side=3,adj=1,line=3)
   
 }
+
+if(type=="burnin"){
+  if(is.na(nullmodObj$burn.in)){
+    warning("You can only create a burnin plot for a model run with the 'simFast' algorithm")
+   
+  }
+  v <- nullmodObj$burn.in.metric
+  z <- nullmodObj$Obs
+  v <- c(z,v)
+  plot(x=1:length(v),y=v,xlab="Iteration",ylab="Index",
+       las=1,type="l",col="royalblue3")
+  abline(h=z,col="red3")
+  lines(lowess(1:length(v),v), col="gray",lwd=4) # lowess line (x,y) 
+  
+}
+
 }
