@@ -18,7 +18,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, row.names = TRUE, random.seed = 0){
+cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, row.names = TRUE, random.seed = 0, burnin = NA){
   m.choice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   a.choice <- c(paste("sim",1:10,sep=""),"simFast")
   m.func <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
@@ -26,11 +26,20 @@ cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", 
   algo <- match.arg(algo,choices = a.choice)
   metric <- match.arg(metric,choices = m.choice)
   metric <- m.func[which(m.choice==metric)]
-  
+  ## Control behavior of whether or not sim9fast is used.
+  if(algo != "simFast"){
   params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
   output <- do.call(null_model_engine,params)
+  output$burn.in <- burnin
   class(output) <- "coocnullmod"
   return(output)
+  } else if(algo == "simFast"){
+    params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, burnin = burnin)
+    output <- do.call(sim9.fast,params)
+    class(output) <- "coocnullmod"
+    return(output)
+  }
+  
   
 }
 
@@ -91,9 +100,9 @@ summary.coocnullmod <- function(nullmodObj)
 
 
 
-plot.coocnullmod <- function(nullmodObj)
+plot.coocnullmod <- function(nullmodObj, type = "hist")
 {
-  
+  if(type == "cooc"){
   Date.Stamp=date()
   par(mfrow=c(1,2))
   Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
@@ -144,5 +153,22 @@ plot.coocnullmod <- function(nullmodObj)
   
   # Plot and fill rectangles
   rect(xrec,yrec,xrec+1,yrec+1,col=Color.Vector)
+}
 
+if(type == "hist"){
+  opar <- par(no.readonly=TRUE)
+  par(cex=1, cex.axis = 1.5,
+      cex.main=1,cex.lab=1.6)
+  par (mar=c(5,6,4,2)+0.1)
+  #------------------------------------------------------
+  hist(nullmodObj$Sim, breaks=20, col="royalblue3",
+       
+       xlab="Simulated Metric",ylab="Frequency",main="",
+       xlim=range(c(nullmodObj$Sim,nullmodObj$Obs)))
+  abline(v=nullmodObj$Obs,col="red",lty="solid",lwd=2.5)
+  abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
+  abline(v=quantile(nullmodObj$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
+  mtext(as.character(date()),side=3,adj=1,line=3)
+  
+}
 }
