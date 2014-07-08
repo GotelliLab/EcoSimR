@@ -23,6 +23,7 @@
 
 null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0)
 {
+  pboptions(type="txt",char="=")
   ## Set the seed
   ifelse (random.seed==0, RandomInteger <- trunc(runif(1,-2000000000,2000000000)), RandomInteger <- random.seed)
   
@@ -48,7 +49,7 @@ null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.nam
   
   
   if (n.reps < 2) n.reps <- 2
-  Sim <- replicate(n.reps,metricF(algoF(species_data)))
+  Sim <- pbreplicate(n.reps,metricF(algoF(species_data)))
   Obs <- metricF(species_data)
   
   End.Time <- Sys.time()
