@@ -94,9 +94,9 @@ summary.nichenullmod <- function(nullmodObj)
 
 
 
-plot.nichenullmod <- function(nullmodObj)
+plot.nichenullmod <- function(nullmodObj, type = "hist")
 {
-  
+  if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
@@ -111,5 +111,26 @@ plot.nichenullmod <- function(nullmodObj)
   abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
   abline(v=quantile(nullmodObj$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
   mtext(as.character(date()),side=3,adj=1,line=3)
+  }
+  
+  if(type == "niche"){
+    opar<- par(no.readonly=TRUE)
+    par(mfrow=c(2,1))
+    Data <- nullmodObj$Data/rowSums(nullmodObj$Data)
+    plot(rep(1:ncol(Data),times = nrow(Data)),
+         rep(1:nrow(Data),each=ncol(Data)),
+         xlab="Resource Category",ylab="Species",cex=10*sqrt(t(Data)/pi),col="red3",lwd=2,
+         main="Observed Utilization Matrix",col.main="red3",cex.main=1.5)
+  mtext(as.character(nullmodObj$Time.Stamp),side=3,adj=1,line=3)
+    
+  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+    One.Null.Matrix <- Fun.Alg(Data)
+    One.Null.Matrix <- One.Null.Matrix/rowSums(One.Null.Matrix)
+    plot(rep(1:ncol(One.Null.Matrix),times = nrow(One.Null.Matrix)),
+         rep(1:nrow(One.Null.Matrix),each=ncol(One.Null.Matrix)),
+         xlab="Resource Category",ylab="Species",cex=10*sqrt(t(One.Null.Matrix)/pi),col="royalblue3",lwd=2,
+         main="Simulated Utilization Matrix",col.main="royalblue3",cex.main=1.5)
+    par(opar)
+  }
   
 }

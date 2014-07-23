@@ -3,7 +3,7 @@
 \alias{plot.nichenullmod}
 \title{Null Model Plot function}
 \usage{
-\method{plot}{nichenullmod}(nullmodObj)
+\method{plot}{nichenullmod}(nullmodObj, type = "hist")
 }
 \description{
 Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
