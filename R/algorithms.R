@@ -279,9 +279,52 @@ ra4 <- function(m=matrix(rpois(80,1),nrow=10))
     return(RM)
     
   }
-#############################################
 
 
-##
-## 
-#############################################
+#'Uniform size algorithm
+#'@description Function to randomize uniformly body sizes within  observed limits (classic Barton-David test)
+#'@export
+Uniform.Size <- function(v=runif(20)) {
+  
+  Endpoints <- c(min(v),max(v))  # save max and min boundaries
+  Sim <- runif(n=(length(v)-2),min=min(v),max=max(v))
+  Random.Vec <- c(Endpoints,Sim)
+  return(Random.Vec)
+}
+
+#' User defined size limits
+#' @description Function to randomize uniformly body sizes within user-defined limits. Note that all n species are randomized in this algorithm
+#' @export
+Uniform.Size.User <- function(v=runif(n=20),User.low=0.9*min(v),
+                              User.high=1.1*max(v)){
+  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
+                                   User.high <- Param.List$Special[2]}
+  Random.Vec <- runif(n=length(v),min=User.low,max=User.high)
+  
+  return(Random.Vec)
+}
+
+#' Source pool of body sizes
+#' @description Function to randomize body sizes by drawing from a user-defined source pool. Species are drawn without replacement, and there is a specified probability vector for the source pool species
+#' @export
+Source.Pool.Draw <- function(v=21:30,Source.Pool=
+                               runif(n=2*length(v),min=10,max=50),
+                             Species.Probs=rep(1,length(Source.Pool))) {
+  if(!is.null(Param.List$Special)){Source.Pool <- Param.List$Special[[1]]
+                                   probs <- Param.List$Special[[2]]}
+  
+  Species.Draw <- sample(Source.Pool,size=length(Data.Matrix),replace=FALSE,
+                         prob=Species.Probs)
+  
+  return(Species.Draw)
+}
+
+#' Gamma size
+#' @description Function to estimate size distribution as a gamma function Gamma function parameters estimated by method of moments from unidentified pdf by Murphy 2007 http://www.cs.ubc.ca/~murphyk/Teaching/CS340-Fall07/reading/paramEst.pdf
+#' @export
+Gamma.Size <- function (v=runif(20)) {
+  a <- mean(v)^2/var(v) # use for shape parameter
+  b <- mean(v)/var(v) # use for rate parameter
+  Gamma.Draw <- rgamma(length(v),shape=a,rate=b)
+  return(Gamma.Draw)
+}
