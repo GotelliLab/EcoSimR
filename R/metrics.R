@@ -262,3 +262,43 @@ v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(v)
 }
 
+
+#' Min size difference
+#' @description Function to calculate the minimum absolute size difference
+#' @export
+#' 
+Min.Diff <- function(v=runif(20)) {
+  v <- sort(v)
+  md <- min(diff(v))
+  return(md)
+}
+
+#' Min size ratio
+#' @description Function to calculate the minimum size ratio
+#' @export
+
+Min.Ratio <- function(v=runif(20)) {
+  v <- sort(log(v))
+  mr <- min(diff(v))
+  return(mr)
+}
+
+#' Variance in size
+#' @description Function to calculate the variance in size differences
+#' @export
+
+Var.Diff <- function(v=runif(20)){
+  v <- sort(v)
+  vd <- var(diff(v))
+  return(vd)
+}
+
+#' Variance in ratio
+#' @description  Function to calculate the variance in size ratios
+#' @export
+
+Var.Ratio <- function(v=runif(20)){
+  v <- sort(log(v))
+  vr <- var(diff(v))
+  return(vr)
+}
