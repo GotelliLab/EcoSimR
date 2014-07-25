@@ -45,8 +45,11 @@ Standardized Effect Size (SES):  3.4293
 ```
 
 *Niche plots*
+
 ![Niche Null models](inst/niche.png)
+
 *Histogram*
+
 ![Niche Null models](inst/niche_hist.png)
 
 **Co-Occurrence Null Models**
@@ -80,8 +83,11 @@ Standardized Effect Size (SES):  -6.9214
 ```
 
 *Sample of shuffled matrix*
+
 ![Co-Occurrence null models](inst/cooc.png)
+
 *Histogram*
+
 ![Co-Occurrence null models](inst/cooc_hist.png)
 
 Also when we run with the `simFast` algorithm we can get a burn in plot
@@ -123,6 +129,10 @@ Standardized Effect Size (SES):  -1.0427
 ```
 
 *Size null model*
+
 ![Co-Occurrence null models](inst/size.png)
+
+
 *Histogram*
+
 ![Co-Occurrence null models](inst/size_hist.png)
