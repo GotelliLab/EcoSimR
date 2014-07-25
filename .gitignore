@@ -6,3 +6,4 @@ EcoSimR.Rproj
 .Rbuildignore
 tmp.R
 dev.R
+.DS_Store
