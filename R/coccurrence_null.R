@@ -6,13 +6,14 @@
 #'@param n.reps the number of replicates to run the null model.
 #'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param burnin The number of burnin iterations to use with the simFast algorithm
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(wiFinches, algo="sim3")
+#' finchMod <- cooc_null_model(wiFinches, algo="simFast",burnin=500)
 #' ## Summary and plot info
-#' summary(finchbMod)
-#' plot(finchMod)
+#' summary(finchMod)
+#' plot(finchMod,type="burnin")
 #'  
 #'}
 #'
