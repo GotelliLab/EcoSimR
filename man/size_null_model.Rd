@@ -27,8 +27,9 @@ Create a size Ratio null model
 ## Run the null model
 rodentMod <- size_null_model(rodents)
 ## Summary and plot info
-summary(warbMod)
-plot(warbMod)
+summary(rodentMod)
+plot(rodentMod,type="hist")
+plot(rodentMod,type="size")
 
 }
 }

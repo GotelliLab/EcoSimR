@@ -18,6 +18,8 @@ cooc_null_model(species_data, algo = "simFast", metric = "C.Score",
 \item{row.names}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{random.seed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+
+\item{burnin}{The number of burnin iterations to use with the simFast algorithm}
 }
 \description{
 Create a Co-Occurrence null model
@@ -26,10 +28,10 @@ Create a Co-Occurrence null model
 \dontrun{
 
 ## Run the null model
-finchMod <- cooc_null_model(wiFinches, algo="sim3")
+finchMod <- cooc_null_model(wiFinches, algo="simFast",burnin=500)
 ## Summary and plot info
-summary(finchbMod)
-plot(finchMod)
+summary(finchMod)
+plot(finchMod,type="burnin")
 
 }
 }
