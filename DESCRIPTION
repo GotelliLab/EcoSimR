@@ -10,9 +10,10 @@ Authors@R: c(person("Nick", "Gotelli", role = c("aut", "cre"),
     email = "aellison@fas.harvard.edu"),
     person("Edmund", "Hart", role = "aut",
     email = "edmund.m.hart@gmail.com"))
+Maintainer: Edmund Hart <edmund.m.hart@gmail.com>
 LazyLoad: yes
 LazyData: yes
 Description: <longer description here>
-License: MIT
+License: MIT + file LICENSE
 Suggests:
     pbapply
