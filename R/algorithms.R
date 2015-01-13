@@ -30,7 +30,6 @@ return(x)
 #' @description Randomizes a binary matrix m by reshuffling all of its elements equiprobably
 #' @export
 
-
 sim1 <- function(m) 
 
 {
@@ -66,8 +65,6 @@ apply(m,2,sample)
 #' Sim4 Function
 #' @description Randomizes a binary matrix m by reshuffling elements within each row Sampling weights for each column are proportional to column sums Makes a call to the VectorSample
 #' @export
-
-
 
 sim4 <- function(m) 
 
