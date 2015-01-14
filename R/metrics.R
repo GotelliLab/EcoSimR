@@ -10,8 +10,31 @@
 #############################################
 
 
-#' Pianka function
-#' @description Takes a niche utilization matrix returns Pianka's niche overlap index
+#' Pianka niche overlap
+#' @description Takes a resource utilization matrix as input and
+#' returns the average pairwise Pianka's niche overlap index.
+#' @details Pianka's niche overlap index is averaged 
+#' over each unique species pair. The index is symmetric, 
+#' with a normalization term in the denominator for the overlap 
+#' between species 1 and 2. Values of Pianka's niche overlap index close to 0.0
+#' reflect usage of exclusive resource categories, whereas values close to 1.0
+#' reflect similar resource utilization spectra.
+#' 
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the average pairwise niche overlap.
+#' @references Pianka, E. 1973. The structure of lizard communities.
+#' Annual Review of Ecology and Systematics 4:53-74.
+#' 
+#' Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{Czekanowski}} niche overlap index.
+#' @examples 
+#' obsOverlap <- pianka(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 #'
 
