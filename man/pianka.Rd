@@ -40,6 +40,6 @@ Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
 }
 \seealso{
-\code{\link{Czekanowski}} niche overlap index.
+\code{\link{czekanowski}} niche overlap index.
 }
 

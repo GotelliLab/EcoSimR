@@ -32,7 +32,7 @@
 #' resource categories) may include zeroes, but no negative numbers or missing
 #' values. Relative resource within a species is first calculated, so the rows
 #' need not sum to 1.0.
-#' @seealso \code{\link{Czekanowski}} niche overlap index.
+#' @seealso \code{\link{czekanowski}} niche overlap index.
 #' @examples 
 #' obsOverlap <- pianka(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
@@ -50,9 +50,32 @@ return(mean(pairwise[,3]))
 }
 
 
-#' Czekanowski function
-#' @description Takes a niche utilization matrix returns Czekanowski niche overlap index
-#'@export
+#' Czekanowski niche overlap
+#' @description Takes a resource utilization matrix as input and
+#' returns the average pairwise Czekanowki niche overlap index.
+#' @details The Czekanowski niche overlap index is averaged 
+#' over each unique species pair. The index measures the area of intersection
+#' of the resource utilization histograms of each species pair. 
+#' Values of Czekanowski niche overlap index close to 0.0
+#' reflect usage of exclusive resource categories, whereas values close to 1.0
+#' reflect similar resource utilization spectra.
+#' 
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the average pairwise niche overlap.
+#' @references Feinsinger, P., E.E. Spears, and R. Poole. 1981.
+#' A simple measure of niche breadth. Ecology 62: 27-32. 
+#' 
+#' Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{pianka}} niche overlap index.
+#' @examples 
+#' obsOverlap <- pianka(m=matrix(rpois(40,0.5),nrow=8))
+#' @export
 #'
 
 czekanowski <- function(m=matrix(rpois(80,1),nrow=10)) 
