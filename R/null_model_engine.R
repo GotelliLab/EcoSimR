@@ -56,6 +56,23 @@ null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.nam
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)
   Time.Stamp <- date()
   
+  ### Reverse engineers the naming for consistent output
+  ### Be sure to update the code below if new algos and metrics are added
+  
+  a.choice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma","ra1","ra2","ra3","ra4",
+                paste("sim",1:10,sep=""),"simFast")
+  a.func <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma","ra1","ra2","ra3","ra4",
+              paste("sim",1:10,sep=""),"simFast")
+  
+  m.choice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio","Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew",
+                "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
+  m.func <- c("min_diff", "min_ratio", "var_diff", "var_ratio","pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew",
+              "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
+  
+  metric <- m.choice[which(m.func==metric)]
+  algo <- a.choice[which(a.func==algo)]
+  
+  
   Null.Model.Out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = n.reps, RandomInteger = RandomInteger, Data = species_data)
   class(Null.Model.Out) <- "nullmod"
   return(Null.Model.Out)
