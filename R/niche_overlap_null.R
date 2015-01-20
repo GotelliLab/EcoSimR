@@ -24,6 +24,7 @@ niche_null_model <- function(species_data, algo = "ra3", metric = "Pianka", n.re
   a.choice <- c("ra1","ra2","ra3","ra4")
   m.choice <- c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew")
   m.func <- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
+  
   algo <- match.arg(algo,choices = a.choice)
   metric <- match.arg(metric,choices = m.choice)
   
