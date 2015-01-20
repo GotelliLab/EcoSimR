@@ -19,6 +19,7 @@
 #' between species 1 and 2. Values of Pianka's niche overlap index close to 0.0
 #' reflect usage of exclusive resource categories, whereas values close to 1.0
 #' reflect similar resource utilization spectra.
+#' \deqn{O_{jk} = O_{kj} = \frac{\sum_{n}^{i}p_{ij}p_{jk}}{\sqrt{\sum_{n}^{i}p_{ij}^2\sum_{n}^{i}p_{ik}^2}}}{O_jk = O_kj = sum(p_ij*p_jk) / sqrt(sum((p_ij)^2)sum((p_jk)^2))}
 #' 
 #' @param m A matrix of resource utilization values. 
 #' @return Returns the average pairwise niche overlap.
