@@ -255,11 +255,11 @@ uniform_size <- function(v=runif(20)) {
 #' User defined size limits
 #' @description Function to randomize uniformly body sizes within user-defined limits. Note that all n species are randomized in this algorithm
 #' @export
-uniform_size_user <- function(v=runif(n=20),User.low=0.9*min(v),
-                              User.high=1.1*max(v)){
-  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
-                                   User.high <- Param.List$Special[2]}
-  Random.Vec <- runif(n=length(v),min=User.low,max=User.high)
+uniform_size_user <- function(v=runif(n=20),user.low=0.9*min(v),
+                              user.high=1.1*max(v)){
+#  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
+#                                    User.high <- Param.List$Special[2]}
+  Random.Vec <- runif(n=length(v),min=user.low,max=user.high)
   
   return(Random.Vec)
 }
@@ -270,8 +270,9 @@ uniform_size_user <- function(v=runif(n=20),User.low=0.9*min(v),
 source_pool_draw <- function(v=21:30,Source.Pool=
                                runif(n=2*length(v),min=10,max=50),
                              Species.Probs=rep(1,length(Source.Pool))) {
-  if(!is.null(Param.List$Special)){Source.Pool <- Param.List$Special[[1]]
-                                   probs <- Param.List$Special[[2]]}
+  
+  #if(!is.null(Param.List$Special)){Source.Pool <- Param.List$Special[[1]]
+  #                                 probs <- Param.List$Special[[2]]}
   
   Species.Draw <- sample(Source.Pool,size=length(Data.Matrix),replace=FALSE,
                          prob=Species.Probs)

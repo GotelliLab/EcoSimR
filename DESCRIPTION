@@ -16,4 +16,5 @@ LazyData: yes
 Description: <longer description here>
 License: MIT + file LICENSE
 Suggests:
-    pbapply
+    pbapply,
+    testthat

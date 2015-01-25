@@ -3,8 +3,8 @@
 \alias{uniform_size_user}
 \title{User defined size limits}
 \usage{
-uniform_size_user(v = runif(n = 20), User.low = 0.9 * min(v),
-  User.high = 1.1 * max(v))
+uniform_size_user(v = runif(n = 20), user.low = 0.9 * min(v),
+  user.high = 1.1 * max(v))
 }
 \description{
 Function to randomize uniformly body sizes within user-defined limits. Note that all n species are randomized in this algorithm

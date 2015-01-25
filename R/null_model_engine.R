@@ -21,7 +21,7 @@
 #'@export
 
 
-null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0)
+null_model_engine <- function(species_data, algo, metric, n.reps = 1000, row.names = TRUE, random.seed = 0,algo_opts = NULL, metric_opts = NULL)
 {
   pboptions(type="txt",char="=")
   ## Set the seed

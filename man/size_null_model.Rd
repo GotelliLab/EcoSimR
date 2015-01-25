@@ -4,7 +4,8 @@
 \title{Size Ratio}
 \usage{
 size_null_model(species_data, algo = "Uniform.Size", metric = "Var.Ratio",
-  n.reps = 1000, row.names = TRUE, random.seed = 0)
+  n.reps = 1000, row.names = TRUE, random.seed = 0, algo_opts = NULL,
+  metric_opts = NULL)
 }
 \arguments{
 \item{species_data}{a dataframe <put some guidelines in here>}
