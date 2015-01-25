@@ -18,7 +18,7 @@
 #'
 #'@export
 
-size_null_model <- function(species_data, algo = "Uniform.Size", metric = "Var.Ratio", n.reps = 1000, row.names = TRUE, random.seed = 0){
+size_null_model <- function(species_data, algo = "Uniform.Size", metric = "Var.Ratio", n.reps = 1000, row.names = TRUE, random.seed = 0, algo_opts = NULL, metric_opts = NULL){
   a.choice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
   m.choice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
   m.func <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
@@ -31,7 +31,7 @@ size_null_model <- function(species_data, algo = "Uniform.Size", metric = "Var.R
   metric <- m.func[which(m.choice==metric)]
   algo <- a.func[which(a.choice==algo)]
   
-  params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed)
+  params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, algo_opts = algo_opts, metric_opts = metric_opts)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)

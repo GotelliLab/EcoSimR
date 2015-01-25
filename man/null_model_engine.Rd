@@ -4,7 +4,8 @@
 \title{Run null model}
 \usage{
 null_model_engine(species_data, algo, metric, n.reps = 1000,
-  row.names = TRUE, random.seed = 0)
+  row.names = TRUE, random.seed = 0, algo_opts = NULL,
+  metric_opts = NULL)
 }
 \arguments{
 \item{species_data}{a dataframe <put some guidelines in here>}
