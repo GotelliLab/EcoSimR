@@ -17,110 +17,110 @@
 #' @description Takes an input binary vector and a weight vector Reassigns 1s randomly in proportion to vector weights
 #' @export
 
-vector_sample <- function(v,w) 
+vector_sample <- function(speciesData,weights) 
 
 {
-x <- mat.or.vec(length(v),1)                   # creates a vector of 0s
-x[sample(1:length(v),size=sum(v),prob=w)] <- 1  # fills with 1s, sampling with weights
+x <- mat.or.vec(length(speciesData),1)                   # creates a vector of 0s
+x[sample(1:length(speciesData),size=sum(speciesData),prob=weights)] <- 1  # fills with 1s, sampling with weights
 return(x)
 }
 
 
 #' Sim1 Function
-#' @description Randomizes a binary matrix m by reshuffling all of its elements equiprobably
+#' @description Randomizes a binary matrix speciesData by reshuffling all of its elements equiprobably
 #' @export
 
-sim1 <- function(m) 
+sim1 <- function(speciesData) 
 
 {
-matrix(sample(m), ncol=ncol(m))
+matrix(sample(speciesData), ncol=ncol(speciesData))
 }
 
 
 
 #' Sim2 Function
-#' @description Randomizes a binary matrix m by reshuffling elements within each row equiprobably
+#' @description Randomizes a binary matrix speciesData by reshuffling elements within each row equiprobably
 #' @export
 
 
-sim2 <- function(m) 
+sim2 <- function(speciesData) 
 
 {
-t(apply(m,1,sample))
+t(apply(speciesData,1,sample))
 }
 
 
 #' Sim3 Function
-#' @description Randomizes a binary matrix m by reshuffling elements within each column equiprobably
+#' @description Randomizes a binary matrix speciesData by reshuffling elements within each column equiprobably
 #' @export
 
-sim3 <- function(m) 
+sim3 <- function(speciesData) 
 
 {
-apply(m,2,sample)
+apply(speciesData,2,sample)
 }
 
 
 
 #' Sim4 Function
-#' @description Randomizes a binary matrix m by reshuffling elements within each row Sampling weights for each column are proportional to column sums Makes a call to the VectorSample
+#' @description Randomizes a binary matrix speciesData by reshuffling elements within each row Sampling weights for each column are proportional to column sums Makes a call to the VectorSample
 #' @export
 
-sim4 <- function(m) 
+sim4 <- function(speciesData) 
 
 {
-t(apply(m,1,vector_sample,w=colSums(m)))
+t(apply(speciesData,1,vector_sample,w=colSums(speciesData)))
 }
 
 
 #' Sim5 Function
-#' @description Randomizes a matrix m by reshuffling elements within each columnSampling weights for each row are proportional to row sums Makes a call to the VectorSample.
+#' @description Randomizes a matrix speciesData by reshuffling elements within each columnSampling weights for each row are proportional to row sums Makes a call to the VectorSample.
 #' @export
 
 
-sim5 <- function(m) 
+sim5 <- function(speciesData) 
 
 {
-apply(m,2,vector_sample,w=rowSums(m))
+apply(speciesData,2,vector_sample,w=rowSums(speciesData))
 }
 
 
 #' Sim6 Function
-#' Randomizes a binary matrix m by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.
+#' Randomizes a binary matrix speciesData by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.
 #' @export
 
-sim6 <- function(m) 
+sim6 <- function(speciesData) 
 
 {
-Matrix.Weights <- outer(rep(1,nrow(m)),colSums(m))
-matrix(vector_sample(m, w=Matrix.Weights),ncol=ncol(m))
+matrixWeights <- outer(rep(1,nrow(speciesData)),colSums(speciesData))
+matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
 }
 
 
 #' Sim7 Function
-#' @description Randomizes a binary matrix m by reshuffling all elements Columns are equiprobable, rows proportional to row sums Makes a call to the VectorSample
+#' @description Randomizes a binary matrix speciesData by reshuffling all elements Columns are equiprobable, rows proportional to row sums Makes a call to the VectorSample
 #' @export
 
 
-sim7 <- function(m) 
+sim7 <- function(speciesData) 
 
 {
-Matrix.Weights <- outer(rowSums(m),rep(1,ncol(m)))
-matrix(vector_sample(m, w=Matrix.Weights),ncol=ncol(m))
+matrixWeights <- outer(rowSums(speciesData),rep(1,ncol(speciesData)))
+matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 }
 
 
 
 #' Sim8 Function
-#' @description Randomizes a binary matrix m by reshuffling all elements Columns are proportional to column sums, rows proportional to row sums Makes a call to the VectorSample
+#' @description Randomizes a binary matrix speciesData by reshuffling all elements Columns are proportional to column sums, rows proportional to row sums Makes a call to the VectorSample
 #' @export
 
 
-sim8 <- function(m) 
+sim8 <- function(speciesData) 
 
 {
-Matrix.Weights <- outer(rowSums(m),colSums(m))
-matrix(vector_sample(m,w=Matrix.Weights),ncol=ncol(m))
+matrixWeights <- outer(rowSums(speciesData),colSums(speciesData))
+matrix(vector_sample(speciesData,w=matrixWeights),ncol=ncol(speciesData))
 }
 
 
@@ -129,75 +129,75 @@ matrix(vector_sample(m,w=Matrix.Weights),ncol=ncol(m))
 ######################################################################
 
 #' SIM9 function Takes a binary presence absence matrix returns a new matrix with same number of rows and columns uses swapping function from Denitz
-
-sim9 <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+# Not used preserved for posterity
+# sim9 <- function(speciesData=matrix(rbinom(100,1,0.5),nrow=10)) 
   
-{
-  m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
-  
-  Burn.In <- max(c(10*nrow(m),1000)) # set the burn-in
-  # select two random rows and create submatrix
-  for(i in 1:Burn.In)
-  {
-    ran.rows <- sample(nrow(m),2)
-    
-    m.pair <- m[ran.rows,]
-    
-    
-    
-    # find columns if any in pair for which colsum =1; these can be swapped
-    
-    Sum.Is.One <- which(colSums(m.pair)==1)
-    
-    if(length(Sum.Is.One)>1)
-    {
-      # swap them in m.pair.swapped
-      m.pair.swapped <- m.pair
-      m.pair.swapped[,Sum.Is.One] <- m.pair[,sample(Sum.Is.One)]
-      
-      # return the two swapped rows to the original m matrix
-      
-      m[ran.rows,] <- m.pair.swapped
-      
-    }
-  }
-  return(m)
-}
+#{
+#  speciesData <- speciesData[which(rowSums(speciesData)>0),] # make calculation on submatrix with no missing species
+#  
+#  Burn.In <- max(c(10*nrow(speciesData),1000)) # set the burn-in
+#  # select two random rows and create submatrix
+#  for(i in 1:Burn.In)
+#  {
+#    ran.rows <- sample(nrow(speciesData),2)
+#    
+#    speciesData.pair <- speciesData[ran.rows,]
+#    
+#    
+#    
+#    # find columns if any in pair for which colsum =1; these can be swapped
+#    
+#    Sum.Is.One <- which(colSums(speciesData.pair)==1)
+#    
+#    if(length(Sum.Is.One)>1)
+#    {
+#      # swap them in speciesData.pair.swapped
+#      speciesData.pair.swapped <- speciesData.pair
+#      speciesData.pair.swapped[,Sum.Is.One] <- speciesData.pair[,sample(Sum.Is.One)]
+#      
+#      # return the two swapped rows to the original speciesData matrix
+#      
+#      speciesData[ran.rows,] <- speciesData.pair.swapped
+#      
+#    }
+#  }
+#  return(speciesData)
+#}
 
 
 #' Sim10 Function
-#' @description Randomizes a binary matrix m by reshuffling all elements Rows & columns proportional to supplied row and column weights Makes a call to the VectorSample
+#' @description Randomizes a binary matrix speciesData by reshuffling all elements Rows & columns proportional to supplied row and column weights Makes a call to the VectorSample
 #' @export
 
 
-sim10 <- function(m,Row.Weights,Col.Weights) 
+sim10 <- function(speciesData,rowWeights,colWeights) 
 
 {
-Matrix.Weights <- outer(Row.Weights,Col.Weights)
-matrix(vector_sample(m, w=Matrix.Weights),ncol=ncol(m))
+matrixWeights <- outer(rowWeights,colWeights)
+matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 }
 
 
 
 
 #' RA1 Function
-#' @description Randomizes a numeric utilization matrix m by replacing all elements with a random uniform [0,1]
+#' @description Randomizes a numeric utilization matrix speciesData by replacing all elements with a random uniform [0,1]
 #' @export
 
-ra1 <- function(m=matrix(rpois(80,1),nrow=10)){
+ra1 <- function(speciesData=matrix(rpois(80,1),nrow=10)){
 
-matrix(runif(prod(dim(m))),ncol=ncol(m))
+matrix(runif(prod(dim(speciesData))),ncol=ncol(speciesData))
 }
 
 #' RA2 Function
-#' @description Randomizes a numeric utilization matrix m by replacing non-zero elements with a random uniform [0,1]
+#' @description Randomizes a numeric utilization matrix speciesData by replacing non-zero elements with a random uniform [0,1]
 #' @export
 
-ra2 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra2 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
 
 {
-z <- which(m > 0)
-RM <- m
+z <- which(speciesData > 0)
+RM <- speciesData
 RM[z] <- runif(length(z))
 return(RM)
 }
@@ -205,24 +205,24 @@ return(RM)
    
 
 #' RA3 Function
-#' @description Randomizes a numeric utilization matrix m by reshuffling the elements within each row
+#' @description Randomizes a numeric utilization matrix speciesData by reshuffling the elements within each row
 #' @export
 
-ra3 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra3 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
 
 {
-RM <- apply(m,1,sample)
-RM <- t(as.matrix(RM,nrow=nrow(m),ncol=ncol(m)))
+RM <- apply(speciesData,1,sample)
+RM <- t(as.matrix(RM,nrow=nrow(speciesData),ncol=ncol(speciesData)))
 return(RM)
 }
 
    
 
 #' RA4 Function
-#' @description Randomizes a numeric utilization matrix m by reshuffling the non-zero elements within each row
+#' @description Randomizes a numeric utilization matrix speciesData by reshuffling the non-zero elements within each row
 #' @export
 
-ra4 <- function(m=matrix(rpois(80,1),nrow=10)) 
+ra4 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
   
 {
     #.....................................
@@ -235,7 +235,7 @@ ra4 <- function(m=matrix(rpois(80,1),nrow=10))
     }
     #....................................
     
-    RM <- t(apply(m,1,NonZeroRowShuffle))
+    RM <- t(apply(speciesData,1,NonZeroRowShuffle))
     return(RM)
     
   }
@@ -244,48 +244,48 @@ ra4 <- function(m=matrix(rpois(80,1),nrow=10))
 #'Uniform size algorithm
 #'@description Function to randomize uniformly body sizes within  observed limits (classic Barton-David test)
 #'@export
-uniform_size <- function(v=runif(20)) {
+uniform_size <- function(speciesData=runif(20)) {
   
-  Endpoints <- c(min(v),max(v))  # save max and min boundaries
-  Sim <- runif(n=(length(v)-2),min=min(v),max=max(v))
-  Random.Vec <- c(Endpoints,Sim)
-  return(Random.Vec)
+  endpoints <- c(min(speciesData),max(speciesData))  # save max and min boundaries
+  sim <- runif(n=(length(speciesData)-2),min=min(speciesData),max=max(speciesData))
+  randomVec <- c(endpoints,sim)
+  return(randomVec)
 }
 
 #' User defined size limits
 #' @description Function to randomize uniformly body sizes within user-defined limits. Note that all n species are randomized in this algorithm
 #' @export
-uniform_size_user <- function(v=runif(n=20),user.low=0.9*min(v),
-                              user.high=1.1*max(v)){
+uniform_size_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesData),
+                              userHigh=1.1*max(speciesData)){
 #  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
 #                                    User.high <- Param.List$Special[2]}
-  Random.Vec <- runif(n=length(v),min=user.low,max=user.high)
+  nandomVec <- runif(n=length(speciesData),min=userLow,max=userHigh)
   
-  return(Random.Vec)
+  return(randomVec)
 }
 
 #' Source pool of body sizes
 #' @description Function to randomize body sizes by drawing from a user-defined source pool. Species are drawn without replacement, and there is a specified probability vector for the source pool species
 #' @export
-source_pool_draw <- function(v=21:30,Source.Pool=
-                               runif(n=2*length(v),min=10,max=50),
-                             Species.Probs=rep(1,length(Source.Pool))) {
+source_pool_draw <- function(speciesData=21:30,sourcePool=
+                               runif(n=2*length(speciesData),min=10,max=50),
+                             speciesProbs=rep(1,length(sourcePool))) {
   
   #if(!is.null(Param.List$Special)){Source.Pool <- Param.List$Special[[1]]
   #                                 probs <- Param.List$Special[[2]]}
   
-  Species.Draw <- sample(Source.Pool,size=length(Data.Matrix),replace=FALSE,
-                         prob=Species.Probs)
+  speciesDraw <- sample(sourcePool,size=length(speciesData),replace=FALSE,
+                         prob=speciesProbs)
   
-  return(Species.Draw)
+  return(speciesDraw)
 }
 
 #' Gamma size
 #' @description Function to estimate size distribution as a gamma function Gamma function parameters estimated by method of moments from unidentified pdf by Murphy 2007 http://www.cs.ubc.ca/~murphyk/Teaching/CS340-Fall07/reading/paramEst.pdf
 #' @export
-gamma_size <- function (v=runif(20)) {
-  a <- mean(v)^2/var(v) # use for shape parameter
-  b <- mean(v)/var(v) # use for rate parameter
-  Gamma.Draw <- rgamma(length(v),shape=a,rate=b)
-  return(Gamma.Draw)
+gamma_size <- function (speciesData=runif(20)) {
+  a <- mean(speciesData)^2/var(speciesData) # use for shape parameter
+  b <- mean(speciesData)/var(speciesData) # use for rate parameter
+  gammaDraw <- rgamma(length(speciesData),shape=a,rate=b)
+  return(gammaDraw)
 }
