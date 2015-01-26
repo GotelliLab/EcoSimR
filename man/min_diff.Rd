@@ -3,7 +3,7 @@
 \alias{min_diff}
 \title{Min size difference}
 \usage{
-min_diff(v = runif(20))
+min_diff(m = runif(20))
 }
 \description{
 Function to calculate the minimum absolute size difference

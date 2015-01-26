@@ -3,7 +3,7 @@
 \alias{gamma_size}
 \title{Gamma size}
 \usage{
-gamma_size(v = runif(20))
+gamma_size(speciesData = runif(20))
 }
 \description{
 Function to estimate size distribution as a gamma function Gamma function parameters estimated by method of moments from unidentified pdf by Murphy 2007 http://www.cs.ubc.ca/~murphyk/Teaching/CS340-Fall07/reading/paramEst.pdf

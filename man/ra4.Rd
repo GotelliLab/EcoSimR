@@ -3,9 +3,9 @@
 \alias{ra4}
 \title{RA4 Function}
 \usage{
-ra4(m = matrix(rpois(80, 1), nrow = 10))
+ra4(speciesData = matrix(rpois(80, 1), nrow = 10))
 }
 \description{
-Randomizes a numeric utilization matrix m by reshuffling the non-zero elements within each row
+Randomizes a numeric utilization matrix speciesData by reshuffling the non-zero elements within each row
 }
 

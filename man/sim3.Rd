@@ -3,9 +3,9 @@
 \alias{sim3}
 \title{Sim3 Function}
 \usage{
-sim3(m)
+sim3(speciesData)
 }
 \description{
-Randomizes a binary matrix m by reshuffling elements within each column equiprobably
+Randomizes a binary matrix speciesData by reshuffling elements within each column equiprobably
 }
 

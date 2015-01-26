@@ -3,9 +3,9 @@
 \alias{ra3}
 \title{RA3 Function}
 \usage{
-ra3(m = matrix(rpois(80, 1), nrow = 10))
+ra3(speciesData = matrix(rpois(80, 1), nrow = 10))
 }
 \description{
-Randomizes a numeric utilization matrix m by reshuffling the elements within each row
+Randomizes a numeric utilization matrix speciesData by reshuffling the elements within each row
 }
 

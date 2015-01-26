@@ -3,22 +3,22 @@
 \alias{size_null_model}
 \title{Size Ratio}
 \usage{
-size_null_model(species_data, algo = "Uniform.Size", metric = "Var.Ratio",
-  n.reps = 1000, row.names = TRUE, random.seed = 0, algo_opts = NULL,
-  metric_opts = NULL)
+size_null_model(speciesData, algo = "Uniform.Size", metric = "Var.Ratio",
+  nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(),
+  metricOpts = list())
 }
 \arguments{
-\item{species_data}{a dataframe <put some guidelines in here>}
+\item{speciesData}{a dataframe <put some guidelines in here>}
 
 \item{algo}{the algorithm to use, must be "Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma"}
 
 \item{metric}{the metric used to caluclate the null model: choices are "Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio"; default is Var.Ratio}
 
-\item{n.reps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicates to run the null model.}
 
-\item{row.names}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
+\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{random.seed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+\item{randomSeed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
 }
 \description{
 Create a size Ratio null model

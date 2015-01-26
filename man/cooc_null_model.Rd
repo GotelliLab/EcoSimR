@@ -3,21 +3,22 @@
 \alias{cooc_null_model}
 \title{Co-Occurrence Null model}
 \usage{
-cooc_null_model(species_data, algo = "simFast", metric = "C.Score",
-  n.reps = 1000, row.names = TRUE, random.seed = 0, burnin = NA)
+cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
+  nReps = 1000, rowNames = TRUE, randomSeed = 0, burnin = NA,
+  algoOpts = list(), metricOpts = list())
 }
 \arguments{
-\item{species_data}{a dataframe <put some guidelines in here>}
+\item{speciesData}{a dataframe <put some guidelines in here>}
 
 \item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"}
 
 \item{metric}{the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"}
 
-\item{n.reps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicates to run the null model.}
 
-\item{row.names}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
+\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{random.seed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+\item{randomSeed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
 
 \item{burnin}{The number of burnin iterations to use with the simFast algorithm}
 }
@@ -28,7 +29,7 @@ Create a Co-Occurrence null model
 \dontrun{
 
 ## Run the null model
-finchMod <- cooc_null_model(wiFinches, algo="simFast",burnin=500)
+finchMod <- cooc_null_model(wiFinches, algo="sim1")
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burnin")

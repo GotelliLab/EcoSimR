@@ -1,11 +1,11 @@
 #'Size Ratio 
 #'@description Create a size Ratio null model
-#'@param species_data a dataframe <put some guidelines in here>
+#'@param speciesData a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma"
 #'@param metric the metric used to caluclate the null model: choices are "Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio"; default is Var.Ratio
-#'@param n.reps the number of replicates to run the null model.
-#'@param row.names Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param nReps the number of replicates to run the null model.
+#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
+#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
 #'@examples \dontrun{
 #' ## Run the null model
 #' rodentMod <- size_null_model(rodents)
@@ -18,20 +18,20 @@
 #'
 #'@export
 
-size_null_model <- function(species_data, algo = "Uniform.Size", metric = "Var.Ratio", n.reps = 1000, row.names = TRUE, random.seed = 0, algo_opts = NULL, metric_opts = NULL){
-  a.choice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
-  m.choice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
-  m.func <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
-  a.func <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma")
+size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(), metricOpts = list()){
+  aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
+  mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
+  mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
+  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma")
   
-  algo <- match.arg(algo,choices = a.choice)
-  metric <- match.arg(metric,choices = m.choice)
+  algo <- match.arg(algo,choices = aChoice)
+  metric <- match.arg(metric,choices = mChoice)
   
   #Now do the substitutions
-  metric <- m.func[which(m.choice==metric)]
-  algo <- a.func[which(a.choice==algo)]
+  metric <- mFunc[which(mChoice==metric)]
+  algo <- aFunc[which(aChoice==algo)]
   
-  params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, algo_opts = algo_opts, metric_opts = metric_opts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed, algoOpts = algoOpts, metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)
@@ -55,7 +55,7 @@ summary.sizenullmod <- function(nullmodObj)
   # cat("Data File: ", p$Data.File,  "\n")
   #  cat("Output File: ", p$Output.File,  "\n") 
   cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
-  cat("Number of Replications: ",nullmodObj$N.Reps,  "\n")
+  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$Metric,  "\n")
   cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 

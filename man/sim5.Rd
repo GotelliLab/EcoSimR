@@ -3,9 +3,9 @@
 \alias{sim5}
 \title{Sim5 Function}
 \usage{
-sim5(m)
+sim5(speciesData)
 }
 \description{
-Randomizes a matrix m by reshuffling elements within each columnSampling weights for each row are proportional to row sums Makes a call to the VectorSample.
+Randomizes a matrix speciesData by reshuffling elements within each columnSampling weights for each row are proportional to row sums Makes a call to the VectorSample.
 }
 

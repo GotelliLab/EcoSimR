@@ -3,7 +3,7 @@
 \alias{uniform_size}
 \title{Uniform size algorithm}
 \usage{
-uniform_size(v = runif(20))
+uniform_size(speciesData = runif(20))
 }
 \description{
 Function to randomize uniformly body sizes within  observed limits (classic Barton-David test)

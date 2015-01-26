@@ -3,9 +3,9 @@
 \alias{sim8}
 \title{Sim8 Function}
 \usage{
-sim8(m)
+sim8(speciesData)
 }
 \description{
-Randomizes a binary matrix m by reshuffling all elements Columns are proportional to column sums, rows proportional to row sums Makes a call to the VectorSample
+Randomizes a binary matrix speciesData by reshuffling all elements Columns are proportional to column sums, rows proportional to row sums Makes a call to the VectorSample
 }
 

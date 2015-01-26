@@ -3,9 +3,9 @@
 \alias{ra2}
 \title{RA2 Function}
 \usage{
-ra2(m = matrix(rpois(80, 1), nrow = 10))
+ra2(speciesData = matrix(rpois(80, 1), nrow = 10))
 }
 \description{
-Randomizes a numeric utilization matrix m by replacing non-zero elements with a random uniform [0,1]
+Randomizes a numeric utilization matrix speciesData by replacing non-zero elements with a random uniform [0,1]
 }
 

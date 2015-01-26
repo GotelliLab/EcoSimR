@@ -3,7 +3,7 @@
 \alias{min_ratio}
 \title{Min size ratio}
 \usage{
-min_ratio(v = runif(20))
+min_ratio(m = runif(20))
 }
 \description{
 Function to calculate the minimum size ratio
