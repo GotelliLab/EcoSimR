@@ -2,12 +2,12 @@
 \name{sim6}
 \alias{sim6}
 \title{Sim6 Function
-Randomizes a binary matrix m by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.}
+Randomizes a binary matrix speciesData by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.}
 \usage{
-sim6(m)
+sim6(speciesData)
 }
 \description{
 Sim6 Function
-Randomizes a binary matrix m by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.
+Randomizes a binary matrix speciesData by reshuffling all elements Rows are equiprobable, columns proportional to column sums Makes a call to the VectorSample.
 }
 

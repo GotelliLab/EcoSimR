@@ -3,7 +3,7 @@
 \alias{var_diff}
 \title{Variance in size}
 \usage{
-var_diff(v = runif(20))
+var_diff(m = runif(20))
 }
 \description{
 Function to calculate the variance in size differences

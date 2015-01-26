@@ -3,7 +3,7 @@
 \alias{vector_sample}
 \title{VectorSample function}
 \usage{
-vector_sample(v, w)
+vector_sample(speciesData, weights)
 }
 \description{
 Takes an input binary vector and a weight vector Reassigns 1s randomly in proportion to vector weights

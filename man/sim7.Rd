@@ -3,9 +3,9 @@
 \alias{sim7}
 \title{Sim7 Function}
 \usage{
-sim7(m)
+sim7(speciesData)
 }
 \description{
-Randomizes a binary matrix m by reshuffling all elements Columns are equiprobable, rows proportional to row sums Makes a call to the VectorSample
+Randomizes a binary matrix speciesData by reshuffling all elements Columns are equiprobable, rows proportional to row sums Makes a call to the VectorSample
 }
 

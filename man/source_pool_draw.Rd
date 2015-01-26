@@ -3,8 +3,9 @@
 \alias{source_pool_draw}
 \title{Source pool of body sizes}
 \usage{
-source_pool_draw(v = 21:30, Source.Pool = runif(n = 2 * length(v), min = 10,
-  max = 50), Species.Probs = rep(1, length(Source.Pool)))
+source_pool_draw(speciesData = 21:30, sourcePool = runif(n = 2 *
+  length(speciesData), min = 10, max = 50), speciesProbs = rep(1,
+  length(sourcePool)))
 }
 \description{
 Function to randomize body sizes by drawing from a user-defined source pool. Species are drawn without replacement, and there is a specified probability vector for the source pool species

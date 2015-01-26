@@ -6,24 +6,13 @@
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
-#'@examples \dontrun{
-#' ## Load MacAruthur warbler data
-#' data(macwarb)
-#' 
-#' ## Run the null model
-#' warbMod <- null_model_engine(macwarb)
-#' ## Summary and plot info
-#' summary(warbMod)
-#' plot(warbMod)
-#'  
-#'}
 #'
 #'@export
 
 
-null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, randomSeed = 0,algoOpts = NULL, metricOpts = NULL)
+null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(), metricOpts = list())
 {
-  pboptions(type="txt",char="=")
+  pb <- txtProgressBar(min = 0, max = nReps, style = 3)
   ## Set the seed
   ifelse (randomSeed==0, randomInteger <- trunc(runif(1,-2000000000,2000000000)), randomInteger <- randomSeed)
   
@@ -50,15 +39,22 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   
   if (nReps < 2) nReps <- 2
   
-  Sim <- rep(NA,nReps)
+  sim <- rep(NA,nReps)
+  # sim <- pbreplicate(nReps,metricF(algoF(speciesData)))
+  algoOpts[["speciesData"]] <- speciesData
+  m <- do.call(algoF,algoOpts)
+  metricOpts[["m"]] <- m
+  obs <- do.call(metricF,metricOpts)
+  
+  
   for(i in 1:nReps){
-    algo.opts["speciesData"] <- 
-    z <- do.call(algoF,)
+    m <- do.call(algoF,algoOpts)
+    metricOpts[["m"]] <- m
+    sim[i] <- do.call(metricF,metricOpts)
+    setTxtProgressBar(pb, i)
   }
-  
-  sim <- pbreplicate(nReps,metricF(algoF(speciesData)))
-  obs <- metricF(speciesData)
-  
+  close(pb)
+
   endTime <- Sys.time()
   elapsedTime <- format(endTime-startTime,digits=2)
   timeStamp <- date()
@@ -80,7 +76,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   algo <- aChoice[which(aFunc==algo)]
   
   
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, nReps = nReps, Random.Integer = randomInteger, Data = speciesData)
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, Random.Integer = randomInteger, Data = speciesData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
   

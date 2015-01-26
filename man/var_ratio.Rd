@@ -3,7 +3,7 @@
 \alias{var_ratio}
 \title{Variance in ratio}
 \usage{
-var_ratio(v = runif(20))
+var_ratio(m = runif(20))
 }
 \description{
 Function to calculate the variance in size ratios

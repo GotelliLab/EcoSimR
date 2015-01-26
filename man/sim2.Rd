@@ -3,9 +3,9 @@
 \alias{sim2}
 \title{Sim2 Function}
 \usage{
-sim2(m)
+sim2(speciesData)
 }
 \description{
-Randomizes a binary matrix m by reshuffling elements within each row equiprobably
+Randomizes a binary matrix speciesData by reshuffling elements within each row equiprobably
 }
 

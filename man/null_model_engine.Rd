@@ -3,37 +3,23 @@
 \alias{null_model_engine}
 \title{Run null model}
 \usage{
-null_model_engine(species_data, algo, metric, n.reps = 1000,
-  row.names = TRUE, random.seed = 0, algo_opts = NULL,
-  metric_opts = NULL)
+null_model_engine(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
+  randomSeed = 0, algoOpts = list(), metricOpts = list())
 }
 \arguments{
-\item{species_data}{a dataframe <put some guidelines in here>}
+\item{speciesData}{a dataframe <put some guidelines in here>}
 
 \item{algo}{the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"}
 
 \item{metric}{the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka}
 
-\item{n.reps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicates to run the null model.}
 
-\item{row.names}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
+\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{random.seed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
 }
 \description{
 This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.
-}
-\examples{
-\dontrun{
-## Load MacAruthur warbler data
-data(macwarb)
-
-## Run the null model
-warbMod <- null_model_engine(macwarb)
-## Summary and plot info
-summary(warbMod)
-plot(warbMod)
-
-}
 }
 
