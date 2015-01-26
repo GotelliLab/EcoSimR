@@ -139,10 +139,10 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
     sqrt(sum(m[pairwise[i,1],]^2)*sum(m[pairwise[i,2],]^2))
   
     m3 <- mean((pairwise[,3]-mean(pairwise[,3]))^3)
-    Pianka.skew <- m3/(sd(pairwise[,3])^3)
+    piankaSkew <- m3/(sd(pairwise[,3])^3)
     
   
-  return(Pianka.skew)
+  return(piankaSkew)
 }
 
 
@@ -158,10 +158,10 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
     pairwise[i,3] <- 1 - 0.5*sum(abs((m[pairwise[i,1],] - m[pairwise[i,2],])))
   
   m3 <- mean((pairwise[,3]-mean(pairwise[,3]))^3)
-  Czekanowski.skew <- m3/(sd(pairwise[,3])^3)
+  czekanowskiSkew <- m3/(sd(pairwise[,3])^3)
   
   
-  return(Czekanowski.skew)
+  return(czekanowskiSkew)
 }
 
 ##
@@ -218,19 +218,19 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
   
   
-  C.score <- mat.or.vec(nrow(pairwise),1)
+  cScore <- mat.or.vec(nrow(pairwise),1)
   shared <- mat.or.vec(nrow(pairwise),1)
   
   for (i in 1:nrow(pairwise)) 
   {
     shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    C.score[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
+    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
       (sum(m[pairwise[i,2],]) - shared[i])
     
     
   }
   
-  return(mean(C.score)) # return average C-score
+  return(mean(cScore)) # return average C-score
   
 }
 
@@ -247,13 +247,13 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
   
   
-  C.score <- mat.or.vec(nrow(pairwise),1)
+  cScore <- mat.or.vec(nrow(pairwise),1)
   shared <- mat.or.vec(nrow(pairwise),1)
   
   for (i in 1:nrow(pairwise)) 
   {
     shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    C.score[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
+    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
       (sum(m[pairwise[i,2],]) - shared[i])
     
     
@@ -261,7 +261,7 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
   
   
-  return(var(C.score))  # return variance of pairwise C-score
+  return(var(cScore))  # return variance of pairwise C-score
   
 }
 
@@ -277,23 +277,23 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
   
   
-  C.score <- mat.or.vec(nrow(pairwise),1)
+  cScore <- mat.or.vec(nrow(pairwise),1)
   shared <- mat.or.vec(nrow(pairwise),1)
   
   for (i in 1:nrow(pairwise)) 
   {
     shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    C.score[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
+    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
       (sum(m[pairwise[i,2],]) - shared[i])
     
     
   }
   
-  m3 <- mean((C.score-mean(C.score))^3)
-  C.score.skew <- m3/(sd(C.score)^3)
+  m3 <- mean((cScore-mean(cScore))^3)
+  cScoreSkew <- m3/(sd(cScore)^3)
   
   
-  return(C.score.skew)  # return skewness of pairwise C-score
+  return(cScoreSkew)  # return skewness of pairwise C-score
   
 }
 
@@ -314,9 +314,9 @@ v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @description Function to calculate the minimum absolute size difference
 #' @export
 #' 
-min_diff <- function(v=runif(20)) {
-  v <- sort(v)
-  md <- min(diff(v))
+min_diff <- function(m=runif(20)) {
+  m <- sort(m)
+  md <- min(diff(m))
   return(md)
 }
 
@@ -324,9 +324,9 @@ min_diff <- function(v=runif(20)) {
 #' @description Function to calculate the minimum size ratio
 #' @export
 
-min_ratio <- function(v=runif(20)) {
-  v <- sort(log(v))
-  mr <- min(diff(v))
+min_ratio <- function(m=runif(20)) {
+  m <- sort(log(m))
+  mr <- min(diff(m))
   return(mr)
 }
 
@@ -334,9 +334,9 @@ min_ratio <- function(v=runif(20)) {
 #' @description Function to calculate the variance in size differences
 #' @export
 
-var_diff <- function(v=runif(20)){
-  v <- sort(v)
-  vd <- var(diff(v))
+var_diff <- function(m=runif(20)){
+  m <- sort(m)
+  vd <- var(diff(m))
   return(vd)
 }
 
@@ -344,8 +344,8 @@ var_diff <- function(v=runif(20)){
 #' @description  Function to calculate the variance in size ratios
 #' @export
 
-var_ratio <- function(v=runif(20)){
-  v <- sort(log(v))
-  vr <- var(diff(v))
+var_ratio <- function(m=runif(20)){
+  m <- sort(log(m))
+  vr <- var(diff(m))
   return(vr)
 }
