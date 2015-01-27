@@ -16,7 +16,7 @@
 #' warbMod <- niche_null_model(macwarb)
 #' ## Summary and plot info
 #' summary(warbMod)
-#'  
+#' plot(warbMod)
 #'  
 #'}
 #'

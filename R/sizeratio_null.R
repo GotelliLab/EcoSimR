@@ -13,7 +13,20 @@
 #' summary(rodentMod)
 #' plot(rodentMod,type="hist")
 #' plot(rodentMod,type="size")
-#'  
+#' 
+#' ##  Uniform Size model with user inputs
+#' rodentMod2 <- size_null_model(rodents,algo="Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15))
+#' summary(rodentMod2)
+#' plot(rodentMod2,type="hist")
+#' plot(rodentMod2,type="size")
+#' 
+#' ### Source pool model
+#' 
+#' rodentMod_sp <- size_null_model(rodents,algo="Source.Pool",algoOpts = list(sourcePool = runif(dim(rodents)[1],1,15)))
+#' summary(rodentMod_sp)
+#' plot(rodentMod_sp,type="hist")
+#' plot(rodentMod_sp,type="size")
+#' 
 #'}
 #'
 #'@export
