@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>niche_null_model. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">EcoSimR 0.1.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Niche overlap</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>niche_null_model(speciesData, algo&nbsp;=&nbsp;"ra3", metric&nbsp;=&nbsp;"Pianka", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, randomSeed&nbsp;=&nbsp;0, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list())</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a dataframe <put some guidelines in here></dd>
+      <dt>algo</dt>
+      <dd>the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"</dd>
+      <dt>metric</dt>
+      <dd>the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka</dd>
+      <dt>nReps</dt>
+      <dd>the number of replicates to run the null model.</dd>
+      <dt>rowNames</dt>
+      <dd>Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names</dd>
+      <dt>randomSeed</dt>
+      <dd>Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create a niche overlap null model</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# ## Load MacAruthur warbler data
+# data(macwarb)
+# 
+# ## Run the null model
+# warbMod &lt;- niche_null_model(macwarb)
+# ## Summary and plot info
+# summary(warbMod)
+# plot(warbMod)
+# 
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>niche_null_model</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
