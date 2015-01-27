@@ -72,11 +72,11 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio","pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew",
               "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
   
-  metric <- mChoice[which(mFunc==metric)]
-  algo <- aChoice[which(aFunc==algo)]
+  metricOut <- mChoice[which(mFunc==metric)]
+  algoOut <- aChoice[which(aFunc==algo)]
   
   
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, Random.Integer = randomInteger, Data = speciesData)
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric,MetricOut = metricOut, Algorithm = algo,AlgorithmOut = algoOut, n.reps = nReps, Random.Integer = randomInteger, Data = speciesData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
   
