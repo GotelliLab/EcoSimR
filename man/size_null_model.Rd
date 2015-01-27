@@ -32,6 +32,9 @@ summary(rodentMod)
 plot(rodentMod,type="hist")
 plot(rodentMod,type="size")
 
+##
+rodentMod2 <- size_null_model(rodents,algo="Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15))
+
 }
 }
 
