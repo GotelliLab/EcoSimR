@@ -61,6 +61,8 @@ return(mean(pairwise[,3]))
 #' reflect usage of exclusive resource categories, whereas values close to 1.0
 #' reflect similar resource utilization spectra.
 #' 
+#' \deqn{O_{jk} = O_{kj} = 1 - 0.5\sum_{i=1}^n|p_{ij} - p_{ik}|}{O_jk = O_kj = 1 - 0.5*sum|p_ij - p_ik|}' 
+#' 
 #' @param m A matrix of resource utilization values. 
 #' @return Returns the average pairwise niche overlap.
 #' @references Feinsinger, P., E.E. Spears, and R. Poole. 1981.
@@ -75,7 +77,7 @@ return(mean(pairwise[,3]))
 #' need not sum to 1.0.
 #' @seealso \code{\link{pianka}} niche overlap index.
 #' @examples 
-#' obsOverlap <- pianka(m=matrix(rpois(40,0.5),nrow=8))
+#' obsOverlap <- czekanowski(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 #'
 
@@ -92,7 +94,24 @@ return(mean(pairwise[,3]))
 
 
 #' Pianka variance function
-#' @description Takes a niche utilization matrix returns variance of Pianka's niche overlap index
+#' @description Takes a niche utilization matrix as in put and 
+#' returns the variance of Pianka's niche overlap index.
+#' @details A large value for variance implies that some species pairs show high
+#' niche overlap and others show low niche overlap. A low value for variance implies
+#' that niche overlap (high or low) is very similar among all species pairs.
+#'
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the variance of the average pairwise niche overlap.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{pianka}} niche overlap index.
+#' @examples 
+#' obsVar <- pianka.var(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 pianka_var <- function(m=matrix(rpois(80,1),nrow=10)) 
@@ -110,7 +129,26 @@ pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
 ##
 ##
 #' Czekanowski variance function
-#' @description Takes a niche utilization matrix returns variance Czekanowski niche overlap index
+#' @description Takes a niche utilization matrix returns the variance of the 
+#' Czekanowski niche overlap index
+#' 
+#' @details A large value for variance implies that some species pairs show high
+#' niche overlap and others show low niche overlap. A low value for variance implies
+#' that niche overlap (high or low) is very similar among all species pairs.
+#'
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the variance of the average pairwise niche overlap.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{czekanowski}} niche overlap index.
+#' 
+#' @examples 
+#' obsVar <- czekanowski_var(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10)) 
@@ -125,8 +163,28 @@ czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10))
 }
 
 
-#' Pianka skewness function
-#' @description Takes a niche utilization matrix returns skewness of Pianka's niche overlap index
+#' Pianka skew function
+#' @description Takes a niche utilization matrix returns the skew of the 
+#' Pianka pairwise niche overlap index.
+#' 
+#' @details A large positive value for skewness implies that there are more species pairs
+#' with high than low niche overlap. A large negative skewness implies there are more 
+#' species pairs with low than high niche overlap. The performance of this algorithm
+#' has not been thoroughly tested with real data sets.
+#'
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the skewness of the average pairwise niche overlap.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{pianka}} niche overlap index.
+#' 
+#' @examples 
+#' obsSkew<- pianka_skew(m=matrix(rpois(40,0.5),nrow=8)) 
 #' @export
 
 pianka_skew <- function(m=matrix(rpois(80,1),nrow=10)) 
@@ -147,8 +205,29 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
 
 
 #' Czekanowski skew function
-#' @description Takes a niche utilization matrix returns skew of the Czekanowski niche overlap index
+#' @description Takes a niche utilization matrix returns the skew of the 
+#' Czekanowski pairwise niche overlap index.
+#' 
+#' @details A large positive value for skewness implies that there are more species pairs
+#' with high than low niche overlap. A large negative skewness implies there are more 
+#' species pairs with low than high niche overlap. The performance of this algorithm
+#' has not been thoroughly tested with real data sets.
+#'
+#' @param m A matrix of resource utilization values. 
+#' @return Returns the skewness of the average pairwise niche overlap.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' 
+#' @note The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @seealso \code{\link{czekanowski}} niche overlap index.
+#' 
+#' @examples 
+#' obsSkew <- czekanowski_skew(m=matrix(rpois(40,0.5),nrow=8)) 
 #' @export
+
 czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10)) 
   
 {
