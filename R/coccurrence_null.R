@@ -19,7 +19,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", n.reps = 1000, rowNames = TRUE, randomSeed = 0, burnin = 0,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, randomSeed = 0, burnin = 0,algoOpts = list(),metricOpts = list()){
   mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   aChoice <- c(paste("sim",1:10,sep=""),"simFast")
   mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
@@ -37,7 +37,7 @@ cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", n
   class(output) <- "coocnullmod"
   return(output)
   } else if(algo == "simFast"){
-    params <- list(speciesData = speciesData,algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, burnin = burnin)
+    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed, burnin = burnin)
     output <- do.call(sim9.fast,params)
     class(output) <- "coocnullmod"
     return(output)

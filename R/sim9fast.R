@@ -9,7 +9,7 @@ sim9.fast <- function (speciesData,algo,metric, n.reps = 1000 ,row.names = TRUE,
 {
   
   ## Set the seed
-  ifelse (random.seed==0, RandomInteger <- trunc(runif(1,-2000000000,2000000000)), RandomInteger <- random.seed)
+  ifelse (random.seed==0, RandomInteger <- trunc(runif(1,-2000000000,2000000000)), RandomInteger <- randomSeed)
   
   set.seed(RandomInteger)
   
