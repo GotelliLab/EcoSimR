@@ -93,7 +93,7 @@ return(mean(pairwise[,3]))
 }
 
 
-#' Pianka variance function
+#' Pianka variance 
 #' @description Takes a niche utilization matrix as in put and 
 #' returns the variance of Pianka's niche overlap index.
 #' @details A large value for variance implies that some species pairs show high
@@ -128,7 +128,7 @@ pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
 
 ##
 ##
-#' Czekanowski variance function
+#' Czekanowski variance 
 #' @description Takes a niche utilization matrix returns the variance of the 
 #' Czekanowski niche overlap index
 #' 
@@ -163,12 +163,12 @@ czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10))
 }
 
 
-#' Pianka skew function
-#' @description Takes a niche utilization matrix returns the skew of the 
+#' Pianka skew 
+#' @description Takes a niche utilization matrix returns the skewness of the 
 #' Pianka pairwise niche overlap index.
 #' 
 #' @details A large positive value for skewness implies that there are more species pairs
-#' with high than low niche overlap. A large negative skewness implies there are more 
+#' with high than low niche overlap. A large negative value for skewness implies there are more 
 #' species pairs with low than high niche overlap. The performance of this algorithm
 #' has not been thoroughly tested with real data sets.
 #'
@@ -204,12 +204,12 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
 }
 
 
-#' Czekanowski skew function
+#' Czekanowski skew
 #' @description Takes a niche utilization matrix returns the skew of the 
 #' Czekanowski pairwise niche overlap index.
 #' 
 #' @details A large positive value for skewness implies that there are more species pairs
-#' with high than low niche overlap. A large negative skewness implies there are more 
+#' with high than low niche overlap. A large negative  value for skewness implies there are more 
 #' species pairs with low than high niche overlap. The performance of this algorithm
 #' has not been thoroughly tested with real data sets.
 #'
@@ -251,8 +251,32 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
 # 25 May 2013
 # NJG
 
-#' Species combinations
-#' @description Function to Calculate Number Of Species Combinations in a matrix
+#' Number of species combinations
+#' @description Function to calculate number of unique species combinations in a matrix
+#' @details In Diamond's (1975) assembly rules model, species interactions lead to 
+#' certain "forbidden combinations" of species. A set of communities structured 
+#' this way should contain fewer species combinations than expected by chance.
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. 
+#' @return Returns the number of unique species combinations represented by 
+#' the different columns (= sites) in the matrix.
+#'  
+#' @references Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in:
+#' Ecology and Evolutoin of Communities. M.L. Cody and J.M. Diamond (eds.). 
+#' Harvard University Press, Cambridge. 
+#' 
+#' Pielou, D.P. and E.C. Pielou. 1968. Association among species of infrequent
+#' occurrence: the insect and spider fauna of Polyporus betulinus (Bulliard) Fries.
+#' Journal of Theoretical Biology 21: 202-216.
+#' 
+#' @note This metric is most useful when the number of sites (= columns) is relatively
+#' large compared to the number of species (= rows). Empty sites are excluded 
+#' from the matrix and are not counted as a unique species combination.
+#' 
+#' 
+#' @examples 
+#' obsCombo <- species_combo(m=matrix(rbinom(100,0.5),nrow=10)) 
 #' @export
 species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 {
@@ -262,9 +286,30 @@ species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(ncol(unique(m,MARGIN=2))) # number of columns in submatrix of uniques
   
 }
-#' Checkerboard function
-#' @description Takes a binary presence absence matrix returns number of checkerboard pairs
+
+#' Number of checkerboard species pairs 
+#' @description Function to calculate number of unique pairs of species 
+#' that never co-occur and form a "checkerboard pair".
+#' @details In Diamond's (1975) assembly rules model, pairs of species that 
+#' never co-occur in any site are interpreted as examples of interspecific competition.  
+#' A set of communities structured this way should contain more checkerboard
+#' pairs than expected by chance.
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. 
+#' @return Returns the number of unique species pairs that never co-occur.
+#'  
+#' @references Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in:
+#' Ecology and Evolution of Communities. M.L. Cody and J.M. Diamond (eds.). 
+#' Harvard University Press, Cambridge. 
+#' 
+#' Connor, E.F. and D. Simberloff. 1979. The assembly of species communities: chance
+#' or competition? Ecology 60: 1132-1140.
+#' 
+#' @examples 
+#' obsChecker <- checker(m=matrix(rbinom(100,0.5),nrow=10)) 
 #' @export
+#' 
 checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
@@ -285,9 +330,38 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   return(sum(shared==0)) # return number of pairs with no shared sites
   
 }
-#' calculate c-score
-#' @description C-score function Takes a binary presence absence matrix returns Stone and Roberts C-score
+
+#' C-score
+#' @description Takes a binary presence-absence matrix and returns 
+#' Stone and Roberts' (1990) C-score.
+#' @details For each unique pair of species, the C-score is calculated as
+#' 
+#' \deqn{C_{ij} = (R_i - S)(R_j - S)}{C_ij = (R_i - S)(R_j - S)}
+#' 
+#' where R_i and R_j are the row sums for species i and j, and S is the number 
+#' of shared sites in which both species i and species j are present. For any 
+#' particular species pair, the larger the C-score, the more segregated the 
+#' pair, with fewer shared sites. However, the index can be difficult to 
+#' interpret when calculated as a matrix-wide average, because a single matrix
+#' can contain individual pairs of species that are segregated, random, or aggregated.
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. 
+#' @return Returns the average C-score calculated across all possible species pairs
+#' in the matrix.
+#'  
+#' @references Stone. L. and A. Roberts. 1990. The checkerboard score and species
+#' distributions. Oecologia 85: 74-79.
+#' 
+#' Gotelli, N.J. and W. Ulrich. 2010. The empirical Bayes approach as a tool to 
+#' identify non-random species associations. Oecologia 162:463-477.
+#' 
+#' @note The matrix-wide C-score is not calculated for missing species, so empty
+#' rows in the matrix do not affect the result.
+#' @examples 
+#' obsCScore <- c_score(m=matrix(rbinom(100,0.5),nrow=10)) 
 #' @export
+#' 
 
 c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
@@ -313,10 +387,34 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' Calculate variance of the c-score
-#' @description C-score variance function Takes a binary presence absence matrix returns variance of Stone and Roberts C-score
-#' @export
 
+#' C-score variance
+#' @description Takes a binary presence-absence matrix and returns 
+#' the variance of the Stone and Roberts' (1990) C-score.
+#' @details A large value of this variance implies that some species pairs 
+#' in the matrix are strongly segregated (large C-score) and other species pairs 
+#' are random or aggregated.
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. 
+#' @return Returns the variance of the C-score calculated across all possible 
+#' species pairs in the matrix.
+#'  
+#' @references Stone, L. and A. Roberts. 1990. The checkerboard score and species
+#' distributions. Oecologia 85: 74-79.
+#' 
+#' Stone, L. and A. Roberts. 1992. Competitive exclusion, or species aggregation?
+#' An aid in deciding. Oecologia 91: 419-424.
+#' 
+#' @note The matrix-wide C-score is not calculated for missing species, so empty
+#' rows in the matrix do not affect the result. This index has not been 
+#' thoroughly tested with real data sets.
+#' 
+#' @seealso \code{\link{c_score}} co-occurrence index.
+#' 
+#' @examples 
+#' varCScore <- c_score_var(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' @export
 
 c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
@@ -344,9 +442,36 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' Calculate the skew of the c-score
-#' @description C-score skew function Takes a binary presence absence matrix returns skewness of Stone and Roberts C-score
+
+#' C-score skew
+#' @description Takes a binary presence-absence matrix and returns 
+#' the skewness of the Stone and Roberts' (1990) C-score.
+#' @details A large positive value of skewness implies a preponderance of species pairs 
+#' with large C-score values (segregated), whereas a large negative value of 
+#' skewness implies a preponderance of species pairs with small C-score values 
+#' (aggregated). 
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. 
+#' @return Returns the skewness of the C-score calculated across all possible 
+#' species pairs in the matrix.
+#'  
+#' @references Stone, L. and A. Roberts. 1990. The checkerboard score and species
+#' distributions. Oecologia 85: 74-79.
+#' 
+#' Stone, L. and A. Roberts. 1992. Competitive exclusion, or species aggregation?
+#' An aid in deciding. Oecologia 91: 419-424.
+#' 
+#' @note The matrix-wide C-score is not calculated for missing species, so empty
+#' rows in the matrix do not affect the result. This index has not been 
+#' thoroughly tested with real data sets.
+#' 
+#' @seealso \code{\link{c_score}} co-occurrence index.
+#' 
+#' @examples 
+#' skewCScore <- c_score_skew(m=matrix(rbinom(100,0.5),nrow=10)) 
 #' @export
+
 #' 
 c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
@@ -376,9 +501,37 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' Schluter's V-ratio function
-#' @description Takes a binary presence absence matrix returns Schluter's V-ratio index
+#' Schluter's V-ratio 
+#' @description Takes a binary presence-absence matrix or a matrix of 
+#' abundances and returns Schluter's (1984) variance ratio. 
+#' @details The variance ratio is the ratio of the variance in species number 
+#' among sites to the sum of the variance of the species occurrences. If the average
+#' covariation in abundance (or occurrence) of each species pair is close to zero,
+#' the expected value for this ratio is approximately 1.0. V-ratios larger than 1.0
+#' imply positive average covariation in the abundance of species pairs, whereas V-ratios
+#' significantly smaller than 1.0 imply negative average covariation.
+#'
+#' @param m A binary presence-absence matrix in which rows are species and columns
+#' are sites. The entries may be either abundances or occurrences of indivdual species.
+#' @return Returns the variance ratio of the matrix.
+#'  
+#' @references Schluter, D. 1984. A variance test for detecting species associations,
+#' with some example applications. Ecology 65: 998-1005.
+#' 
+#' McCulloch, C.E. 1985. Variance tests for species association. Ecology 66: 1676-1681.
+#' 
+#' @note This index is determined exclusively by the row and column sums of the 
+#' matrix, so it cannot be used with null model algorithms that hold both of those
+#' elements fixed. A simple randomization of the rows of the matrix (see sim2)
+#' assumes that all sites are equiprobable, so it may generate large values (= 
+#' positive covariance) that reflect heterogeneity among sites.
+#' 
+#'
+#' 
+#' @examples 
+#' varCScore <- v_ratio(m=matrix(rpois(100,0.5),nrow=10)) 
 #' @export
+
 v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
