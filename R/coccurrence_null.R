@@ -1,11 +1,11 @@
 #'Co-Occurrence Null model 
 #'@description Create a Co-Occurrence null model
-#'@param species_data a dataframe <put some guidelines in here>
+#'@param speciesData a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
 #'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
-#'@param n.reps the number of replicates to run the null model.
+#'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
 #'@param burnin The number of burnin iterations to use with the simFast algorithm
 #'@examples \dontrun{
 #' 
@@ -19,7 +19,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, rowNames = TRUE, random.seed = 0, burnin = 0,algoOpts = list(),metricOpts = list(), row.names = TRUE){
+cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", n.reps = 1000, rowNames = TRUE, randomSeed = 0, burnin = 0,algoOpts = list(),metricOpts = list()){
   mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   aChoice <- c(paste("sim",1:10,sep=""),"simFast")
   mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
@@ -29,15 +29,15 @@ cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", 
   metric <- mFunc[which(mChoice==metric)]
   ## Control behavior of whether or not sim9fast is used.
   if(algo != "simFast"){
-  params <- list(species_data = species_data, algo = algo, metric = metric, n.reps = n.reps, rowNames = rowNames, random.seed
- = random.seed
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed
+ = randomSeed
   ,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   output$burn.in <- burnin
   class(output) <- "coocnullmod"
   return(output)
   } else if(algo == "simFast"){
-    params <- list(species_data = species_data,algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, burnin = burnin)
+    params <- list(speciesData = speciesData,algo = algo, metric = metric, n.reps = n.reps, row.names = row.names, random.seed = random.seed, burnin = burnin)
     output <- do.call(sim9.fast,params)
     class(output) <- "coocnullmod"
     return(output)
