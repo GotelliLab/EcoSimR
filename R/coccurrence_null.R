@@ -19,7 +19,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, rowNames = TRUE, random.seed = 0, burnin = NA,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(species_data, algo = "simFast", metric = "C.Score", n.reps = 1000, rowNames = TRUE, random.seed = 0, burnin = NA,algoOpts = list(),metricOpts = list(), row.names = TRUE){
   mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   aChoice <- c(paste("sim",1:10,sep=""),"simFast")
   mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
