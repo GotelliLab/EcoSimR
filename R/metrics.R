@@ -366,25 +366,15 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
-  m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
+  shared = tcrossprod(m)
+  sums = rowSums(m)
   
-  pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
+  upper = upper.tri(shared)
   
+  scores = (sums[row(shared)[upper]] - shared[upper])*
+      (sums[col(shared)[upper]] - shared[upper])
   
-  cScore <- mat.or.vec(nrow(pairwise),1)
-  shared <- mat.or.vec(nrow(pairwise),1)
-  
-  for (i in 1:nrow(pairwise)) 
-  {
-    shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
-      (sum(m[pairwise[i,2],]) - shared[i])
-    
-    
-  }
-  
-  return(mean(cScore)) # return average C-score
-  
+  mean(scores)
 }
 
 
