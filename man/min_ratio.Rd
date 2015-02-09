@@ -5,7 +5,26 @@
 \usage{
 min_ratio(m = runif(20))
 }
+\arguments{
+\item{m}{A vector of non-negative trait measures, one for each species}
+}
+\value{
+Returns the minimum size ratio difference between adjacent, ordered values.
+}
 \description{
 Function to calculate the minimum size ratio
+between species within an assemblage.
+}
+\details{
+This index is based on the minimum size ratio difference between
+consecutively ordered species in an assemblage. It is appropriate for
+morphological traits, but not phenological ones.
+}
+\examples{
+MinSizeDif <- min_ratio(rgamma(20,shape=3,scale=2))
+}
+\references{
+Simberloff, D. and W.J. Boecklen. 1981. Santa Rosalia reconsidered: size
+ratios and competition. Evolution 35: 1206-1228.
 }
 
