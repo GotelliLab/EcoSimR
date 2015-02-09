@@ -566,7 +566,7 @@ min_diff <- function(m=runif(20)) {
   return(md)
 }
 
-#' Minimum size ratio
+#' Min size ratio
 #' @description Function to calculate the minimum size ratio
 #' between species within an assemblage.
 #' @details This index is based on the minimum size ratio difference between
