@@ -4,7 +4,7 @@
 \title{Sim9.fast function}
 \usage{
 sim9.fast(speciesData, algo, metric, n.reps = 1000, row.names = TRUE,
-  randomSeed = 0, burnin = 0)
+  saveSeed = FALSE, burnin = 0)
 }
 \description{
 Special implementation of sequential swap algorithm

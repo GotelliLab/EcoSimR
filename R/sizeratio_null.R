@@ -5,7 +5,9 @@
 #'@param metric the metric used to caluclate the null model: choices are "Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio"; default is Var.Ratio
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
 #' ## Run the null model
 #' rodentMod <- size_null_model(rodents)
@@ -31,7 +33,7 @@
 #'
 #'@export
 
-size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(), metricOpts = list()){
+size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
   aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
   mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
   mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
@@ -44,7 +46,7 @@ size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ra
   metric <- mFunc[which(mChoice==metric)]
   algo <- aFunc[which(aChoice==algo)]
   
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed, algoOpts = algoOpts, metricOpts = metricOpts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)
@@ -67,7 +69,7 @@ summary.sizenullmod <- function(nullmodObj)
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
   # cat("Data File: ", p$Data.File,  "\n")
   #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
+  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
   cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$MetricOut,  "\n")

@@ -4,7 +4,7 @@
 \title{Co-Occurrence Null model}
 \usage{
 cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
-  n.reps = 1000, rowNames = TRUE, randomSeed = 0, burnin = 0,
+  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,
   algoOpts = list(), metricOpts = list())
 }
 \arguments{
@@ -14,13 +14,13 @@ cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
 
 \item{metric}{the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"}
 
+\item{nReps}{the number of replicates to run the null model.}
+
 \item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{randomSeed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 
 \item{burnin}{The number of burnin iterations to use with the simFast algorithm}
-
-\item{nReps}{the number of replicates to run the null model.}
 }
 \description{
 Create a Co-Occurrence null model
@@ -33,6 +33,9 @@ finchMod <- cooc_null_model(wiFinches, algo="sim1")
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burnin")
+
+## Example that is repeatable with a saved seed
+
 
 }
 }

@@ -5,8 +5,10 @@
 #'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param burnin The number of burnin iterations to use with the simFast algorithm
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
@@ -14,12 +16,29 @@
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burnin")
-#'  
+#' 
+#' ## Example that is repeatable with a saved seed
+#' finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed = TRUE)
+#' mean(finchMod$Sim)
+#' ## Run the model with the seed saved
+#' 
+#' finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed=T)
+#' ## Check model output
+#' mean(finchMod$Sim)
+#' 
+#' reproduce_model(finchMod$Sim)
+#' 
+#' finchMod <- cooc_null_model(wiFinches, algo="sim1")
+#' ## Check model output is the same as before
+#' mean(finchMod$Sim)
+#' reproduce_model(finchMod$Sim)
+#' 
+#' 
 #'}
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, randomSeed = 0, burnin = 0,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
   mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   aChoice <- c(paste("sim",1:10,sep=""),"simFast")
   mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
@@ -29,15 +48,15 @@ cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", n
   metric <- mFunc[which(mChoice==metric)]
   ## Control behavior of whether or not sim9fast is used.
   if(algo != "simFast"){
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed
- = randomSeed
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed
+ = saveSeed
   ,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   output$burn.in <- burnin
   class(output) <- "coocnullmod"
   return(output)
   } else if(algo == "simFast"){
-    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed, burnin = burnin)
+    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, burnin = burnin)
     output <- do.call(sim9.fast,params)
     class(output) <- "coocnullmod"
     return(output)
@@ -62,7 +81,7 @@ summary.coocnullmod <- function(nullmodObj)
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
   # cat("Data File: ", p$Data.File,  "\n")
   #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
+  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
   cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$MetricOut,  "\n")
