@@ -10,13 +10,16 @@
 #'@export
 
 
-null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(), metricOpts = list())
+null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list())
 {
   pb <- txtProgressBar(min = 0, max = nReps, style = 3)
   ## Set the seed
-  ifelse (randomSeed==0, randomInteger <- trunc(runif(1,-2000000000,2000000000)), randomInteger <- randomSeed)
-  
-  set.seed(randomInteger)
+  if(saveSeed){
+    randomSeed <- .Random.seed
+    print(paste("\n",randomSeed[624]))
+  } else {
+    randomSeed <- NULL
+  }
   
   ### Strip out row names
   
@@ -76,7 +79,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   algoOut <- aChoice[which(aFunc==algo)]
   
   
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric,MetricOut = metricOut, Algorithm = algo,AlgorithmOut = algoOut, n.reps = nReps, Random.Integer = randomInteger, Data = speciesData)
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric,MetricOut = metricOut, Algorithm = algo,AlgorithmOut = algoOut, n.reps = nReps, SaveSeed = saveSeed,RandomSeed = randomSeed, Data = speciesData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
   

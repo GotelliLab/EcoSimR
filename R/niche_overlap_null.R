@@ -5,7 +5,7 @@
 #'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
@@ -22,7 +22,7 @@
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps = 1000, rowNames = TRUE, randomSeed = 0,algoOpts = list(),metricOpts = list()){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
   aChoice <- c("ra1","ra2","ra3","ra4")
   mChoice <- c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew")
   mFunc <- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
@@ -33,7 +33,7 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps
   #Now do the substitutions
   metric <- mFunc[which(mChoice==metric)]
   
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed,algoOpts = algoOpts,metricOpts = metricOpts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
   return(output)
@@ -56,7 +56,7 @@ summary.nichenullmod <- function(nullmodObj)
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
  # cat("Data File: ", p$Data.File,  "\n")
 #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
+  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
   cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$MetricOut,  "\n")
