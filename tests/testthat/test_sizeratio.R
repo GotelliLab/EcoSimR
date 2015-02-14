@@ -10,10 +10,55 @@ test_that("uniform_size algorithm works:",{
 test_that("uniform_size_user algorithm works:",{
   expect_true(is.vector(uniform_size_user()))
   expect_true(is.vector(uniform_size_user(rodents$Sonoran)))
-  expect_true(is.vector(do.call(uniform_size_user,list(v = rodents$Sonoran,user.low=4,user.high=20))))
-  expect_true(min(do.call(uniform_size_user,list(v = rodents$Sonoran,user.low=4,user.high=20))) > 4)
-  expect_true(max(do.call(uniform_size_user,list(v = rodents$Sonoran,user.low=4,user.high=20))) < 20)
-  
-   
+  expect_true(is.vector(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))))
+  expect_true(min(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) > 4)
+  expect_true(max(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) < 20)
+  }
+)
+
+test_that("source_pool_draw algorithm works:",{
+  expect_true(is.vector(source_pool_draw()))
+  expect_true(is.vector(source_pool_draw(rodents$Sonoran)))
+  expect_true(is.vector(do.call(source_pool_draw,list(speciesData = rodents$Sonoran,
+       sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
+       speciesProbs = rbeta(1000,1,1) ))))
 }
 )
+
+test_that("gamma_size algorithm works:",{
+  expect_true(is.vector(gamma_size()))
+  expect_true(is.vector(gamma_size(rodents$Sonoran))) 
+}
+)
+
+
+test_that("min_diff metric works",{
+  ### Test that proper object is returned
+  expect_true(is.numeric(min_diff()))
+  ### Test that minimum difference is accurate
+  expect_equal(min_diff(c(1,1.2,-3,3)),.2) 
+})
+
+test_that("min_diff metric works",{
+  ### Test that proper object is returned
+  expect_true(is.numeric(min_diff()))
+  ### Test that minimum difference is accurate
+  expect_equal(min_diff(c(1,1.2,-3,3)),.2) 
+  expect_equal(min_diff(c(1,1.2,1.1,-3,3)),.1) 
+  
+  
+  })
+
+test_that("min_ratio metric works",{
+  ### Test that proper object is returned
+  expect_true(is.numeric(min_ratio()))
+  ### Test that minimum ratio is accurate
+  #expect_equal(min_diff(c(1,1.2,-3,3)),.2) 
+  #expect_equal(min_diff(c(1,1.2,1.1,-3,3)),.1) 
+  
+  
+})
+
+
+
+

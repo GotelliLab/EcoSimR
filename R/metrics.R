@@ -589,6 +589,13 @@ min_ratio <- function(m=runif(20)) {
   return(mr)
 }
 
+
+min_ratio2 <- function(m=runif(20)) {
+  m <- sort(log(m), decreasing=T)
+  mr <- min(exp(diff(m)))
+  return(mr)
+}
+
 #' Variance in size differences
 #' @description Function to calculate the variance in size differences
 #' between adjacent, ordered species. If there is a tendency towards a
