@@ -18,7 +18,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   
   ### Strip out row names
   
-  if(row.names){
+  if(rowNames){
     speciesData <- speciesData[,-1] 
   }
   ## Convert to matrix for type consistency
@@ -31,7 +31,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   msim <- speciesData
   ifelse(burnin ==0, burnin <- max(1000,10*nrow(msim)),burnin <- burnin)
   burn.in.metric <- vector(mode="numeric",length = burnin)
-  simulated.metric <- vector(mode="numeric",length = n.reps)
+  simulated.metric <- vector(mode="numeric",length = nReps)
   # run sequential swap for burn in series
   cat("Burn-in Progress \n")
   
@@ -46,8 +46,8 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   # run sequential swap for simulated series
   cat("Swap Progress \n")
   
-  stat_pb <- txtProgressBar(min = 0, max = n.reps, style = 3)
-  for (i in 1: n.reps)
+  stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
+  for (i in 1: nReps)
   {
     msim <-sim9.single(msim)
     simulated.metric[i] <- Metric(msim)    
@@ -78,7 +78,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   
   
   
-  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = n.reps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burnin,burn.in.metric=burn.in.metric)
+  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burnin,burn.in.metric=burn.in.metric)
   # plot to screen the trace function for the burn in
   
   class(sim9.fast.out) <- "nullmod"
