@@ -21,6 +21,10 @@ cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 
 \item{burnin}{The number of burnin iterations to use with the simFast algorithm}
+
+\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
+
+\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
 }
 \description{
 Create a Co-Occurrence null model
@@ -35,6 +39,20 @@ summary(finchMod)
 plot(finchMod,type="burnin")
 
 ## Example that is repeatable with a saved seed
+finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed = TRUE)
+mean(finchMod$Sim)
+## Run the model with the seed saved
+
+finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed=T)
+## Check model output
+mean(finchMod$Sim)
+
+reproduce_model(finchMod$Sim)
+
+finchMod <- cooc_null_model(wiFinches, algo="sim1")
+## Check model output is the same as before
+mean(finchMod$Sim)
+reproduce_model(finchMod$Sim)
 
 
 }
