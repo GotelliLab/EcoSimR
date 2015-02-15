@@ -1,5 +1,4 @@
 language: c
-script: "./travis-tool.sh run_tests"
 before_script:
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
@@ -7,13 +6,19 @@ before_script:
 - "./travis-tool.sh install_deps"
 
 install:
-- "./travis-tool.sh github_package jimhester/covr""
+  - ./travis-tool.sh github_package jimhester/covr
+  - ./travis-tool.sh install_deps
+
+script: 
+- "./travis-tool.sh run_tests"
+
 
 env:
   global:
   - R_BUILD_ARGS=" "
   - R_CHECK_ARGS="--as-cran"
   - BOOTSTRAP_LATEX="1"
+
 after_failure:
 - "./travis-tool.sh dump_logs"
 - Rscript -e 'library(covr);coveralls()'
