@@ -66,7 +66,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   
   aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma","ra1","ra2","ra3","ra4",
                 paste("sim",1:10,sep=""),"simFast")
-  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma","ra1","ra2","ra3","ra4",
+  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "gamma_size","ra1","ra2","ra3","ra4",
               paste("sim",1:10,sep=""),"simFast")
   
   mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio","Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew",
