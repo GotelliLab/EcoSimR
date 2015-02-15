@@ -3,7 +3,7 @@
 \alias{sim9.fast}
 \title{Sim9.fast function}
 \usage{
-sim9.fast(speciesData, algo, metric, n.reps = 1000, row.names = TRUE,
+sim9.fast(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
   saveSeed = FALSE, burnin = 0)
 }
 \description{

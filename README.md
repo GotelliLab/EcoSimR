@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/craigcitro/r-travis.svg?branch=master,osx)](https://travis-ci.org/craigcitro/r-travis)
+
+
 EcoSimR
 =======
 

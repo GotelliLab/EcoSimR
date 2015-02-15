@@ -4,7 +4,7 @@
 \title{Size Ratio}
 \usage{
 size_null_model(speciesData, algo = "Uniform.Size", metric = "Var.Ratio",
-  nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(),
+  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(),
   metricOpts = list())
 }
 \arguments{
@@ -18,7 +18,11 @@ size_null_model(speciesData, algo = "Uniform.Size", metric = "Var.Ratio",
 
 \item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{randomSeed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
+
+\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
+
+\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
 }
 \description{
 Create a size Ratio null model
