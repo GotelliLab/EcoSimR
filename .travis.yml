@@ -4,10 +4,8 @@ before_script:
 - chmod 755 ./travis-tool.sh
 - "./travis-tool.sh bootstrap"
 - "./travis-tool.sh install_deps"
+- ./travis-tool.sh github_package jimhester/covr
 
-install:
-  - ./travis-tool.sh github_package jimhester/covr
-  - ./travis-tool.sh install_deps
 
 script: 
 - "./travis-tool.sh run_tests"
