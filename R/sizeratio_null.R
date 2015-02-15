@@ -58,12 +58,9 @@ size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ra
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @export
 
-summary.sizenullmod <- function(nullmodObj)
+summary.sizenullmod <- function(object,...)
 { 
-  
-  
-  
-  
+  nullmodObj <- object
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
@@ -102,8 +99,10 @@ summary.sizenullmod <- function(nullmodObj)
 }
 
 
-plot.sizenullmod <- function(nullmodObj, type = "hist")
+plot.sizenullmod <- function(x, type = "hist",...)
 {
+  
+  nullmodObj <- x
 if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
