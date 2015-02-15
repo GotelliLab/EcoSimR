@@ -585,16 +585,11 @@ min_diff <- function(m=runif(20)) {
 
 min_ratio <- function(m=runif(20)) {
   m <- sort(log(m))
-  mr <- min(diff(m))
+  mr <- exp(min(diff(m)))
   return(mr)
 }
 
 
-min_ratio2 <- function(m=runif(20)) {
-  m <- sort(log(m), decreasing=T)
-  mr <- min(exp(diff(m)))
-  return(mr)
-}
 
 #' Variance in size differences
 #' @description Function to calculate the variance in size differences
@@ -648,6 +643,6 @@ var_diff <- function(m=runif(20)){
 
 var_ratio <- function(m=runif(20)){
   m <- sort(log(m))
-  vr <- var(diff(m))
+  vr <- var(exp(diff(m)))
   return(vr)
 }

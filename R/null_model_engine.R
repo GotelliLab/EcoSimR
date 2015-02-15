@@ -16,7 +16,6 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   ## Set the seed
   if(saveSeed){
     randomSeed <- .Random.seed
-    print(paste("\n",randomSeed[624]))
   } else {
     randomSeed <- NULL
   }

@@ -1,17 +1,4 @@
-##############################################
-## EcoSimR - R Code For Null Model Analysis
-## 
-##
-##
-##############################################
-## EcoSimR Algorithms Source File
-## Nicholas J. Gotelli & Aaron M. Ellison
-##
-##
-##############################################
-## Version 1.00
-## 12 May 2013
-#############################################
+
 
 #' VectorSample function
 #' @description Takes an input binary vector and a weight vector Reassigns 1s randomly in proportion to vector weights
