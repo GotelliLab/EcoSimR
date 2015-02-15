@@ -45,13 +45,10 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @export
 
-summary.nichenullmod <- function(nullmodObj)
+summary.nichenullmod <- function(object,...)
 { 
-  
-
-  
-  
-  #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
+ 
+  nullmodObj <- object 
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
  # cat("Data File: ", p$Data.File,  "\n")
@@ -97,8 +94,9 @@ summary.nichenullmod <- function(nullmodObj)
 
 
 
-plot.nichenullmod <- function(nullmodObj, type = "hist")
+plot.nichenullmod <- function(x, type = "hist",...)
 {
+  nullmodObj <- x
   if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
