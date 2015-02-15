@@ -37,7 +37,7 @@ size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ra
   aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
   mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
   mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
-  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma")
+  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "gamma_size")
   
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)

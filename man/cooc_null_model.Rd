@@ -10,7 +10,7 @@ cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
 \arguments{
 \item{speciesData}{a dataframe <put some guidelines in here>}
 
-\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"}
+\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"}
 
 \item{metric}{the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"}
 
