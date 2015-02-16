@@ -6,7 +6,7 @@
 var_diff(m = runif(20))
 }
 \arguments{
-\item{m}{A vector of non-negative trait measures, one for each species}
+\item{m}{a vector of non-negative trait measures, one for each species}
 }
 \value{
 Returns the variance of the absolute difference between adjacent, ordered values.
