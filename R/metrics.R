@@ -97,13 +97,14 @@ return(mean(pairwise[,3]))
 #' @description Takes a niche utilization matrix as in put and 
 #' returns the variance of Pianka's niche overlap index.
 #' @details A large value for variance implies that some species pairs show high
-#' niche overlap and others show low niche overlap. A low value for variance implies
-#' that niche overlap (high or low) is very similar among all species pairs.
+#' niche overlap and others show low niche overlap. A low value for variance 
+#' implies that niche overlap (high or low) is very similar among all species pairs.
 #'
 #' @param m A matrix of resource utilization values. 
 #' @return Returns the variance of the average pairwise niche overlap.
-#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
-#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural 
+#' assemblages of desert lizards and tropical fishes. Ecological Monographs 60: 
+#' 27-55.
 #' 
 #' @note The resource utilization matrix (rows = species, columns = discrete
 #' resource categories) may include zeroes, but no negative numbers or missing
@@ -114,7 +115,7 @@ return(mean(pairwise[,3]))
 #' obsVar <- pianka.var(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
-pianka_var <- function(m=matrix(rpois(80,1),nrow=10)) 
+pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
   
 {
   m <- m/rowSums(m)
@@ -133,13 +134,14 @@ pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
 #' Czekanowski niche overlap index
 #' 
 #' @details A large value for variance implies that some species pairs show high
-#' niche overlap and others show low niche overlap. A low value for variance implies
-#' that niche overlap (high or low) is very similar among all species pairs.
+#' niche overlap and others show low niche overlap. A low value for variance 
+#' implies that niche overlap (high or low) is very similar among all species pairs.
 #'
 #' @param m A matrix of resource utilization values. 
 #' @return Returns the variance of the average pairwise niche overlap.
-#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
-#' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural 
+#' assemblages of desert lizards and tropical fishes. Ecological Monographs 60: 
+#' 27-55.
 #' 
 #' @note The resource utilization matrix (rows = species, columns = discrete
 #' resource categories) may include zeroes, but no negative numbers or missing
@@ -567,9 +569,9 @@ min_diff <- function(m=runif(20)) {
 }
 
 #' Minimum size ratio
-#' @description Function to calculate the minimum size ratio
+#' @description Function to calculate the minimum size ratio (larger/next larger)
 #' between species within an assemblage.
-#' @details This index is based on the minimum size ratio difference between
+#' @details This index is based on the minimum size ratio (larger/next larger) difference between
 #' consecutively ordered species in an assemblage. It is appropriate for 
 #' morphological traits, but not phenological ones.
 #'
