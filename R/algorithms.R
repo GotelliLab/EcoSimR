@@ -1,6 +1,6 @@
 
 
-#' VectorSample function
+#' Vector Sample Function
 #' @description Takes an input binary vector and a weight vector.
 #' Reassigns 1s randomly in proportion to vector weights.
 #' @export
@@ -39,7 +39,7 @@ return(x)
 }
 
 
-#' Sim1 Function
+#' Sim1 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling 
 #' all of its elements equiprobably.
 #' @details This algorithm assumes species and sites are equiprobable.
@@ -69,7 +69,7 @@ matrix(sample(speciesData), ncol=ncol(speciesData))
 
 
 
-#' Sim2 Function
+#' Sim2 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling elements 
 #' within each row equiprobably.
 #' @details This algorithm assumes sites are equiprobable, but preserves 
@@ -106,7 +106,7 @@ t(apply(speciesData,1,sample))
 }
 
 
-#' Sim3 Function
+#' Sim3 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling elements 
 #' within each column equiprobably. 
 #' @details This algorithm assumes species are equiprobable, but preserves 
@@ -134,7 +134,7 @@ apply(speciesData,2,sample)
 
 
 
-#' Sim4 Function
+#' Sim4 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling elements 
 #' within each row.  Sampling weights for each column are proportional to 
 #' column sums. Makes a call to the vector_sample function.
@@ -165,7 +165,7 @@ t(apply(speciesData,1,vector_sample,w=colSums(speciesData)))
 
 
 
-#' Sim5 Function
+#' Sim5 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling elements 
 #' within each column. Sampling weights for each row are proportional to 
 #' row sums. Makes a call to the vector_sample function.
@@ -195,7 +195,7 @@ apply(speciesData,2,vector_sample,w=rowSums(speciesData))
 }
 
 
-#' Sim6 Function
+#' Sim6 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling all 
 #' elements. Rows are equiprobable, and columns are proportional to column sums.
 #' Makes a call to the vector_sample function.
@@ -225,7 +225,7 @@ matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
 }
 
 
-#' Sim7 Function
+#' Sim7 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling all 
 #' elements. Columns are equiprobable, and rows are proportional to row sums.
 #' Makes a call to the vector_sample function.
@@ -257,7 +257,7 @@ matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 
 
 
-#' Sim8 Function
+#' Sim8 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling all 
 #' elements. Columns are proportional to column sums, and rows are proportional 
 #' to row sums. Makes a call to the vector_sample function.
@@ -344,7 +344,7 @@ matrix(vector_sample(speciesData,w=matrixWeights),ncol=ncol(speciesData))
 #}
 
 
-#' Sim10 Function
+#' Sim10 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling all 
 #' elements. Rows and column probabilities are proportional to user-supplied 
 #' row and column weights, which define relative suitability probabilities for
@@ -395,20 +395,67 @@ matrixWeights <- outer(rowWeights,colWeights)
 matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 }
 
-
-
-
-#' RA1 Function
-#' @description Randomizes a numeric utilization matrix speciesData by replacing all elements with a random uniform [0,1]
+#' RA1 Niche Overlap Randomization Algorithm 
+#' @description Randomizes a numeric utilization matrix speciesData by 
+#' replacing all elements with a random uniform [0,1] value.
+#' @details The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' resource states) filled with non-negative real numbers. 
+#' @return Returns a random utilization matrix with the same dimensions as the 
+#' input matrix.
+#' @references Kobayashi, S. 1991. Interspecific relations in forest floor 
+#' coleopteran assemblages: niche overlap and guild structure. Researches 
+#' in Population Ecology 33: 345-360.
+#' @note Because all matrix elements, including zeroes, are replaced with a 
+#' random uniform distribution, the null expectation is based on an assemblage
+#' of generalist species with maximum niche breadth. This algorithm retains
+#' neither the niche breadth of the individuals species nor the placement of 0
+#' values (= unutilized resource states) in the matrix. These assumptions are
+#' unrealistic, and a random matrix with zeroes will generate significantly low
+#' niche overlap values with this metric. It is not recommended for niche 
+#' overlap analysis.
+#' @examples 
+#' ranUtil <- ra1(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
+
 
 ra1 <- function(speciesData=matrix(rpois(80,1),nrow=10)){
 
 matrix(runif(prod(dim(speciesData))),ncol=ncol(speciesData))
 }
 
-#' RA2 Function
-#' @description Randomizes a numeric utilization matrix speciesData by replacing non-zero elements with a random uniform [0,1]
+#' RA2 Niche Overlap Randomization Algorithm
+#' @description Randomizes a numeric utilization matrix speciesData by 
+#' replacing all non-zero elements with a random uniform [0,1] value.
+#' @description Randomizes a numeric utilization matrix speciesData by 
+#' replacing all elements with a random uniform [0,1].
+#' @details The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' resource states) filled with non-negative real numbers. 
+#' @return Returns a random utilization matrix with the same dimensions as the 
+#' input matrix.
+#' @references Kobayashi, S. 1991. Interspecific relations in forest floor 
+#' coleopteran assemblages: niche overlap and guild structure. Researches 
+#' in Population Ecology 33: 345-360.
+#'	
+#' Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
+#' assemblages of desert lizards and tropical fishes. Ecological Monographs
+#' 60: 27-55.
+#' @note This algorithm retains the number and position of zero states in the 
+#' original matrix. However, all non-zero values are again replaced by a random 
+#' [0,1] value, which tends to inflate niche breadths of the simulated 
+#' assemblage. Although the results are not as severe as for RA1, this 
+#' algorithm is still prone to Type I errors, and is not recommended for niche 
+#' overlap analysis.
+
+#' @examples 
+#' ranUtil <- ra2(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra2 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
@@ -422,8 +469,26 @@ return(RM)
 
    
 
-#' RA3 Function
-#' @description Randomizes a numeric utilization matrix speciesData by reshuffling the elements within each row
+#' RA3 Niche Overlap Randomization Algorithm
+#' @description Randomizes a numeric utilization matrix speciesData by 
+#' reshuffling the elements within each row.
+#' @details The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' resource states) filled with non-negative real numbers. 
+#' @return Returns a random utilization matrix with the same dimensions as the 
+#' input matrix.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
+#' assemblages of desert lizards and tropical fishes. Ecological Monographs
+#' 60: 27-55.
+#' @note This algorithm retains the niche breadth and zero states for each 
+#' species, but randomizes the assignment of each utilization value to a 
+#' different niche category. It performs effectively in simulation studies and 
+#' is recommended for analysis of niche overlap patterns. 
+#' @examples 
+#' ranUtil <- ra3(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra3 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
@@ -436,8 +501,27 @@ return(RM)
 
    
 
-#' RA4 Function
-#' @description Randomizes a numeric utilization matrix speciesData by reshuffling the non-zero elements within each row
+#' RA4 Niche Overlap Randomization Algorithm
+#' @description Randomizes a numeric utilization matrix speciesData by 
+#' reshuffling the non-zero elements within each row. 
+#' @details The resource utilization matrix (rows = species, columns = discrete
+#' resource categories) may include zeroes, but no negative numbers or missing
+#' values. Relative resource within a species is first calculated, so the rows
+#' need not sum to 1.0.
+#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' resource states) filled with non-negative real numbers. 
+#' @return Returns a random utilization matrix with the same dimensions as the 
+#' input matrix.
+#' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
+#' assemblages of desert lizards and tropical fishes. Ecological Monographs
+#' 60: 27-55.
+#' @note This algorithm is similar to RA3, but adds the additional constraint of
+#' retaining the positions of all of the zero elements of the matrix, and 
+#' reshuffling only the non-zero elements of the matrix within each row. It is
+#' more conservative than RA3, but has a low Type I error rate, and, along with 
+#' RA3, is recommended for null model analysis of niche overlap. 
+#' @examples 
+#' ranUtil <- ra4(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra4 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 

@@ -10,3 +10,5 @@ dev.R
 EcoSimR.Rcheck/
 *.gz
 *check/
+*~
+*.swp

@@ -6,7 +6,7 @@
 c_score_skew(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }
 \arguments{
-\item{m}{A binary presence-absence matrix in which rows are species and columns
+\item{m}{a binary presence-absence matrix in which rows are species and columns
 are sites.}
 }
 \value{

@@ -21,7 +21,7 @@
 #' reflect similar resource utilization spectra.
 #' \deqn{O_{jk} = O_{kj} = \frac{\sum_{n}^{i}p_{ij}p_{jk}}{\sqrt{\sum_{n}^{i}p_{ij}^2\sum_{n}^{i}p_{ik}^2}}}{O_jk = O_kj = sum(p_ij*p_jk) / sqrt(sum((p_ij)^2)sum((p_jk)^2))}
 #' 
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the average pairwise niche overlap.
 #' @references Pianka, E. 1973. The structure of lizard communities.
 #' Annual Review of Ecology and Systematics 4:53-74.
@@ -63,10 +63,10 @@ return(mean(pairwise[,3]))
 #' 
 #' \deqn{O_{jk} = O_{kj} = 1 - 0.5\sum_{i=1}^n|p_{ij} - p_{ik}|}{O_jk = O_kj = 1 - 0.5*sum|p_ij - p_ik|}' 
 #' 
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the average pairwise niche overlap.
-#' @references Feinsinger, P., E.E. Spears, and R. Poole. 1981.
-#' A simple measure of niche breadth. Ecology 62: 27-32. 
+#' @references Feinsinger, P., E.E. Spears, and R. Poole. 1981. A simple measure 
+#' of niche breadth. Ecology 62: 27-32. 
 #' 
 #' Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 #' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
@@ -100,7 +100,7 @@ return(mean(pairwise[,3]))
 #' niche overlap and others show low niche overlap. A low value for variance 
 #' implies that niche overlap (high or low) is very similar among all species pairs.
 #'
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the variance of the average pairwise niche overlap.
 #' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural 
 #' assemblages of desert lizards and tropical fishes. Ecological Monographs 60: 
@@ -137,7 +137,7 @@ pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
 #' niche overlap and others show low niche overlap. A low value for variance 
 #' implies that niche overlap (high or low) is very similar among all species pairs.
 #'
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the variance of the average pairwise niche overlap.
 #' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural 
 #' assemblages of desert lizards and tropical fishes. Ecological Monographs 60: 
@@ -174,7 +174,7 @@ czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10))
 #' species pairs with low than high niche overlap. The performance of this algorithm
 #' has not been thoroughly tested with real data sets.
 #'
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the skewness of the average pairwise niche overlap.
 #' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 #' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
@@ -215,7 +215,7 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' species pairs with low than high niche overlap. The performance of this algorithm
 #' has not been thoroughly tested with real data sets.
 #'
-#' @param m A matrix of resource utilization values. 
+#' @param m a matrix of resource utilization values. 
 #' @return Returns the skewness of the average pairwise niche overlap.
 #' @references Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 #' of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
@@ -259,7 +259,7 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' certain "forbidden combinations" of species. A set of communities structured 
 #' this way should contain fewer species combinations than expected by chance.
 #'
-#' @param m A binary presence-absence matrix in which rows are species and columns
+#' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
 #' @return Returns the number of unique species combinations represented by 
 #' the different columns (= sites) in the matrix.
@@ -347,7 +347,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' interpret when calculated as a matrix-wide average, because a single matrix
 #' can contain individual pairs of species that are segregated, random, or aggregated.
 #'
-#' @param m A binary presence-absence matrix in which rows are species and columns
+#' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
 #' @return Returns the average C-score calculated across all possible species pairs
 #' in the matrix.
@@ -397,7 +397,7 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' in the matrix are strongly segregated (large C-score) and other species pairs 
 #' are random or aggregated.
 #'
-#' @param m A binary presence-absence matrix in which rows are species and columns
+#' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
 #' @return Returns the variance of the C-score calculated across all possible 
 #' species pairs in the matrix.
@@ -453,7 +453,7 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' skewness implies a preponderance of species pairs with small C-score values 
 #' (aggregated). 
 #'
-#' @param m A binary presence-absence matrix in which rows are species and columns
+#' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
 #' @return Returns the skewness of the C-score calculated across all possible 
 #' species pairs in the matrix.
@@ -513,7 +513,7 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' imply positive average covariation in the abundance of species pairs, whereas V-ratios
 #' significantly smaller than 1.0 imply negative average covariation.
 #'
-#' @param m A binary presence-absence matrix in which rows are species and columns
+#' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. The entries may be either abundances or occurrences of indivdual species.
 #' @return Returns the variance ratio of the matrix.
 #'  
@@ -552,7 +552,7 @@ v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' such as beak size, or for a phenological "trait", such as peak flowering time in a plant
 #' assemblage.
 #'
-#' @param m A vector of non-negative trait measures, one for each species
+#' @param m a vector of non-negative trait measures, one for each species
 #' @return Returns the minimum difference between adjacent, ordered values.
 #' 
 #' @references Simberloff, D. and W.J. Boecklen. 1981. Santa Rosalia reconsidered: size
@@ -575,7 +575,7 @@ min_diff <- function(m=runif(20)) {
 #' consecutively ordered species in an assemblage. It is appropriate for 
 #' morphological traits, but not phenological ones.
 #'
-#' @param m A vector of non-negative trait measures, one for each species
+#' @param m a vector of non-negative trait measures, one for each species
 #' @return Returns the minimum size ratio difference between adjacent, ordered values.
 #' 
 #' @references Simberloff, D. and W.J. Boecklen. 1981. Santa Rosalia reconsidered: size
@@ -602,7 +602,7 @@ min_ratio <- function(m=runif(20)) {
 #' large. Small variances might be indicative of assemblages in which 
 #' there is a competitively-based limit to similarity.
 #'
-#' @param m A vector of non-negative trait measures, one for each species
+#' @param m a vector of non-negative trait measures, one for each species
 #' @return Returns the variance of the absolute difference between adjacent, ordered values.
 #' 
 #' @references Poole, R.W. and B.J. Rathcke. 1979. Regularity, randomness,
@@ -630,7 +630,7 @@ var_diff <- function(m=runif(20)){
 #' large. Small variances might be indicative of assemblages in which 
 #' there is a competitively-based limit to similarity.
 #'
-#' @param m A vector of non-negative trait measures, one for each species
+#' @param m a vector of non-negative trait measures, one for each species
 #' @return Returns the variance of the size ratios between adjacent, ordered values.
 #' 
 #' @references Poole, R.W. and B.J. Rathcke. 1979. Regularity, randomness,
