@@ -96,5 +96,9 @@ test_that("size_null_model works with all combinations of metrics and algorithms
   expect_is(size_null_model(rodents,metric ="Var.Diff" ,algo = "Gamma",nRep=10),"sizenullmod")
   expect_is(size_null_model(rodents,metric ="Var.Ratio" ,algo = "Gamma",nRep=10),"sizenullmod")
   
+  smod <- size_null_model(rodents,metric ="Var.Diff" ,algo = "Gamma",nRep=10)
+  
+  expect_output(summary(smod),"Metric:  Var.Diff")
+  
 })
 
