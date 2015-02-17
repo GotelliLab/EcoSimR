@@ -582,12 +582,31 @@ source_pool_draw <- function(speciesData=21:30,sourcePool=
   return(speciesDraw)
 }
 
-#' Gamma size
-#' @description Function to estimate size distribution as a gamma function Gamma function parameters estimated by method of moments from unidentified pdf by Murphy 2007 http://www.cs.ubc.ca/~murphyk/Teaching/CS340-Fall07/reading/paramEst.pdf
+#' SizeGamma Size Overlap Randomization Algorithm
+#' @description Function to generate a random distribution of body sizes by
+#' drawing from a gamma distribution. Shape and rate parameters of the gamma
+#' are estimated from the empirical data.
+#' @param speciesData a vector of body sizes or other trait measurements of
+#' species. All values must be positive real numbers.
+#' @return Returns a vector of simulated body sizes as the same length as speciesData.
+#' @note The shape and rate parameters are estimated from the real data using
+#' the maximum likelihood estimators generated from the fitdr function in 
+#' the MASS library. The flexible gamma distribution can be fit to a variety of 
+#' normal, log-normal, and exponential distributions that are typical for trait 
+#' data measured on a continuous non-negative scale. 
+#' @seealso \code{\link{fitdr}} in the MASS library.
+#' @examples 
+#' obsOverlap <- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
 #' @export
-gamma_size <- function (speciesData=runif(20)) {
-  a <- mean(speciesData)^2/var(speciesData) # use for shape parameter
-  b <- mean(speciesData)/var(speciesData) # use for rate parameter
+
+size_gamma <- function (speciesData=rnorm(50,mean=100,sd=1)) {
+ 
+  library(MASS)
+  mleFit <- fitdistr(speciesData, 'gamma')
+  a <- mleFit$estimate["shape"]
+  b <- mleFit$estimate["rate"]
   gammaDraw <- rgamma(length(speciesData),shape=a,rate=b)
+
   return(gammaDraw)
 }
+#' @export
