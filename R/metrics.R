@@ -234,14 +234,6 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
   return(czekanowskiSkew)
 }
 
-##
-##
-
-
-# Co-occurrence algorithms and metrics for testing
-# 25 May 2013
-# NJG
-
 #' Number of species combinations
 #' @description Function to calculate number of unique species combinations in a matrix
 #' @details In Diamond's (1975) assembly rules model, species interactions lead to 
