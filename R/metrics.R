@@ -1,14 +1,3 @@
-##############################################
-## EcoSimR: R code for Null Model Analysis
-## Metrics for 
-## Nicholas J. Gotelli & Aaron M. Ellison
-##
-##
-##############################################
-## Version 1.00
-## 12 May 2013
-#############################################
-
 
 #' Pianka niche overlap
 #' @description Takes a resource utilization matrix as input and
