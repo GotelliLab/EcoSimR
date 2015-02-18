@@ -597,7 +597,7 @@ size_uniform_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesDat
                               userHigh=1.1*max(speciesData)){
 #  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
 #                                    User.high <- Param.List$Special[2]}
-  randomVec <- size_uniform_user(n=length(speciesData),min=userLow,max=userHigh)
+  randomVec <- runif(n=length(speciesData),min=userLow,max=userHigh)
   
   return(randomVec)
 }

@@ -1,31 +1,31 @@
 library(EcoSimR)
 context("Size ratio null model tests")
-test_that("uniform_size algorithm works:",{
-  expect_true(is.vector(uniform_size()))
-  expect_true(is.vector(uniform_size(rodents$Sonoran)))
+test_that("size_uniform algorithm works:",{
+  expect_true(is.vector(size_uniform()))
+  expect_true(is.vector(size_uniform(rodents$Sonoran)))
   
   }
 )
 
-test_that("uniform_size_user algorithm works:",{
-  expect_true(is.vector(uniform_size_user()))
-  expect_true(is.vector(uniform_size_user(rodents$Sonoran)))
-  expect_true(is.vector(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))))
-  expect_true(min(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) > 4)
-  expect_true(max(do.call(uniform_size_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) < 20)
+test_that("size_uniform_user algorithm works:",{
+  expect_true(is.vector(size_uniform_user()))
+  expect_true(is.vector(size_uniform_user(rodents$Sonoran)))
+  expect_true(is.vector(do.call(size_uniform_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))))
+  expect_true(min(do.call(size_uniform_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) > 4)
+  expect_true(max(do.call(size_uniform_user,list(speciesData = rodents$Sonoran,userLow=4,userHigh=20))) < 20)
   }
 )
 
-test_that("source_pool_draw algorithm works:",{
-  expect_true(is.vector(source_pool_draw()))
-  expect_true(is.vector(source_pool_draw(rodents$Sonoran)))
-  expect_true(is.vector(do.call(source_pool_draw,list(speciesData = rodents$Sonoran,
+test_that("size_source_pool algorithm works:",{
+  expect_true(is.vector(size_source_pool()))
+  expect_true(is.vector(size_source_pool(rodents$Sonoran)))
+  expect_true(is.vector(do.call(size_source_pool,list(speciesData = rodents$Sonoran,
        sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
        speciesProbs = rbeta(1000,1,1) ))))
 }
 )
 
-test_that("gamma_size algorithm works:",{
+test_that("size_size_gamma algorithm works:",{
   expect_true(is.vector(size_gamma()))
   expect_true(is.vector(size_gamma(rodents$Sonoran))) 
 }
@@ -71,34 +71,34 @@ test_that("var_ratio metric works",{
 
 test_that("size_null_model works with all combinations of metrics and algorithms",{
   ### Test that proper object is returned
-  expect_is(size_null_model(rodents,metric ="Min.Diff" ,algo = "Uniform.Size",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Min.Ratio" ,algo = "Uniform.Size",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Diff" ,algo = "Uniform.Size",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Ratio" ,algo = "Uniform.Size",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_diff" ,algo = "size_uniform",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_ratio" ,algo = "size_uniform",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_diff" ,algo = "size_uniform",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_ratio" ,algo = "size_uniform",nRep=10),"sizenullmod")
   
-  expect_is(size_null_model(rodents,metric ="Min.Diff" ,algo = "Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Min.Ratio" ,algo = "Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Diff" ,algo = "Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Ratio" ,algo = "Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_diff" ,algo = "size_uniform_user",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_ratio" ,algo = "size_uniform_user",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_diff" ,algo = "size_uniform_user",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_ratio" ,algo = "size_uniform_user",algoOpts = list(userLow = 3,userHigh=15),nRep=10),"sizenullmod")
   
   
-  expect_is(size_null_model(rodents,metric ="Min.Diff" ,algo = "Source.Pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
+  expect_is(size_null_model(rodents,metric ="min_diff" ,algo = "size_source_pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
                                                                                              speciesProbs = rbeta(1000,1,1) ),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Min.Ratio" ,algo = "Source.Pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
+  expect_is(size_null_model(rodents,metric ="min_ratio" ,algo = "size_source_pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
                                                                                               speciesProbs = rbeta(1000,1,1) ),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Diff" ,algo = "Source.Pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
+  expect_is(size_null_model(rodents,metric ="var_diff" ,algo = "size_source_pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
                                                                                                       speciesProbs = rbeta(1000,1,1) ),nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Ratio" ,algo = "Source.Pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
+  expect_is(size_null_model(rodents,metric ="var_ratio" ,algo = "size_source_pool",algoOpts = list(sourcePool = runif(1000,min(rodents$Sonoran),max(rodents$Sonoran)),
                                                                                                        speciesProbs = rbeta(1000,1,1) ),nRep=10),"sizenullmod")
    
-  expect_is(size_null_model(rodents,metric ="Min.Diff" ,algo = "Gamma",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Min.Ratio" ,algo = "Gamma",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Diff" ,algo = "Gamma",nRep=10),"sizenullmod")
-  expect_is(size_null_model(rodents,metric ="Var.Ratio" ,algo = "Gamma",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_diff" ,algo = "size_gamma",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="min_ratio" ,algo = "size_gamma",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_diff" ,algo = "size_gamma",nRep=10),"sizenullmod")
+  expect_is(size_null_model(rodents,metric ="var_ratio" ,algo = "size_gamma",nRep=10),"sizenullmod")
   
-  smod <- size_null_model(rodents,metric ="Var.Diff" ,algo = "Gamma",nRep=10)
+  smod <- size_null_model(rodents,metric ="var_diff" ,algo = "size_gamma",nRep=10)
   
-  expect_output(summary(smod),"Metric:  Var.Diff")
+  expect_output(summary(smod),"Metric:  var_diff")
   
 })
 
