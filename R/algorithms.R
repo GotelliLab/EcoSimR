@@ -542,34 +542,91 @@ ra4 <- function(speciesData=matrix(rpois(80,1),nrow=10))
     
   }
 
-
-#'Uniform size algorithm
-#'@description Function to randomize uniformly body sizes within  observed limits (classic Barton-David test)
+#' SizeUniform Size Overlap Randomization Algorithm
+#' @description Function to randomize body sizes within a uniform distribution
+#' with boundaries set by the largest and smallest species in the assemblage.
+#' @details If the assemblage contains n species,
+#' only the body sizes of the inner n - 2 species are randomized.
+#' @param speciesData a vector of positive real values representing the body
+#' sizes or trait values for each species.
+#' @return Returns a vector of body sizes that have been randomly assigned. The
+#' largest and smallest body sizes in the randomized assemblage match those in
+#' the empirical data.
+#' @references Simberloff, D. and W. Boecklen. 1981. Santa Rosalia
+#' reconsidered: size ratios and competition. Evolution 35: 1206-1228.
+#' 
+#' Tonkyn, D.W. and B.J. Cole. 1986. The statistical analysis of size ratios.
+#' American Naturalist 128: 66-81.
+#' @note Although the distribution of body sizes may not be truly uniform,
+#' it may be approximately uniform within the range of observed values,
+#' particularly for small assemblages. 
+#' @seealso \code{\link{size_gamma}} size distribution function.
+#' @examples 
+#' nullSizes <-size_uniform(speciesData=runif(20))
 #'@export
-uniform_size <- function(speciesData=runif(20)) {
+
+size_uniform <- function(speciesData=runif(20)) {
   
   endpoints <- c(min(speciesData),max(speciesData))  # save max and min boundaries
-  sim <- runif(n=(length(speciesData)-2),min=min(speciesData),max=max(speciesData))
+  sim <- runif(n=(length(speciesData)-2),min=endpoints[1],max=endpoints[2])
   randomVec <- c(endpoints,sim)
   return(randomVec)
 }
 
-#' User defined size limits
-#' @description Function to randomize uniformly body sizes within user-defined limits. Note that all n species are randomized in this algorithm
+#' SizeUser Size Overlap Randomization Algorithm
+#' @description Observed body sizes are randomized with a uniform distribution
+#' for which the user has defined the minimum and maximum possible body size.
+#' @details Within the user-defined limits, body sizes of all n species are
+#' randomized, whereas uniform_size randomizes only n - 2 of the body
+#' sizes and uses the extreme values to set the endpoints.
+#' @param speciesData a vector of observed body sizes.
+#' @param userLow a user-defined lower limit.
+#' @param userHigh a user-defined upper limit.
+#' @return Returns a vector of randomized body sizes.	
+#' @note As the difference between the lower and upper boundaries is increased
+#' the test will yield results that are random or aggregated, even though the 
+#' same data might yield a segregated pattern when the uniform_size algorithm
+#' is used. For this reason, this algorithm is not recommended for size ratio
+#' analyses.
+#' @seealso \code{\link{size_uniform}} size distribution algorithm.
+#' @examples 
+#' nullSizes <- uniform_size_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
 #' @export
-uniform_size_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesData),
+
+size_uniform_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesData),
                               userHigh=1.1*max(speciesData)){
 #  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
 #                                    User.high <- Param.List$Special[2]}
-  randomVec <- runif(n=length(speciesData),min=userLow,max=userHigh)
+  randomVec <- size_uniform_user(n=length(speciesData),min=userLow,max=userHigh)
   
   return(randomVec)
 }
 
-#' Source pool of body sizes
-#' @description Function to randomize body sizes by drawing from a user-defined source pool. Species are drawn without replacement, and there is a specified probability vector for the source pool species
+#' SizeSourcePoolDraw Size Overlap Randomization Algorithm
+#' @description Function to randomize body sizes by drawing species from a 
+#' user-defined source pool. Species are drawn without replacement, 
+#' and there is a specified probability vector for the source pool species
+
+#' @param speciesData a vector of observed body sizes.
+#' @param sourcePool a vector of body sizes of species in the user-defined
+#' pool of potential colonists.
+#' @param speciesProbs a vector of relative colonization weights of 
+#' length 'sourcePool'.
+#' @return Returns a vector of body sizes of an assemblage randomly drawn
+#' from a user-defined source pool.
+#' @references Strong, D.R. Jr., L.A. Szyska, and D. Simberloff. 1979. Tests of
+#' community-wide character displacement against null hypotheses. Evolution 33:
+#' 897-913.
+
+#' Schluter, D. and P.R. Grant. 1984. Determinants of morphological patterns in
+#' communities of Darwin's finches. American Naturalist 123: 175-196.
+#' @note Although delineating a source pool of species and estimating their
+#' relative colonization probabilities is difficult, this is the most realistic
+#' approach to constructing a null distribution.
+#' @examples 
+#' obsOverlap <- size_source_pool(speciesData=21:30,sourcePool= runif(n=2*length(speciesData),min=10,max=50), speciesProbs=rep(1,length(sourcePool)))
 #' @export
-source_pool_draw <- function(speciesData=21:30,sourcePool=
+size_source_pool <- function(speciesData=21:30,sourcePool=
                                runif(n=2*length(speciesData),min=10,max=50),
                              speciesProbs=rep(1,length(sourcePool))) {
   
@@ -609,4 +666,3 @@ size_gamma <- function (speciesData=rnorm(50,mean=100,sd=1)) {
 
   return(gammaDraw)
 }
-#' @export
