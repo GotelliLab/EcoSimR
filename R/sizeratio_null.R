@@ -33,7 +33,7 @@
 #'
 #'@export
 
-size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
+size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
 
   mChoice<- c("min_diff", "min_ratio", "var_diff", "var_ratio")
   aChoice <- c("size_uniform", "size_uniform_user", "size_source_pool", "size_gamma")
@@ -62,8 +62,8 @@ summary.sizenullmod <- function(object,...)
   cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
   cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$metric,  "\n")
-  cat("Algorithm: ", nullmodObj$algo,  "\n") 
+  cat("Metric: ", nullmodObj$Metric,  "\n")
+  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")

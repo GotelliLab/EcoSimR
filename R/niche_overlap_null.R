@@ -2,7 +2,7 @@
 #'@description Create a niche overlap null model
 #'@param speciesData a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
-#'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
+#'@param metric the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
@@ -22,7 +22,7 @@
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
   aChoice <- c("ra1","ra2","ra3","ra4")
   mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
   
@@ -50,8 +50,8 @@ summary.nichenullmod <- function(object,...)
   cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
   cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$metric,  "\n")
-  cat("Algorithm: ", nullmodObj$algorithm,  "\n") 
+  cat("Metric: ", nullmodObj$Metric,  "\n")
+  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
