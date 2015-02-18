@@ -39,6 +39,49 @@ test_that("ra4 algorithm works:",{
 }
 )
 
+test_that("pianka metric works:"{
+expect_true(is.numeric(pianka(ra1())))
+expect_true(is.numeric(pianka(ra4(macwarb[,2:5]))))
+expect_true(pianka(ra4(macwarb[,2:5])) > .5 )
+
+})
+
+test_that("czekanowski metric works:"{
+  expect_true(is.numeric(czekanowski(ra1())))
+  expect_true(is.numeric(czekanowski(ra4(macwarb[,2:5]))))
+  expect_true(czekanowski(ra4(macwarb[,2:5])) > .5 )
+  
+})
+
+test_that("pianka_var metric works:"{
+  expect_true(is.numeric(pianka_var(ra1())))
+  expect_true(is.numeric(pianka_var(ra4(macwarb[,2:5]))))
+  expect_true(pianka_var(ra4(macwarb[,2:5])) < .5 )
+  
+})
+
+
+test_that("czekanowski_var metric works:"{
+  expect_true(is.numeric(czekanowski_var(ra1())))
+  expect_true(is.numeric(czekanowski_var(ra4(macwarb[,2:5]))))
+  expect_true(czekanowski_var(ra4(macwarb[,2:5])) < .5 )
+  
+})
+
+test_that("pianka_skew metric works:"{
+  expect_true(is.numeric(pianka_skew(ra1())))
+  expect_true(is.numeric(pianka_skew(ra4(macwarb[,2:5]))))
+  
+})
+
+
+test_that("czekanowski_skew metric works:"{
+  expect_true(is.numeric(czekanowski_skew(ra1())))
+  expect_true(is.numeric(czekanowski_skew(ra4(macwarb[,2:5]))))  
+})
+
+
+
 
 
 
