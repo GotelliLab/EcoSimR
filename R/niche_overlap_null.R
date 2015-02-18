@@ -24,14 +24,10 @@
 
 niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
   aChoice <- c("ra1","ra2","ra3","ra4")
-  mChoice <- c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew")
-  mFunc <- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
+  mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
   
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  
-  #Now do the substitutions
-  metric <- mFunc[which(mChoice==metric)]
   
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
@@ -50,14 +46,12 @@ summary.nichenullmod <- function(object,...)
  
   nullmodObj <- object 
   
-  cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
- # cat("Data File: ", p$Data.File,  "\n")
-#  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n")  
+  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$metric,  "\n")
+  cat("Algorithm: ", nullmodObj$algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")

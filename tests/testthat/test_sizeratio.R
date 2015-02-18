@@ -26,8 +26,8 @@ test_that("source_pool_draw algorithm works:",{
 )
 
 test_that("gamma_size algorithm works:",{
-  expect_true(is.vector(gamma_size()))
-  expect_true(is.vector(gamma_size(rodents$Sonoran))) 
+  expect_true(is.vector(size_gamma()))
+  expect_true(is.vector(size_gamma(rodents$Sonoran))) 
 }
 )
 

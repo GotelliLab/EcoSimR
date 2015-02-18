@@ -34,17 +34,12 @@
 #'@export
 
 size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
-  aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
-  mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
-  mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
-  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "gamma_size")
+
+  mChoice<- c("min_diff", "min_ratio", "var_diff", "var_ratio")
+  aChoice <- c("uniform_size", "uniform_size_user", "source_pool_draw", "size_gamma")
   
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  
-  #Now do the substitutions
-  metric <- mFunc[which(mChoice==metric)]
-  algo <- aFunc[which(aChoice==algo)]
   
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
@@ -64,13 +59,11 @@ summary.sizenullmod <- function(object,...)
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
-  # cat("Data File: ", p$Data.File,  "\n")
-  #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$metric,  "\n")
+  cat("Algorithm: ", nullmodObj$algo,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
@@ -102,7 +95,7 @@ summary.sizenullmod <- function(object,...)
 plot.sizenullmod <- function(x, type = "hist",...)
 {
   
-  nullmodObj <- x
+nullmodObj <- x
 if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
