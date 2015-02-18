@@ -654,11 +654,11 @@ size_source_pool <- function(speciesData=21:30,sourcePool=
 #' @seealso \code{\link{fitdr}} in the MASS library.
 #' @examples 
 #' obsOverlap <- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
+#' @importFrom MASS fitdistr
 #' @export
 
 size_gamma <- function (speciesData=rnorm(50,mean=100,sd=1)) {
  
-  library(MASS)
   mleFit <- fitdistr(speciesData, 'gamma')
   a <- mleFit$estimate["shape"]
   b <- mleFit$estimate["rate"]

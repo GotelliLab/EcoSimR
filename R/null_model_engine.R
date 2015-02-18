@@ -32,8 +32,8 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   if(is.character(speciesData)){stop("Did you forget to set rowNames to TRUE?  Your data is non-numeric")}
   
   
-  algoF <- eval(parse(text = algo))
-  metricF <- eval(parse(text = metric))
+  algoF <- get(algo)
+  metricF <- get(metric)
   
   
   startTime <- Sys.time()
@@ -42,7 +42,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   if (nReps < 2) nReps <- 2
   
   sim <- rep(NA,nReps)
-  # sim <- pbreplicate(nReps,metricF(algoF(speciesData)))
+
   algoOpts[["speciesData"]] <- speciesData
   m <- do.call(algoF,algoOpts)
   metricOpts[["m"]] <- m
@@ -64,21 +64,9 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   ### Reverse engineers the naming for consistent output
   ### Be sure to update the code below if new algos and metrics are added
   
-  aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma","ra1","ra2","ra3","ra4",
-                paste("sim",1:10,sep=""),"simFast")
-  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "gamma_size","ra1","ra2","ra3","ra4",
-              paste("sim",1:10,sep=""),"simFast")
+
   
-  mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio","Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew",
-                "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
-  mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio","pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew",
-              "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
-  
-  metricOut <- mChoice[which(mFunc==metric)]
-  algoOut <- aChoice[which(aFunc==algo)]
-  
-  
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric,MetricOut = metricOut, Algorithm = algo,AlgorithmOut = algoOut, n.reps = nReps, SaveSeed = saveSeed,RandomSeed = randomSeed, Data = speciesData)
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, Reproducible = saveSeed,RandomSeed = randomSeed, Data = speciesData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
   

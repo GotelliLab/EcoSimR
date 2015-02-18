@@ -39,13 +39,11 @@
 #'@export
 
 cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
-  mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
   aChoice <- c(paste("sim",c(1:8,10),sep=""),"simFast")
-  mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
+  mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  metric <- mFunc[which(mChoice==metric)]
   ## Control behavior of whether or not sim9fast is used.
   if(algo != "simFast"){
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed
@@ -74,13 +72,11 @@ summary.coocnullmod <- function(object,...)
 { 
   nullmodObj <- object
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
-  # cat("Data File: ", p$Data.File,  "\n")
-  #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Reproducible: ",nullmodObj$Reproducible,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$metric,  "\n")
+  cat("Algorithm: ", nullmodObj$algo,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
