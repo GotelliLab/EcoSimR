@@ -35,20 +35,72 @@
         
       </header>
       
-      <h1>RA3 Function</h1>
+      <h1>RA3 Niche Overlap Randomization Algorithm</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
     <pre><div>ra3(speciesData&nbsp;=&nbsp;matrix(rpois(80, 1), nrow&nbsp;=&nbsp;10))</div></pre>
-        
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a resource utilization matrix (rows = species, columns = discrete
+resource states) filled with non-negative real numbers.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a random utilization matrix with the same dimensions as the
+input matrix.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Randomizes a numeric utilization matrix speciesData by reshuffling the elements within each row</p>
+      <p>Randomizes a numeric utilization matrix speciesData by
+reshuffling the elements within each row.</p>
   
     </div>
-      </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The resource utilization matrix (rows = species, columns = discrete
+resource categories) may include zeroes, but no negative numbers or missing
+values. Relative resource within a species is first calculated, so the rows
+need not sum to 1.0.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>This algorithm retains the niche breadth and zero states for each
+species, but randomizes the assignment of each utilization value to a
+different niche category. It performs effectively in simulation studies and
+is recommended for analysis of niche overlap patterns.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
+assemblages of desert lizards and tropical fishes. Ecological Monographs
+60: 27-55.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>ranUtil &lt;- ra3(m=matrix(rpois(40,0.5),nrow=8))
+</div>
+<strong class='error'>Error in ra3(m = matrix(rpois(40, 0.5), nrow = 8)): unused argument (m = matrix(rpois(40, 0.5), nrow = 8))</strong></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>ra3</li>

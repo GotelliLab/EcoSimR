@@ -45,7 +45,7 @@
     <h2>Arguments</h2>
     <dl>
       <dt>m</dt>
-      <dd>A matrix of resource utilization values.</dd>
+      <dd>a matrix of resource utilization values.</dd>
     </dl>
     
     <div class="Value">
@@ -75,6 +75,8 @@ Values of Czekanowski niche overlap index close to 0.0
 reflect usage of exclusive resource categories, whereas values close to 1.0
 reflect similar resource utilization spectra.</p>
   
+      <p><pre class = 'eq'>O_jk = O_kj = 1 - 0.5*sum|p_ij - p_ik|</pre>'</p>
+  
     </div>
 
     <div class="Note">
@@ -90,8 +92,8 @@ need not sum to 1.0.</p>
     <div class="References">
       <h2>References</h2>
 
-      <p>Feinsinger, P., E.E. Spears, and R. Poole. 1981.
-A simple measure of niche breadth. Ecology 62: 27-32.</p>
+      <p>Feinsinger, P., E.E. Spears, and R. Poole. 1981. A simple measure
+of niche breadth. Ecology 62: 27-32.</p>
   
       <p>Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.</p>
@@ -99,7 +101,7 @@ of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.</p>
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>obsOverlap &lt;- pianka(m=matrix(rpois(40,0.5),nrow=8))
+    <pre class="examples"><div class='input'>obsOverlap &lt;- czekanowski(m=matrix(rpois(40,0.5),nrow=8))
 </div></pre>
   </div>
   <div class="span4">

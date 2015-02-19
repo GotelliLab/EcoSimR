@@ -35,20 +35,68 @@
         
       </header>
       
-      <h1>Czekanowski variance function</h1>
+      <h1>Czekanowski variance</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
     <pre><div>czekanowski_var(m&nbsp;=&nbsp;matrix(rpois(80, 1), nrow&nbsp;=&nbsp;10))</div></pre>
-        
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a matrix of resource utilization values.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns the variance of the average pairwise niche overlap.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Takes a niche utilization matrix returns variance Czekanowski niche overlap index</p>
+      <p>Takes a niche utilization matrix returns the variance of the
+Czekanowski niche overlap index</p>
   
     </div>
-      </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>A large value for variance implies that some species pairs show high
+niche overlap and others show low niche overlap. A low value for variance
+implies that niche overlap (high or low) is very similar among all species pairs.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>The resource utilization matrix (rows = species, columns = discrete
+resource categories) may include zeroes, but no negative numbers or missing
+values. Relative resource within a species is first calculated, so the rows
+need not sum to 1.0.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
+assemblages of desert lizards and tropical fishes. Ecological Monographs 60:
+27-55.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>obsVar &lt;- czekanowski_var(m=matrix(rpois(40,0.5),nrow=8))
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>czekanowski_var</li>
@@ -57,6 +105,10 @@
       
     </ul> -->
       
+    <h2>See also</h2>
+    
+<code><a href='czekanowski.html'>czekanowski</a></code> niche overlap index.
+
         
   </div>
 </div>

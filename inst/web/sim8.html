@@ -35,20 +35,79 @@
         
       </header>
       
-      <h1>Sim8 Function</h1>
+      <h1>Sim8 Co-occurrence Randomization Algorithm</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
     <pre><div>sim8(speciesData)</div></pre>
-        
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>binary presence-absence matrix
+(rows = species, columns = sites).</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a binary presence-absence matrix with the same
+dimensions and fill as the input matrix.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Randomizes a binary matrix speciesData by reshuffling all elements Columns are proportional to column sums, rows proportional to row sums Makes a call to the VectorSample</p>
+      <p>Randomizes a binary matrix speciesData by reshuffling all
+elements. Columns are proportional to column sums, and rows are proportional
+to row sums. Makes a call to the vector_sample function.</p>
   
     </div>
-      </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>This algorithm assumes that the probability that a species occurs
+in a site is depends on the joint independent probability of randomly
+selecting the species and randomly selecting the site, with these
+probabilities set proportional to row and column sums of the matrix.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>This algorithm is theoretically attractive because it incorporates
+heterogeneity in species occurrences and species richness per site in a
+probabilistic way that does not fix row and column frquencies. However,
+in spite of its appeal, sim8 does not generate average row and column sums
+that match the original matrix, and it is susceptible to Type I errors when
+tested with random matrices. It is not recommended for co-occurrence
+analysis. See Ulrich and Gotelli (2012) for a more complicated algorithm
+for probabilistic row and column totals that has better statistical behavior.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Gotelli, N.J. 2000. Null model analysis of species co-occurrence
+patterns. Ecology 81: 2606-2621.</p>
+  
+      <p>Ulrich, W. and N.J. Gotelli. 2012. A null model algorithm for presence-
+absence matrices based on proportional resampling. Ecological Modelling
+244:20-27.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>randomMatrix &lt;- sim8(matrix(rbinom(40,1,0.5),nrow=8))
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>sim8</li>

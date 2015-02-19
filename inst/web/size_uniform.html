@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>v_ratio. EcoSimR 0.1.0</title>
+<title>size_uniform. EcoSimR 0.1.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -35,25 +35,27 @@
         
       </header>
       
-      <h1>Schluter's V-ratio</h1>
+      <h1>SizeUniform Size Overlap Randomization Algorithm</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>v_ratio(m&nbsp;=&nbsp;matrix(rbinom(100, 1, 0.5), nrow&nbsp;=&nbsp;10))</div></pre>
+    <pre><div>size_uniform(speciesData&nbsp;=&nbsp;runif(20))</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>m</dt>
-      <dd>a binary presence-absence matrix in which rows are species and columns
-are sites. The entries may be either abundances or occurrences of indivdual species.</dd>
+      <dt>speciesData</dt>
+      <dd>a vector of positive real values representing the body
+sizes or trait values for each species.</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-Returns the variance ratio of the matrix.
+Returns a vector of body sizes that have been randomly assigned. The
+largest and smallest body sizes in the randomized assemblage match those in
+the empirical data.
 </dl></p>
   
     </div>
@@ -61,56 +63,55 @@ Returns the variance ratio of the matrix.
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Takes a binary presence-absence matrix or a matrix of
-abundances and returns Schluter's (1984) variance ratio.</p>
+      <p>Function to randomize body sizes within a uniform distribution
+with boundaries set by the largest and smallest species in the assemblage.</p>
   
     </div>
 
     <div class="Details">
       <h2>Details</h2>
 
-      <p>The variance ratio is the ratio of the variance in species number
-among sites to the sum of the variance of the species occurrences. If the average
-covariation in abundance (or occurrence) of each species pair is close to zero,
-the expected value for this ratio is approximately 1.0. V-ratios larger than 1.0
-imply positive average covariation in the abundance of species pairs, whereas V-ratios
-significantly smaller than 1.0 imply negative average covariation.</p>
+      <p>If the assemblage contains n species,
+only the body sizes of the inner n - 2 species are randomized.</p>
   
     </div>
 
     <div class="Note">
       <h2>Note</h2>
 
-      <p>This index is determined exclusively by the row and column sums of the
-matrix, so it cannot be used with null model algorithms that hold both of those
-elements fixed. A simple randomization of the rows of the matrix (see sim2)
-assumes that all sites are equiprobable, so it may generate large values (=
-positive covariance) that reflect heterogeneity among sites.</p>
+      <p>Although the distribution of body sizes may not be truly uniform,
+it may be approximately uniform within the range of observed values,
+particularly for small assemblages.</p>
   
     </div>
 
     <div class="References">
       <h2>References</h2>
 
-      <p>Schluter, D. 1984. A variance test for detecting species associations,
-with some example applications. Ecology 65: 998-1005.</p>
+      <p>Simberloff, D. and W. Boecklen. 1981. Santa Rosalia
+reconsidered: size ratios and competition. Evolution 35: 1206-1228.</p>
   
-      <p>McCulloch, C.E. 1985. Variance tests for species association. Ecology 66: 1676-1681.</p>
+      <p>Tonkyn, D.W. and B.J. Cole. 1986. The statistical analysis of size ratios.
+American Naturalist 128: 66-81.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>varCScore &lt;- v_ratio(m=matrix(rpois(100,0.5),nrow=10))
+    <pre class="examples"><div class='input'>nullSizes &lt;-size_uniform(speciesData=runif(20))
 </div></pre>
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>v_ratio</li>
+      <li>size_uniform</li>
     </ul>
     <ul>
       
     </ul> -->
       
+    <h2>See also</h2>
+    
+<code><a href='size_gamma.html'>size_gamma</a></code> size distribution function.
+
         
   </div>
 </div>

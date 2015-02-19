@@ -40,7 +40,7 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>size_null_model(speciesData, algo&nbsp;=&nbsp;"Uniform.Size", metric&nbsp;=&nbsp;"Var.Ratio", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, randomSeed&nbsp;=&nbsp;0, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list())</div></pre>
+    <pre><div>size_null_model(speciesData, algo&nbsp;=&nbsp;"size_uniform", metric&nbsp;=&nbsp;"var_ratio", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, saveSeed&nbsp;=&nbsp;FALSE, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list())</div></pre>
     
     <h2>Arguments</h2>
     <dl>
@@ -54,8 +54,12 @@
       <dd>the number of replicates to run the null model.</dd>
       <dt>rowNames</dt>
       <dd>Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names</dd>
-      <dt>randomSeed</dt>
-      <dd>Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.</dd>
+      <dt>saveSeed</dt>
+      <dd>TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
     </dl>
     
     <div class="Description">
@@ -74,8 +78,18 @@
 # plot(rodentMod,type=&quot;hist&quot;)
 # plot(rodentMod,type=&quot;size&quot;)
 # 
-# ##
+# ##  Uniform Size model with user inputs
 # rodentMod2 &lt;- size_null_model(rodents,algo=&quot;Uniform.Size.User&quot;,algoOpts = list(userLow = 3,userHigh=15))
+# summary(rodentMod2)
+# plot(rodentMod2,type=&quot;hist&quot;)
+# plot(rodentMod2,type=&quot;size&quot;)
+# 
+# ### Source pool model
+# 
+# rodentMod_sp &lt;- size_null_model(rodents,algo=&quot;Source.Pool&quot;,algoOpts = list(sourcePool = runif(dim(rodents)[1],1,15)))
+# summary(rodentMod_sp)
+# plot(rodentMod_sp,type=&quot;hist&quot;)
+# plot(rodentMod_sp,type=&quot;size&quot;)
 # 
 # ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
 </div></pre>
