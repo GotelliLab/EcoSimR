@@ -6,7 +6,7 @@
 czekanowski(m = matrix(rpois(80, 1), nrow = 10))
 }
 \arguments{
-\item{m}{A matrix of resource utilization values.}
+\item{m}{a matrix of resource utilization values.}
 }
 \value{
 Returns the average pairwise niche overlap.
@@ -22,6 +22,8 @@ of the resource utilization histograms of each species pair.
 Values of Czekanowski niche overlap index close to 0.0
 reflect usage of exclusive resource categories, whereas values close to 1.0
 reflect similar resource utilization spectra.
+
+\deqn{O_{jk} = O_{kj} = 1 - 0.5\sum_{i=1}^n|p_{ij} - p_{ik}|}{O_jk = O_kj = 1 - 0.5*sum|p_ij - p_ik|}'
 }
 \note{
 The resource utilization matrix (rows = species, columns = discrete
@@ -30,11 +32,11 @@ values. Relative resource within a species is first calculated, so the rows
 need not sum to 1.0.
 }
 \examples{
-obsOverlap <- pianka(m=matrix(rpois(40,0.5),nrow=8))
+obsOverlap <- czekanowski(m=matrix(rpois(40,0.5),nrow=8))
 }
 \references{
-Feinsinger, P., E.E. Spears, and R. Poole. 1981.
-A simple measure of niche breadth. Ecology 62: 27-32.
+Feinsinger, P., E.E. Spears, and R. Poole. 1981. A simple measure
+of niche breadth. Ecology 62: 27-32.
 
 Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
 of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.

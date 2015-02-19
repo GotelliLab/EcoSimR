@@ -7,3 +7,8 @@ EcoSimR.Rproj
 tmp.R
 dev.R
 .DS_Store
+EcoSimR.Rcheck/
+*.gz
+*check/
+*~
+*.swp

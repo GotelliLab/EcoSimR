@@ -3,26 +3,26 @@
 \alias{niche_null_model}
 \title{Niche overlap}
 \usage{
-niche_null_model(speciesData, algo = "ra3", metric = "Pianka",
-  nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(),
-  metricOpts = list())
+niche_null_model(speciesData, algo = "ra3", metric = "pianka",
+  nReps = 1000, rowNames = TRUE, algoOpts = list(), metricOpts = list(),
+  saveSeed = TRUE)
 }
 \arguments{
 \item{speciesData}{a dataframe <put some guidelines in here>}
 
 \item{algo}{the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"}
 
-\item{metric}{the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka}
+\item{metric}{the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka}
 
 \item{nReps}{the number of replicates to run the null model.}
 
 \item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{randomSeed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
-
 \item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
 
 \item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
+
+\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 }
 \description{
 Create a niche overlap null model

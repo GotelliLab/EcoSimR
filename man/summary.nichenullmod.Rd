@@ -3,7 +3,7 @@
 \alias{summary.nichenullmod}
 \title{Generic function for calculating null model summary statistics}
 \usage{
-\method{summary}{nichenullmod}(nullmodObj)
+\method{summary}{nichenullmod}(object, ...)
 }
 \description{
 Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
