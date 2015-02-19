@@ -92,17 +92,16 @@ summary.sizenullmod <- function(object,...)
 }
 
 
-plot.sizenullmod <- function(x, type = "hist",...)
+plot.sizenullmod <- function(nullmodObj, type = "hist",x = NULL,...)
 {
   
-nullmodObj <- x
+#nullmodObj <- x
 if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
   par (mar=c(5,6,4,2)+0.1)
-  #------------------------------------------------------
   hist(nullmodObj$Sim, breaks=20, col="royalblue3",
        
        xlab="Simulated Metric",ylab="Frequency",main="",
