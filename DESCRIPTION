@@ -15,6 +15,7 @@ LazyLoad: yes
 LazyData: yes
 Description: <longer description here>
 License: MIT + file LICENSE
+Depends:
+    MASS
 Suggests:
-    pbapply,
     testthat
