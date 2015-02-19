@@ -5,7 +5,9 @@
 #'@param metric the metric used to caluclate the null model: choices are "Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio"; default is Var.Ratio
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param randomSeed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
 #' ## Run the null model
 #' rodentMod <- size_null_model(rodents)
@@ -31,20 +33,15 @@
 #'
 #'@export
 
-size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ratio", nReps = 1000, rowNames = TRUE, randomSeed = 0, algoOpts = list(), metricOpts = list()){
-  aChoice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma")
-  mChoice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio")
-  mFunc <- c("min_diff", "min_ratio", "var_diff", "var_ratio")
-  aFunc <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma")
+size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
+
+  mChoice<- c("min_diff", "min_ratio", "var_diff", "var_ratio")
+  aChoice <- c("size_uniform", "size_uniform_user", "size_source_pool", "size_gamma")
   
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
   
-  #Now do the substitutions
-  metric <- mFunc[which(mChoice==metric)]
-  algo <- aFunc[which(aChoice==algo)]
-  
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, randomSeed = randomSeed, algoOpts = algoOpts, metricOpts = metricOpts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)
@@ -56,22 +53,17 @@ size_null_model <- function(speciesData, algo = "Uniform.Size", metric = "Var.Ra
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @export
 
-summary.sizenullmod <- function(nullmodObj)
+summary.sizenullmod <- function(object,...)
 { 
-  
-  
-  
-  
+  nullmodObj <- object
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
-  # cat("Data File: ", p$Data.File,  "\n")
-  #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed: ",nullmodObj$RandomInteger,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$Metric,  "\n")
+  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
@@ -100,15 +92,16 @@ summary.sizenullmod <- function(nullmodObj)
 }
 
 
-plot.sizenullmod <- function(nullmodObj, type = "hist")
+plot.sizenullmod <- function(nullmodObj, type = "hist",x = NULL,...)
 {
+  
+#nullmodObj <- x
 if(type == "hist"){
   
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
   par (mar=c(5,6,4,2)+0.1)
-  #------------------------------------------------------
   hist(nullmodObj$Sim, breaks=20, col="royalblue3",
        
        xlab="Simulated Metric",ylab="Frequency",main="",

@@ -6,7 +6,7 @@
 pianka(m = matrix(rpois(80, 1), nrow = 10))
 }
 \arguments{
-\item{m}{A matrix of resource utilization values.}
+\item{m}{a matrix of resource utilization values.}
 }
 \value{
 Returns the average pairwise niche overlap.

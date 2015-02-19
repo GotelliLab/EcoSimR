@@ -3,8 +3,8 @@
 \alias{sim9.fast}
 \title{Sim9.fast function}
 \usage{
-sim9.fast(species_data, algo, metric, n.reps = 1000, row.names = TRUE,
-  random.seed = 0, burnin = 0)
+sim9.fast(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
+  saveSeed = FALSE, burnin = 0)
 }
 \description{
 Special implementation of sequential swap algorithm
