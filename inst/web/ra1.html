@@ -35,20 +35,76 @@
         
       </header>
       
-      <h1>RA1 Function</h1>
+      <h1>RA1 Niche Overlap Randomization Algorithm</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
     <pre><div>ra1(speciesData&nbsp;=&nbsp;matrix(rpois(80, 1), nrow&nbsp;=&nbsp;10))</div></pre>
-        
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a resource utilization matrix (rows = species, columns = discrete
+resource states) filled with non-negative real numbers.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a random utilization matrix with the same dimensions as the
+input matrix.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Randomizes a numeric utilization matrix speciesData by replacing all elements with a random uniform [0,1]</p>
+      <p>Randomizes a numeric utilization matrix speciesData by
+replacing all elements with a random uniform [0,1] value.</p>
   
     </div>
-      </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The resource utilization matrix (rows = species, columns = discrete
+resource categories) may include zeroes, but no negative numbers or missing
+values. Relative resource within a species is first calculated, so the rows
+need not sum to 1.0.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>Because all matrix elements, including zeroes, are replaced with a
+random uniform distribution, the null expectation is based on an assemblage
+of generalist species with maximum niche breadth. This algorithm retains
+neither the niche breadth of the individuals species nor the placement of 0
+values (= unutilized resource states) in the matrix. These assumptions are
+unrealistic, and a random matrix with zeroes will generate significantly low
+niche overlap values with this metric. It is not recommended for niche
+overlap analysis.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Kobayashi, S. 1991. Interspecific relations in forest floor
+coleopteran assemblages: niche overlap and guild structure. Researches
+in Population Ecology 33: 345-360.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>ranUtil &lt;- ra1(m=matrix(rpois(40,0.5),nrow=8))
+</div>
+<strong class='error'>Error in ra1(m = matrix(rpois(40, 0.5), nrow = 8)): unused argument (m = matrix(rpois(40, 0.5), nrow = 8))</strong></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>ra1</li>

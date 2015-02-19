@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>c_score_skew. EcoSimR 0.1.0</title>
+<title>size_uniform_user. EcoSimR 0.1.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -35,26 +35,28 @@
         
       </header>
       
-      <h1>C-score skew</h1>
+      <h1>SizeUser Size Overlap Randomization Algorithm</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>c_score_skew(m&nbsp;=&nbsp;matrix(rbinom(100, 1, 0.5), nrow&nbsp;=&nbsp;10))</div></pre>
+    <pre><div>size_uniform_user(speciesData&nbsp;=&nbsp;runif(n&nbsp;=&nbsp;20), userLow&nbsp;=&nbsp;0.9 * min(speciesData), userHigh&nbsp;=&nbsp;1.1 * max(speciesData))</div></pre>
     
     <h2>Arguments</h2>
     <dl>
-      <dt>m</dt>
-      <dd>a binary presence-absence matrix in which rows are species and columns
-are sites.</dd>
+      <dt>speciesData</dt>
+      <dd>a vector of observed body sizes.</dd>
+      <dt>userLow</dt>
+      <dd>a user-defined lower limit.</dd>
+      <dt>userHigh</dt>
+      <dd>a user-defined upper limit.</dd>
     </dl>
     
     <div class="Value">
       <h2>Value</h2>
 
       <p><dl>
-Returns the skewness of the C-score calculated across all possible
-species pairs in the matrix.
+Returns a vector of randomized body sizes.
 </dl></p>
   
     </div>
@@ -62,50 +64,39 @@ species pairs in the matrix.
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Takes a binary presence-absence matrix and returns
-the skewness of the Stone and Roberts' (1990) C-score.</p>
+      <p>Observed body sizes are randomized with a uniform distribution
+for which the user has defined the minimum and maximum possible body size.</p>
   
     </div>
 
     <div class="Details">
       <h2>Details</h2>
 
-      <p>A large positive value of skewness implies a preponderance of species pairs
-with large C-score values (segregated), whereas a large negative value of
-skewness implies a preponderance of species pairs with small C-score values
-(aggregated).</p>
+      <p>Within the user-defined limits, body sizes of all n species are
+randomized, whereas uniform_size randomizes only n - 2 of the body
+sizes and uses the extreme values to set the endpoints.</p>
   
     </div>
 
     <div class="Note">
       <h2>Note</h2>
 
-      <p>The matrix-wide C-score is not calculated for missing species, so empty
-rows in the matrix do not affect the result. This index has not been
-thoroughly tested with real data sets.</p>
-  
-    </div>
-
-    <div class="References">
-      <h2>References</h2>
-
-      <p>Stone, L. and A. Roberts. 1990. The checkerboard score and species
-distributions. Oecologia 85: 74-79.</p>
-  
-      <p>Stone, L. and A. Roberts. 1992. Competitive exclusion, or species aggregation?
-An aid in deciding. Oecologia 91: 419-424.</p>
+      <p>As the difference between the lower and upper boundaries is increased
+the test will yield results that are random or aggregated, even though the
+same data might yield a segregated pattern when the uniform_size algorithm
+is used. For this reason, this algorithm is not recommended for size ratio
+analyses.</p>
   
     </div>
     
     <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>skewCScore &lt;- c_score_skew(m=matrix(rbinom(100,0.5),nrow=10))
+    <pre class="examples"><div class='input'>nullSizes &lt;- uniform_size_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
 </div>
-<strong class='error'>Error in rbinom(100, 0.5): argument &quot;prob&quot; is missing, with no default</strong>
-<p><img src='c_score_skew-3.png' alt='' width='540' height='400' /></p></pre>
+<strong class='error'>Error in eval(expr, envir, enclos): could not find function &quot;uniform_size_user&quot;</strong></pre>
   </div>
   <div class="span4">
     <!-- <ul>
-      <li>c_score_skew</li>
+      <li>size_uniform_user</li>
     </ul>
     <ul>
       
@@ -113,7 +104,7 @@ An aid in deciding. Oecologia 91: 419-424.</p>
       
     <h2>See also</h2>
     
-<code><a href='c_score.html'>c_score</a></code> co-occurrence index.
+<code><a href='size_uniform.html'>size_uniform</a></code> size distribution algorithm.
 
         
   </div>

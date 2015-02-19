@@ -35,20 +35,68 @@
         
       </header>
       
-      <h1>Pianka skewness function</h1>
+      <h1>Pianka skew</h1>
 
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
     <pre><div>pianka_skew(m&nbsp;=&nbsp;matrix(rpois(80, 1), nrow&nbsp;=&nbsp;10))</div></pre>
-        
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a matrix of resource utilization values.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns the skewness of the average pairwise niche overlap.
+</dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Takes a niche utilization matrix returns skewness of Pianka's niche overlap index</p>
+      <p>Takes a niche utilization matrix returns the skewness of the
+Pianka pairwise niche overlap index.</p>
   
     </div>
-      </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>A large positive value for skewness implies that there are more species pairs
+with high than low niche overlap. A large negative value for skewness implies there are more
+species pairs with low than high niche overlap. The performance of this algorithm
+has not been thoroughly tested with real data sets.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>The resource utilization matrix (rows = species, columns = discrete
+resource categories) may include zeroes, but no negative numbers or missing
+values. Relative resource within a species is first calculated, so the rows
+need not sum to 1.0.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>obsSkew&lt;- pianka_skew(m=matrix(rpois(40,0.5),nrow=8))
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>pianka_skew</li>
@@ -57,6 +105,10 @@
       
     </ul> -->
       
+    <h2>See also</h2>
+    
+<code><a href='pianka.html'>pianka</a></code> niche overlap index.
+
         
   </div>
 </div>

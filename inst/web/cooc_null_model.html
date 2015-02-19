@@ -40,24 +40,28 @@
 <div class="row">
   <div class="span8">
     <h2>Usage</h2>
-    <pre><div>cooc_null_model(speciesData, algo&nbsp;=&nbsp;"simFast", metric&nbsp;=&nbsp;"C.Score", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, randomSeed&nbsp;=&nbsp;0, burnin&nbsp;=&nbsp;NA, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list())</div></pre>
+    <pre><div>cooc_null_model(speciesData, algo&nbsp;=&nbsp;"simFast", metric&nbsp;=&nbsp;"C.Score", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, saveSeed&nbsp;=&nbsp;FALSE, burnin&nbsp;=&nbsp;0, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list())</div></pre>
     
     <h2>Arguments</h2>
     <dl>
       <dt>speciesData</dt>
       <dd>a dataframe <put some guidelines in here></dd>
       <dt>algo</dt>
-      <dd>the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"</dd>
+      <dd>the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"</dd>
       <dt>metric</dt>
       <dd>the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"</dd>
       <dt>nReps</dt>
       <dd>the number of replicates to run the null model.</dd>
       <dt>rowNames</dt>
       <dd>Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names</dd>
-      <dt>randomSeed</dt>
-      <dd>Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.</dd>
+      <dt>saveSeed</dt>
+      <dd>TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated</dd>
       <dt>burnin</dt>
       <dd>The number of burnin iterations to use with the simFast algorithm</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
     </dl>
     
     <div class="Description">
@@ -75,6 +79,23 @@
 # ## Summary and plot info
 # summary(finchMod)
 # plot(finchMod,type=&quot;burnin&quot;)
+# 
+# ## Example that is repeatable with a saved seed
+# finchMod &lt;- cooc_null_model(wiFinches, algo=&quot;sim1&quot;,saveSeed = TRUE)
+# mean(finchMod$Sim)
+# ## Run the model with the seed saved
+# 
+# finchMod &lt;- cooc_null_model(wiFinches, algo=&quot;sim1&quot;,saveSeed=T)
+# ## Check model output
+# mean(finchMod$Sim)
+# 
+# reproduce_model(finchMod$Sim)
+# 
+# finchMod &lt;- cooc_null_model(wiFinches, algo=&quot;sim1&quot;)
+# ## Check model output is the same as before
+# mean(finchMod$Sim)
+# reproduce_model(finchMod$Sim)
+# 
 # 
 # ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
 </div></pre>
