@@ -221,7 +221,7 @@ sim6 <- function(speciesData)
 
 {
 matrixWeights <- outer(rep(1,nrow(speciesData)),colSums(speciesData))
-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
+out <-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
 }
 
 
