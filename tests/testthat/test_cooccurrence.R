@@ -188,6 +188,18 @@ test_that("All combinations of co-occurrence models work",{
 })
 
 
+
+test_that("Reproduce model works",{
+  smod <-   cooc_null_model(wiFinches, algo="sim8",metric="v_ratio",nRep=10,saveSeed = T)
+  reproduce_model(smod)
+  smod2 <- cooc_null_model(wiFinches, algo="sim8",metric="v_ratio",nRep=10)
+  expect_equal(sum(smod2$Sim-smod$Sim),0)
+  smod <-   cooc_null_model(wiFinches, algo="sim8",metric="v_ratio",nRep=10)
+  expect_error(reproduce_model(smod))
+  
+  
+})
+
 test_that("testing for sim9_single",{
   expect_true(is.matrix(sim9_single()))
   expect_true(is.matrix(sim9_single(tmat)))
