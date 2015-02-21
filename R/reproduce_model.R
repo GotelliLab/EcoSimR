@@ -17,7 +17,7 @@
 #' @export
 
 reproduce_model <- function(model) {
-  if (model$SaveSeed){
+  if (model$Reproducible){
     assign(".Random.seed", model$RandomSeed, .GlobalEnv)
   } else {
     stop("You didn't save the seed for this model run, please run again and set saveSeed = TRUE")

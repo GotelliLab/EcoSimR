@@ -28,6 +28,8 @@ particular species pair, the larger the C-score, the more segregated the
 pair, with fewer shared sites. However, the index can be difficult to
 interpret when calculated as a matrix-wide average, because a single matrix
 can contain individual pairs of species that are segregated, random, or aggregated.
+
+Degenerate matrices result from simulations where a row or column sum may be 0. <nick can you fill in the implications as to what this means if they are included or not?>
 }
 \note{
 The matrix-wide C-score is not calculated for missing species, so empty

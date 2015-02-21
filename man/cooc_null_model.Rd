@@ -3,7 +3,7 @@
 \alias{cooc_null_model}
 \title{Co-Occurrence Null model}
 \usage{
-cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
+cooc_null_model(speciesData, algo = "simFast", metric = "c_score",
   nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,
   algoOpts = list(), metricOpts = list())
 }
@@ -12,7 +12,7 @@ cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
 
 \item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"}
 
-\item{metric}{the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"}
+\item{metric}{the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"}
 
 \item{nReps}{the number of replicates to run the null model.}
 
@@ -33,7 +33,7 @@ Create a Co-Occurrence null model
 \dontrun{
 
 ## Run the null model
-finchMod <- cooc_null_model(wiFinches, algo="sim1")
+finchMod <- cooc_null_model(wiFinches, algo="simFast")
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burnin")
