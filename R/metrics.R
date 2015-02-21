@@ -327,9 +327,12 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' pair, with fewer shared sites. However, the index can be difficult to 
 #' interpret when calculated as a matrix-wide average, because a single matrix
 #' can contain individual pairs of species that are segregated, random, or aggregated.
+#' 
+#' Degenerate matrices result from simulations where a row or column sum may be 0. <nick can you fill in the implications as to what this means if they are included or not?>
 #'
 #' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
+#' @param degenerate TRUE/FALSE Should degenerate matrices be included in the calculation See Details
 #' @return Returns the average C-score calculated across all possible species pairs
 #' in the matrix.
 #'  
@@ -346,7 +349,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @export
 #' 
 
-c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10),degenerate = T) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
