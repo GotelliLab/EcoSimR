@@ -44,8 +44,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   sim <- rep(NA,nReps)
 
   algoOpts[["speciesData"]] <- speciesData
-  m <- do.call(algoF,algoOpts)
-  metricOpts[["m"]] <- m
+  metricOpts[["m"]] <- speciesData
   obs <- do.call(metricF,metricOpts)
   
   
