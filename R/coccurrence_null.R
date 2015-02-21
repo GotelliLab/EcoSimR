@@ -2,7 +2,7 @@
 #'@description Create a Co-Occurrence null model
 #'@param speciesData a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"
-#'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
+#'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
@@ -12,7 +12,7 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(wiFinches, algo="sim1")
+#' finchMod <- cooc_null_model(wiFinches, algo="simFast")
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burnin")
@@ -38,7 +38,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "simFast", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
   aChoice <- c(paste("sim",c(1:8,10),sep=""),"simFast")
   mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
@@ -121,9 +121,9 @@ plot.coocnullmod <- function(x, type = "hist",...)
   Date.Stamp=date()
   par(mfrow=c(1,2))
   if(is.na(nullmodObj$burn.in)){
-  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  Fun.Alg <- get(nullmodObj$Algorithm)
   } else {
-    Fun.Alg <- sim9.single
+    Fun.Alg <- sim9_single
   }
   
   One.Null.Matrix <- Fun.Alg(nullmodObj$Data)

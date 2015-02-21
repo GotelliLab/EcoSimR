@@ -38,7 +38,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   bi_pb <- txtProgressBar(min = 0, max = burnin, style = 3)
   for (i in 1:burnin)
   {
-    msim <-sim9.single(msim)
+    msim <-sim9_single(msim)
     burn.in.metric[i] <- Metric(msim)
     setTxtProgressBar(bi_pb, i)
   }
@@ -49,7 +49,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
   for (i in 1: nReps)
   {
-    msim <-sim9.single(msim)
+    msim <-sim9_single(msim)
     simulated.metric[i] <- Metric(msim)    
     setTxtProgressBar(stat_pb, i)
   }
@@ -60,24 +60,6 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)
   Time.Stamp <- date()
 
-  ### Reverse engineers the naming for consistent output
-  ### Be sure to update the code below if new algos and metrics are added
-  
-  a.choice <- c("Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma","ra1","ra2","ra3","ra4",
-                paste("sim",1:10,sep=""),"simFast")
-  a.func <- c("uniform_size", "uniform_size_user", "source_pool_draw", "Gamma","ra1","ra2","ra3","ra4",
-              paste("sim",1:10,sep=""),"simFast")
-  
-  m.choice <- c("Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio","Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew",
-                "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
-  m.func <- c("min_diff", "min_ratio", "var_diff", "var_ratio","pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew",
-              "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
-  
-  metric <- m.choice[which(m.func==metric)]
-  algo <- a.choice[which(a.func==algo)]
-  
-  
-  
   sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burnin,burn.in.metric=burn.in.metric)
   # plot to screen the trace function for the burn in
   
@@ -87,10 +69,10 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
 
 
 
-#' Sim9.Single function
+#' sim9_single function
 #' @description Function for a single iteration of the fast swap
 #' @export
-sim9.single <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
+sim9_single <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species

@@ -117,7 +117,7 @@ if(type=="size"){
 
   opar<- par(no.readonly=TRUE)
   par(mfrow=c(2,1))
-  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  Fun.Alg <- get(nullmodObj$Algorithm)
   One.Null.Vector <- Fun.Alg(nullmodObj$Data)
   
   limits <- range(c(nullmodObj$Data,One.Null.Vector))

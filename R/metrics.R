@@ -332,7 +332,6 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #'
 #' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 
-#' @param degenerate TRUE/FALSE Should degenerate matrices be included in the calculation See Details
 #' @return Returns the average C-score calculated across all possible species pairs
 #' in the matrix.
 #'  
@@ -349,7 +348,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @export
 #' 
 
-c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10),degenerate = T) 
+c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
