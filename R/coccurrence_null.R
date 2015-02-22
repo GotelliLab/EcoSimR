@@ -4,7 +4,7 @@
 #' and the entries indicate the absence (0) or presence (1) of a species in a 
 #' site. Empty rows and empty columns should not be included in the matrix.
 #'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"
-#'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
+#'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
@@ -14,7 +14,7 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(wiFinches, algo="sim1")
+#' finchMod <- cooc_null_model(wiFinches, algo="simFast")
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burnin")
@@ -40,14 +40,12 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "simFast", metric = "C.Score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
-  mChoice <- c("Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio")
+cooc_null_model <- function(speciesData, algo = "simFast", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
   aChoice <- c(paste("sim",c(1:8,10),sep=""),"simFast")
-  mFunc <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
+  mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  metric <- mFunc[which(mChoice==metric)]
   ## Control behavior of whether or not sim9fast is used.
   if(algo != "simFast"){
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed
@@ -76,13 +74,11 @@ summary.coocnullmod <- function(object,...)
 { 
   nullmodObj <- object
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
-  # cat("Data File: ", p$Data.File,  "\n")
-  #  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Reproducible: ",nullmodObj$Reproducible,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$Metric,  "\n")
+  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
@@ -127,9 +123,9 @@ plot.coocnullmod <- function(x, type = "hist",...)
   Date.Stamp=date()
   par(mfrow=c(1,2))
   if(is.na(nullmodObj$burn.in)){
-  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  Fun.Alg <- get(nullmodObj$Algorithm)
   } else {
-    Fun.Alg <- sim9.single
+    Fun.Alg <- sim9_single
   }
   
   One.Null.Matrix <- Fun.Alg(nullmodObj$Data)

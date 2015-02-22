@@ -1,14 +1,3 @@
-##############################################
-## EcoSimR: R code for Null Model Analysis
-## Metrics for 
-## Nicholas J. Gotelli & Aaron M. Ellison
-##
-##
-##############################################
-## Version 1.00
-## 12 May 2013
-#############################################
-
 
 #' Pianka niche overlap
 #' @description Takes a resource utilization matrix as input and
@@ -245,14 +234,6 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
   return(czekanowskiSkew)
 }
 
-##
-##
-
-
-# Co-occurrence algorithms and metrics for testing
-# 25 May 2013
-# NJG
-
 #' Number of species combinations
 #' @description Function to calculate number of unique species combinations in a matrix
 #' @details In Diamond's (1975) assembly rules model, species interactions lead to 
@@ -346,6 +327,8 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' pair, with fewer shared sites. However, the index can be difficult to 
 #' interpret when calculated as a matrix-wide average, because a single matrix
 #' can contain individual pairs of species that are segregated, random, or aggregated.
+#' 
+#' Degenerate matrices result from simulations where a row or column sum may be 0. <nick can you fill in the implications as to what this means if they are included or not?>
 #'
 #' @param m a binary presence-absence matrix in which rows are species and columns
 #' are sites. 

@@ -2,7 +2,7 @@
 #'@description Create a niche overlap null model
 #'@param speciesData a dataframe <put some guidelines in here>
 #'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
-#'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
+#'@param metric the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
@@ -22,16 +22,12 @@
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "Pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
   aChoice <- c("ra1","ra2","ra3","ra4")
-  mChoice <- c("Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew")
-  mFunc <- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
+  mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
   
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  
-  #Now do the substitutions
-  metric <- mFunc[which(mChoice==metric)]
   
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
@@ -50,14 +46,12 @@ summary.nichenullmod <- function(object,...)
  
   nullmodObj <- object 
   
-  cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
- # cat("Data File: ", p$Data.File,  "\n")
-#  cat("Output File: ", p$Output.File,  "\n") 
-  cat("Random Number Seed Saved: ",nullmodObj$SaveSeed,  "\n")
-  cat("Number of Replications: ",nullmodObj$n.reps,  "\n")
+  cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n")  
+  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
-  cat("Metric: ", nullmodObj$MetricOut,  "\n")
-  cat("Algorithm: ", nullmodObj$AlgorithmOut,  "\n") 
+  cat("Metric: ", nullmodObj$Metric,  "\n")
+  cat("Algorithm: ", nullmodObj$Algorithm,  "\n") 
   
   cat("Observed Index: ", format(nullmodObj$Obs,digits=5),  "\n")
   cat("Mean Of Simulated Index: ",format(mean(nullmodObj$Sim),digits=5),  "\n")
@@ -124,7 +118,7 @@ plot.nichenullmod <- function(x, type = "hist",...)
          main="Observed Utilization Matrix",col.main="red3",cex.main=1.5)
   mtext(as.character(nullmodObj$Time.Stamp),side=3,adj=1,line=3)
     
-  Fun.Alg <- eval(parse(text = nullmodObj$Algorithm))
+  Fun.Alg <- get(nullmodObj$Algorithm)
     One.Null.Matrix <- Fun.Alg(Data)
     One.Null.Matrix <- One.Null.Matrix/rowSums(One.Null.Matrix)
     plot(rep(1:ncol(One.Null.Matrix),times = nrow(One.Null.Matrix)),
