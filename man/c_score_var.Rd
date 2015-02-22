@@ -28,7 +28,7 @@ rows in the matrix do not affect the result. This index has not been
 thoroughly tested with real data sets.
 }
 \examples{
-varCScore <- c_score_var(m=matrix(rbinom(100,0.5),nrow=10))
+varCScore <- c_score_var(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Stone, L. and A. Roberts. 1990. The checkerboard score and species

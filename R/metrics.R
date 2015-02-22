@@ -278,7 +278,7 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
 #' 
 #' 
 #' @examples 
-#' obsCombo <- species_combo(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' obsCombo <- species_combo(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 {
@@ -309,7 +309,7 @@ species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' or competition? Ecology 60: 1132-1140.
 #' 
 #' @examples 
-#' obsChecker <- checker(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' obsChecker <- checker(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 #' 
 checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
@@ -361,7 +361,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @note The matrix-wide C-score is not calculated for missing species, so empty
 #' rows in the matrix do not affect the result.
 #' @examples 
-#' obsCScore <- c_score(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' obsCScore <- c_score(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 #' 
 
@@ -415,7 +415,7 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @seealso \code{\link{c_score}} co-occurrence index.
 #' 
 #' @examples 
-#' varCScore <- c_score_var(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' varCScore <- c_score_var(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 
 c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
@@ -471,7 +471,7 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #' @seealso \code{\link{c_score}} co-occurrence index.
 #' 
 #' @examples 
-#' skewCScore <- c_score_skew(m=matrix(rbinom(100,0.5),nrow=10)) 
+#' skewCScore <- c_score_skew(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 
 #' 
@@ -531,7 +531,7 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #'
 #' 
 #' @examples 
-#' varCScore <- v_ratio(m=matrix(rpois(100,0.5),nrow=10)) 
+#' varCScore <- v_ratio(m=matrix(rpois(100,1,0.5),nrow=10)) 
 #' @export
 
 v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 

@@ -27,7 +27,7 @@ large compared to the number of species (= rows). Empty sites are excluded
 from the matrix and are not counted as a unique species combination.
 }
 \examples{
-obsCombo <- species_combo(m=matrix(rbinom(100,0.5),nrow=10))
+obsCombo <- species_combo(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in:

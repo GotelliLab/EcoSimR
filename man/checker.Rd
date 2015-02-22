@@ -23,7 +23,7 @@ A set of communities structured this way should contain more checkerboard
 pairs than expected by chance.
 }
 \examples{
-obsChecker <- checker(m=matrix(rbinom(100,0.5),nrow=10))
+obsChecker <- checker(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in:

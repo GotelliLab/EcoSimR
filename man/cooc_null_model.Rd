@@ -8,7 +8,9 @@ cooc_null_model(speciesData, algo = "simFast", metric = "C.Score",
   algoOpts = list(), metricOpts = list())
 }
 \arguments{
-\item{speciesData}{a dataframe <put some guidelines in here>}
+\item{speciesData}{a dataframe in which rows are species, columns are sites,
+and the entries indicate the absence (0) or presence (1) of a species in a
+site. Empty rows and empty columns should not be included in the matrix.}
 
 \item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"}
 

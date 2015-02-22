@@ -34,7 +34,7 @@ The matrix-wide C-score is not calculated for missing species, so empty
 rows in the matrix do not affect the result.
 }
 \examples{
-obsCScore <- c_score(m=matrix(rbinom(100,0.5),nrow=10))
+obsCScore <- c_score(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Stone. L. and A. Roberts. 1990. The checkerboard score and species
