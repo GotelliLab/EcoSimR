@@ -221,7 +221,7 @@ sim6 <- function(speciesData)
 
 {
 matrixWeights <- outer(rep(1,nrow(speciesData)),colSums(speciesData))
-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
+out <-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
 }
 
 
@@ -597,7 +597,7 @@ size_uniform_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesDat
                               userHigh=1.1*max(speciesData)){
 #  if(!is.null(Param.List$Special)){User.low <- Param.List$Special[1]
 #                                    User.high <- Param.List$Special[2]}
-  randomVec <- size_uniform_user(n=length(speciesData),min=userLow,max=userHigh)
+  randomVec <- runif(n=length(speciesData),min=userLow,max=userHigh)
   
   return(randomVec)
 }
@@ -654,11 +654,11 @@ size_source_pool <- function(speciesData=21:30,sourcePool=
 #' @seealso \code{\link{fitdr}} in the MASS library.
 #' @examples 
 #' obsOverlap <- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
+#' @import MASS
 #' @export
 
 size_gamma <- function (speciesData=rnorm(50,mean=100,sd=1)) {
  
-  library(MASS)
   mleFit <- fitdistr(speciesData, 'gamma')
   a <- mleFit$estimate["shape"]
   b <- mleFit$estimate["rate"]

@@ -39,7 +39,91 @@ test_that("ra4 algorithm works:",{
 }
 )
 
+test_that("pianka metric works:",{
+expect_true(is.numeric(pianka(ra1())))
+expect_true(is.numeric(pianka(ra4(macwarb[,2:5]))))
+expect_true(pianka(ra4(macwarb[,2:5])) > .5 )
 
+})
+
+test_that("czekanowski metric works:",{
+  expect_true(is.numeric(czekanowski(ra1())))
+  expect_true(is.numeric(czekanowski(ra4(macwarb[,2:5]))))
+  expect_true(czekanowski(ra4(macwarb[,2:5])) > .5 )
+  
+})
+
+test_that("pianka_var metric works:",{
+  expect_true(is.numeric(pianka_var(ra1())))
+  expect_true(is.numeric(pianka_var(ra4(macwarb[,2:5]))))
+  expect_true(pianka_var(ra4(macwarb[,2:5])) < .5 )
+  
+})
+
+
+test_that("czekanowski_var metric works:",{
+  expect_true(is.numeric(czekanowski_var(ra1())))
+  expect_true(is.numeric(czekanowski_var(ra4(macwarb[,2:5]))))
+  expect_true(czekanowski_var(ra4(macwarb[,2:5])) < .5 )
+  
+})
+
+test_that("pianka_skew metric works:",{
+  expect_true(is.numeric(pianka_skew(ra1())))
+  expect_true(is.numeric(pianka_skew(ra4(macwarb[,2:5]))))
+  
+})
+
+
+test_that("czekanowski_skew metric works:",{
+  expect_true(is.numeric(czekanowski_skew(ra1())))
+  expect_true(is.numeric(czekanowski_skew(ra4(macwarb[,2:5]))))  
+})
+
+
+test_that("niche_null_model works with all combinations of metrics and algorithms",{
+  ### Test that proper object is returned
+  expect_is(niche_null_model(macwarb,metric ="pianka" ,algo = "ra1",nRep=10),"nichenullmod")
+  expect_is(niche_null_model(macwarb,metric ="pianka_var" ,algo = "ra1",nRep=10),"nichenullmod")
+  expect_is(niche_null_model(macwarb,metric ="pianka_skew" ,algo = "ra1",nRep=10),"nichenullmod")
+  expect_is(niche_null_model(macwarb,metric ="czekanowski" ,algo = "ra1",nRep=10),"nichenullmod")
+  expect_is(niche_null_model(macwarb,metric ="czekanowski_var" ,algo = "ra1",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_skew" ,algo = "ra1",nRep=10),"nichenullmod")
+ 
+expect_is(niche_null_model(macwarb,metric ="pianka" ,algo = "ra2",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_var" ,algo = "ra2",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_skew" ,algo = "ra2",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski" ,algo = "ra2",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_var" ,algo = "ra2",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_skew" ,algo = "ra2",nRep=10),"nichenullmod")
+
+
+expect_is(niche_null_model(macwarb,metric ="pianka" ,algo = "ra3",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_var" ,algo = "ra3",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_skew" ,algo = "ra3",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski" ,algo = "ra3",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_var" ,algo = "ra3",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_skew" ,algo = "ra3",nRep=10),"nichenullmod")
+
+
+expect_is(niche_null_model(macwarb,metric ="pianka" ,algo = "ra4",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_var" ,algo = "ra4",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="pianka_skew" ,algo = "ra4",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski" ,algo = "ra4",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_var" ,algo = "ra4",nRep=10),"nichenullmod")
+expect_is(niche_null_model(macwarb,metric ="czekanowski_skew" ,algo = "ra4",nRep=10),"nichenullmod")
+
+
+nmod <- niche_null_model(macwarb,metric ="czekanowski" ,algo = "ra1",nRep=10)
+
+expect_output(summary(nmod),"Metric:  czekanowski")
+expect_true(is.null(plot(nmod,type="hist")))
+expect_true(is.list(plot(nmod,type="niche")))
+})
+
+
+  
+  
 
 
 
