@@ -29,7 +29,7 @@ rows in the matrix do not affect the result. This index has not been
 thoroughly tested with real data sets.
 }
 \examples{
-skewCScore <- c_score_skew(m=matrix(rbinom(100,0.5),nrow=10))
+skewCScore <- c_score_skew(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Stone, L. and A. Roberts. 1990. The checkerboard score and species

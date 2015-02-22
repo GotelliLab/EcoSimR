@@ -1,6 +1,8 @@
 #'Co-Occurrence Null model 
 #'@description Create a Co-Occurrence null model
-#'@param speciesData a dataframe <put some guidelines in here>
+#'@param speciesData a dataframe in which rows are species, columns are sites,
+#' and the entries indicate the absence (0) or presence (1) of a species in a 
+#' site. Empty rows and empty columns should not be included in the matrix.
 #'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"
 #'@param metric the metric used to caluclate the null model: choices are "Species.Combo", "Checker", "C.Score", "C.Score.var", "C.Score.skew", "V.Ratio"; default is "C.Score"
 #'@param nReps the number of replicates to run the null model.
