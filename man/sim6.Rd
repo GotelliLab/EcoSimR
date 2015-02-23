@@ -30,7 +30,7 @@ differences among sites are proportional to observed species richness
 so it is not recommended for co-occurrence analysis.
 }
 \examples{
-randomMatrix <- sim6(matrix(rbinom(40,1,0.5),nrow=8))
+randomMatrix <- sim6(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Gotelli, N.J. 2000. Null model analysis of species co-occurrence

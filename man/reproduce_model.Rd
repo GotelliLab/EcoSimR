@@ -16,13 +16,13 @@ Works by resetting the RNG state to what it was for a given EcoSimR simulation. 
 }
 \examples{
 \dontrun{
-finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed=T)
+finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 ## Check model output
 mean(finchMod$Sim)
 
 reproduce_model(finchMod$Sim)
 
-finchMod <- cooc_null_model(wiFinches, algo="sim1")
+finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 ## Check model output is the same as before
 mean(finchMod$Sim)
 reproduce_model(finchMod$Sim)

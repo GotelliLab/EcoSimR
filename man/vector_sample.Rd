@@ -35,7 +35,7 @@ conditioning the marginal probabilities of a null matrix on
 independent measurements of site or species characteristics.
 }
 \examples{
-myColonizer <- vector_sample(specieX=rbinom(10,1,0.5),IslandArea=runif(10))
+myColonizer <- vector_sample(speciesData=rbinom(10,1,0.5),weights=runif(10))
 }
 \references{
 Gotelli, N.J., G.R. Graves, and C. Rahbek. 2010. Macroecological

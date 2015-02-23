@@ -28,7 +28,7 @@ is usually unrealistic, and sim3 has a high frequency of Type I errors with
 random matrices, so it is not recommended for co-occurrence analysis.
 }
 \examples{
-randomMatrix <- sim3(m=matrix(rbinom(40,1,0.5),nrow=8))
+randomMatrix <- sim3(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Gotelli, N.J. 2000. Null model analysis of species co-occurrence

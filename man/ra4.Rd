@@ -31,7 +31,7 @@ more conservative than RA3, but has a low Type I error rate, and, along with
 RA3, is recommended for null model analysis of niche overlap.
 }
 \examples{
-ranUtil <- ra4(m=matrix(rpois(40,0.5),nrow=8))
+ranUtil <- ra4(speciesData=matrix(rpois(40,0.5),nrow=8))
 }
 \references{
 Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural

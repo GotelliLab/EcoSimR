@@ -30,7 +30,7 @@ different niche category. It performs effectively in simulation studies and
 is recommended for analysis of niche overlap patterns.
 }
 \examples{
-ranUtil <- ra3(m=matrix(rpois(40,0.5),nrow=8))
+ranUtil <- ra3(speciesData=matrix(rpois(40,0.5),nrow=8))
 }
 \references{
 Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural

@@ -35,7 +35,7 @@ analysis. See Ulrich and Gotelli (2012) for a more complicated algorithm
 for probabilistic row and column totals that has better statistical behavior.
 }
 \examples{
-randomMatrix <- sim8(matrix(rbinom(40,1,0.5),nrow=8))
+randomMatrix <- sim8(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Gotelli, N.J. 2000. Null model analysis of species co-occurrence

@@ -31,7 +31,7 @@ relative colonization probabilities is difficult, this is the most realistic
 approach to constructing a null distribution.
 }
 \examples{
-obsOverlap <- size_source_pool(speciesData=21:30,sourcePool= runif(n=2*length(speciesData),min=10,max=50), speciesProbs=rep(1,length(sourcePool)))
+obsOverlap <- size_source_pool(dataRodents$Sonoran)
 }
 \references{
 Strong, D.R. Jr., L.A. Szyska, and D. Simberloff. 1979. Tests of

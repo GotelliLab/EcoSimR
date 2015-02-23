@@ -5,19 +5,22 @@
 NULL
 
 #' MacArthur Warbler data warbler data
-#' @name macwarb
+#' @name dataMacWarb
 #' @docType data
 #' @keywords datasets
+#' @keywords data
 NULL
 
 #' West Indian Finches data
-#' @name wiFinches
+#' @name dataWiFinches
 #' @docType data
 #' @keywords datasets
+#' @keywords data
 NULL
 
 #' Desert rodent data set
-#' @name rodents
+#' @name dataRodents
 #' @docType data
 #' @keywords datasets
+#' @keywords data
 NULL

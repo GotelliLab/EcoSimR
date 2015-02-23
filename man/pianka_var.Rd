@@ -27,7 +27,7 @@ values. Relative resource within a species is first calculated, so the rows
 need not sum to 1.0.
 }
 \examples{
-obsVar <- pianka.var(m=matrix(rpois(40,0.5),nrow=8))
+obsVar <- pianka_var(m=matrix(rpois(40,0.5),nrow=8))
 }
 \references{
 Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural
