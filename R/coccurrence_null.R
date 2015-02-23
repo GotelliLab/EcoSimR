@@ -3,12 +3,12 @@
 #'@param speciesData a dataframe in which rows are species, columns are sites,
 #' and the entries indicate the absence (0) or presence (1) of a species in a 
 #' site. Empty rows and empty columns should not be included in the matrix.
-#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"
+#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
 #'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
-#'@param burnin The number of burnin iterations to use with the simFast algorithm
+#'@param burn_in The number of burn_in iterations to use with the simFast algorithm
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
@@ -17,7 +17,7 @@
 #' finchMod <- cooc_null_model(wiFinches, algo="simFast")
 #' ## Summary and plot info
 #' summary(finchMod)
-#' plot(finchMod,type="burnin")
+#' plot(finchMod,type="burn_in")
 #' 
 #' ## Example that is repeatable with a saved seed
 #' finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed = TRUE)
@@ -40,24 +40,24 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "simFast", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,algoOpts = list(),metricOpts = list()){
-  aChoice <- c(paste("sim",c(1:8,10),sep=""),"simFast")
+cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 0,algoOpts = list(),metricOpts = list()){
+  aChoice <- c(paste("sim",c(1:10),sep=""))
   mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
   ## Control behavior of whether or not sim9fast is used.
-  if(algo != "simFast"){
+  if(algo != "sim9"){
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed
  = saveSeed
   ,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
-  output$burn.in <- burnin
+  output$burn.in <- burn_in
   class(output) <- "coocnullmod"
   return(output)
-  } else if(algo == "simFast"){
-    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, burnin = burnin)
-    output <- do.call(sim9.fast,params)
+  } else if(algo == "sim9"){
+    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, burn_in = burn_in)
+    output <- do.call(sim9,params)
     class(output) <- "coocnullmod"
     return(output)
   }
@@ -193,9 +193,9 @@ if(type == "hist"){
   
 }
 
-if(type=="burnin"){
+if(type=="burn_in"){
   if(is.na(nullmodObj$burn.in)){
-    warning("You can only create a burnin plot for a model run with the 'simFast' algorithm")
+    warning("You can only create a burn_in plot for a model run with the 'simFast' algorithm")
    
   }
   v <- nullmodObj$burn.in.metric

@@ -5,7 +5,7 @@
 
 
 
-sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSeed = FALSE,burnin = 0)
+sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSeed = FALSE,burn_in = 0)
 {
   
   if(saveSeed){
@@ -25,21 +25,21 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   if(!is.matrix(speciesData)){ speciesData <- as.matrix(speciesData)}
   
   Start.Time <- Sys.time()
-  Metric <- eval(parse(text = metric))
+  metricF <- get(metric)
   
-  Obs <- Metric(speciesData)
+  Obs <- metricF(speciesData)
   msim <- speciesData
-  ifelse(burnin ==0, burnin <- max(1000,10*nrow(msim)),burnin <- burnin)
-  burn.in.metric <- vector(mode="numeric",length = burnin)
+  ifelse(burn_in == 0, burn_in <- max(1000,10*nrow(msim)),burn_in <- burn_in)
+  burn.in.metric <- vector(mode="numeric",length = burn_in)
   simulated.metric <- vector(mode="numeric",length = nReps)
   # run sequential swap for burn in series
   cat("Burn-in Progress \n")
   
-  bi_pb <- txtProgressBar(min = 0, max = burnin, style = 3)
-  for (i in 1:burnin)
+  bi_pb <- txtProgressBar(min = 0, max = burn_in, style = 3)
+  for (i in 1:burn_in)
   {
     msim <-sim9_single(msim)
-    burn.in.metric[i] <- Metric(msim)
+    F[i] <- metricF(msim)
     setTxtProgressBar(bi_pb, i)
   }
   close(bi_pb)
@@ -50,7 +50,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   for (i in 1: nReps)
   {
     msim <-sim9_single(msim)
-    simulated.metric[i] <- Metric(msim)    
+    simulated.metric[i] <- metricF(msim)    
     setTxtProgressBar(stat_pb, i)
   }
   close(stat_pb)
@@ -60,7 +60,7 @@ sim9.fast <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, s
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)
   Time.Stamp <- date()
 
-  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burnin,burn.in.metric=burn.in.metric)
+  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burn_in,burn.in.metric= burn.in.metric)
   # plot to screen the trace function for the burn in
   
   class(sim9.fast.out) <- "nullmod"
