@@ -388,7 +388,7 @@ matrix(vector_sample(speciesData,w=matrixWeights),ncol=ncol(speciesData))
 #' bodyMassVector, colWeights=islandAreaVector)
 #' @export
 
-sim10 <- function(speciesData,rowWeights,colWeights) 
+sim10 <- function(speciesData,rowWeights = runif(dim(speciesData)[1]),colWeights = runif(dim(speciesData)[2])) 
 
 {
 matrixWeights <- outer(rowWeights,colWeights)

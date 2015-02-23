@@ -73,6 +73,7 @@ test_that("sim10 algorithm works",{
   mopts[["colWeights"]] <- runif(dim(realData)[2])
   
   expect_true(is.matrix(do.call(sim10,mopts)))
+  expect_true(is.matrix(sim10(tmat)))
 })
 
 test_that("species_combo metric works",{
@@ -208,19 +209,19 @@ test_that("testing for sim9_single",{
   
 })
 
-test_that("testing for simFast",{
-  expect_is( cooc_null_model(wiFinches, algo="simFast",metric="species_combo",nReps=10,burnin=10),"coocnullmod")
-  expect_is( cooc_null_model(wiFinches, algo="simFast",metric="checker",nReps=10,burnin=10),"coocnullmod") 
-  expect_is( cooc_null_model(wiFinches, algo="simFast",metric="c_score",nReps=10,burnin=10),"coocnullmod")
-  expect_is( cooc_null_model(wiFinches, algo="simFast",metric="c_score_var",nReps=10,burnin=10),"coocnullmod")
-  expect_is( cooc_null_model(wiFinches, algo="simFast",metric="c_score_skew",nReps=10,burnin=10),"coocnullmod")
-    expect_is( cooc_null_model(wiFinches, algo="simFast",metric="v_ratio",nReps=10,burnin=10),"coocnullmod")
+test_that("testing for sim9",{
+  expect_is( cooc_null_model(wiFinches, algo="sim9",metric="species_combo",nReps=10,burn_in=10),"coocnullmod")
+  expect_is( cooc_null_model(wiFinches, algo="sim9",metric="checker",nReps=10,burn_in=10),"coocnullmod") 
+  expect_is( cooc_null_model(wiFinches, algo="sim9",metric="c_score",nReps=10,burn_in=10),"coocnullmod")
+  expect_is( cooc_null_model(wiFinches, algo="sim9",metric="c_score_var",nReps=10,burn_in=10),"coocnullmod")
+  expect_is( cooc_null_model(wiFinches, algo="sim9",metric="c_score_skew",nReps=10,burn_in=10),"coocnullmod")
+    expect_is( cooc_null_model(wiFinches, algo="sim9",metric="v_ratio",nReps=10,burn_in=10),"coocnullmod")
   
-  smod <- cooc_null_model(wiFinches, algo="simFast",metric="v_ratio",nReps=10,burnin=10)
-  expect_output(summary(smod),"Algorithm:  simFast")
+  smod <- cooc_null_model(wiFinches, algo="sim9",metric="v_ratio",nReps=10,burn_in=10)
+  expect_output(summary(smod),"Algorithm:  sim9")
   expect_true(is.null(plot(smod,type="hist")))
   expect_true(is.null(plot(smod,type="cooc")))
-  expect_true(is.null(plot(smod,type="burnin")))
+  expect_true(is.null(plot(smod,type="burn_in")))
   
   
 })
