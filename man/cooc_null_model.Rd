@@ -3,8 +3,8 @@
 \alias{cooc_null_model}
 \title{Co-Occurrence Null model}
 \usage{
-cooc_null_model(speciesData, algo = "simFast", metric = "c_score",
-  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burnin = 0,
+cooc_null_model(speciesData, algo = "sim1", metric = "c_score",
+  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 0,
   algoOpts = list(), metricOpts = list())
 }
 \arguments{
@@ -12,7 +12,7 @@ cooc_null_model(speciesData, algo = "simFast", metric = "c_score",
 and the entries indicate the absence (0) or presence (1) of a species in a
 site. Empty rows and empty columns should not be included in the matrix.}
 
-\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8",  "sim10"}
+\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"}
 
 \item{metric}{the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"}
 
@@ -22,7 +22,7 @@ site. Empty rows and empty columns should not be included in the matrix.}
 
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 
-\item{burnin}{The number of burnin iterations to use with the simFast algorithm}
+\item{burn_in}{The number of burn_in iterations to use with the simFast algorithm}
 
 \item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
 
@@ -38,7 +38,7 @@ Create a Co-Occurrence null model
 finchMod <- cooc_null_model(wiFinches, algo="simFast")
 ## Summary and plot info
 summary(finchMod)
-plot(finchMod,type="burnin")
+plot(finchMod,type="burn_in")
 
 ## Example that is repeatable with a saved seed
 finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed = TRUE)
