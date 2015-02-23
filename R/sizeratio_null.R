@@ -10,21 +10,21 @@
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
 #' ## Run the null model
-#' rodentMod <- size_null_model(rodents)
+#' rodentMod <- size_null_model(dataRodents)
 #' ## Summary and plot info
 #' summary(rodentMod)
 #' plot(rodentMod,type="hist")
 #' plot(rodentMod,type="size")
 #' 
 #' ##  Uniform Size model with user inputs
-#' rodentMod2 <- size_null_model(rodents,algo="Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15))
+#' rodentMod2 <- size_null_model(dataRodents,algo="Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15))
 #' summary(rodentMod2)
 #' plot(rodentMod2,type="hist")
 #' plot(rodentMod2,type="size")
 #' 
 #' ### Source pool model
 #' 
-#' rodentMod_sp <- size_null_model(rodents,algo="Source.Pool",algoOpts = list(sourcePool = runif(dim(rodents)[1],1,15)))
+#' rodentMod_sp <- size_null_model(dataRodents,algo="Source.Pool",algoOpts = list(sourcePool = runif(dim(dataRodents)[1],1,15)))
 #' summary(rodentMod_sp)
 #' plot(rodentMod_sp,type="hist")
 #' plot(rodentMod_sp,type="size")
