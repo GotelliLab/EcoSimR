@@ -31,7 +31,7 @@ generate null matrices with empty rows or columns. Not recommended for
 co-occurrence analysis.
 }
 \examples{
-randomMatrix <- sim1(m=matrix(rbinom(40,1,0.5),nrow=8))
+randomMatrix <- sim1(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Gotelli, N.J. 2000. Null model analysis of species co-occurrence

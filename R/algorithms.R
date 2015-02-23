@@ -26,7 +26,7 @@
 #' independent measurements of site or species characteristics.
 #' @seealso \code{\link{sim10}} randomization algorithm.
 #' @examples 
-#' myColonizer <- vector_sample(specieX=rbinom(10,1,0.5),IslandArea=runif(10))
+#' myColonizer <- vector_sample(speciesData=rbinom(10,1,0.5),weights=runif(10))
 
 #' @export
 
@@ -58,7 +58,7 @@ return(x)
 #' generate null matrices with empty rows or columns. Not recommended for 
 #' co-occurrence analysis.
 #' @examples 
-#' randomMatrix <- sim1(m=matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim1(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim1 <- function(speciesData) 
@@ -96,7 +96,7 @@ matrix(sample(speciesData), ncol=ncol(speciesData))
 
 #' @seealso \code{\link{sim9}} co-occurrence algorithm.
 #' @examples 
-#' randomMatrix <- sim2(m=matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim2(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim2 <- function(speciesData) 
@@ -123,7 +123,7 @@ t(apply(speciesData,1,sample))
 #' random matrices, so it is not recommended for co-occurrence analysis.
 
 #' @examples 
-#' randomMatrix <- sim3(m=matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim3(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim3 <- function(speciesData) 
@@ -154,13 +154,13 @@ apply(speciesData,2,sample)
 #' recommended for co-occurrence analysis.
 
 #' @examples 
-#' randomMatrix <- sim4(matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim4(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim4 <- function(speciesData) 
 
 {
-t(apply(speciesData,1,vector_sample,w=colSums(speciesData)))
+t(apply(speciesData,1,vector_sample,weights=colSums(speciesData)))
 }
 
 
@@ -185,13 +185,13 @@ t(apply(speciesData,1,vector_sample,w=colSums(speciesData)))
 #' recommended for co-occurrence analysis.
 
 #' @examples 
-#' randomMatrix <- sim5(matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim5(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim5 <- function(speciesData) 
 
 {
-apply(speciesData,2,vector_sample,w=rowSums(speciesData))
+apply(speciesData,2,vector_sample,weights=rowSums(speciesData))
 }
 
 
@@ -214,14 +214,14 @@ apply(speciesData,2,vector_sample,w=rowSums(speciesData))
 #' so it is not recommended for co-occurrence analysis.
 
 #' @examples 
-#' randomMatrix <- sim6(matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim6(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim6 <- function(speciesData) 
 
 {
 matrixWeights <- outer(rep(1,nrow(speciesData)),colSums(speciesData))
-out <-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData))
+out <-matrix(vector_sample(speciesData, weights=matrixWeights),ncol=ncol(speciesData))
 }
 
 
@@ -244,7 +244,7 @@ out <-matrix(vector_sample(speciesData, w= matrixWeights),ncol=ncol(speciesData)
 #' so it is not recommended for co-occurrence analysis.
 
 #' @examples 
-#' randomMatrix <- sim7(matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim7(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 
@@ -252,7 +252,7 @@ sim7 <- function(speciesData)
 
 {
 matrixWeights <- outer(rowSums(speciesData),rep(1,ncol(speciesData)))
-matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
+matrix(vector_sample(speciesData, weights=matrixWeights),ncol=ncol(speciesData))
 }
 
 
@@ -286,7 +286,7 @@ matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 #' for probabilistic row and column totals that has better statistical behavior. 
 
 #' @examples 
-#' randomMatrix <- sim8(matrix(rbinom(40,1,0.5),nrow=8))
+#' randomMatrix <- sim8(speciesData = matrix(rbinom(40,1,0.5),nrow=8))
 
 #' @export
 
@@ -295,7 +295,7 @@ sim8 <- function(speciesData)
 
 {
 matrixWeights <- outer(rowSums(speciesData),colSums(speciesData))
-matrix(vector_sample(speciesData,w=matrixWeights),ncol=ncol(speciesData))
+matrix(vector_sample(speciesData,weights=matrixWeights),ncol=ncol(speciesData))
 }
 
 
@@ -384,16 +384,15 @@ matrix(vector_sample(speciesData,w=matrixWeights),ncol=ncol(speciesData))
 #' data sets with site and species attributes.
 #' @seealso \code{\link{vector_sample}} for weighted vector sampling.
 #' @examples 
-#' randomMatrix <- sim10(speciesData=matrix(rbinom(40,1,0.5),nrow=8),rowWeights=
-#' bodyMassVector, colWeights=islandAreaVector)
+#' randomMatrix <- sim10(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 #' @export
 
 sim10 <- function(speciesData,rowWeights = runif(dim(speciesData)[1]),colWeights = runif(dim(speciesData)[2])) 
 
 {
 matrixWeights <- outer(rowWeights,colWeights)
-matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
-}
+matrix(vector_sample(speciesData, weights =matrixWeights),ncol=ncol(speciesData))
+} 
 
 #' RA1 Niche Overlap Randomization Algorithm 
 #' @description Randomizes a numeric utilization matrix speciesData by 
@@ -418,7 +417,7 @@ matrix(vector_sample(speciesData, w=matrixWeights),ncol=ncol(speciesData))
 #' niche overlap values with this metric. It is not recommended for niche 
 #' overlap analysis.
 #' @examples 
-#' ranUtil <- ra1(m=matrix(rpois(40,0.5),nrow=8))
+#' ranUtil <- ra1(speciesData=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 
@@ -455,7 +454,7 @@ matrix(runif(prod(dim(speciesData))),ncol=ncol(speciesData))
 #' overlap analysis.
 
 #' @examples 
-#' ranUtil <- ra2(m=matrix(rpois(40,0.5),nrow=8))
+#' ranUtil <- ra2(speciesData=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra2 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
@@ -488,7 +487,7 @@ return(RM)
 #' different niche category. It performs effectively in simulation studies and 
 #' is recommended for analysis of niche overlap patterns. 
 #' @examples 
-#' ranUtil <- ra3(m=matrix(rpois(40,0.5),nrow=8))
+#' ranUtil <- ra3(speciesData=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra3 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
@@ -521,7 +520,7 @@ return(RM)
 #' more conservative than RA3, but has a low Type I error rate, and, along with 
 #' RA3, is recommended for null model analysis of niche overlap. 
 #' @examples 
-#' ranUtil <- ra4(m=matrix(rpois(40,0.5),nrow=8))
+#' ranUtil <- ra4(speciesData=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 ra4 <- function(speciesData=matrix(rpois(80,1),nrow=10)) 
@@ -590,7 +589,7 @@ size_uniform <- function(speciesData=runif(20)) {
 #' analyses.
 #' @seealso \code{\link{size_uniform}} size distribution algorithm.
 #' @examples 
-#' nullSizes <- uniform_size_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
+#' nullSizes <- size_uniform_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
 #' @export
 
 size_uniform_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesData),
@@ -624,15 +623,12 @@ size_uniform_user <- function(speciesData=runif(n=20),userLow=0.9*min(speciesDat
 #' relative colonization probabilities is difficult, this is the most realistic
 #' approach to constructing a null distribution.
 #' @examples 
-#' obsOverlap <- size_source_pool(speciesData=21:30,sourcePool= runif(n=2*length(speciesData),min=10,max=50), speciesProbs=rep(1,length(sourcePool)))
+#' obsOverlap <- size_source_pool(dataRodents$Sonoran)
 #' @export
 size_source_pool <- function(speciesData=21:30,sourcePool=
                                runif(n=2*length(speciesData),min=10,max=50),
                              speciesProbs=rep(1,length(sourcePool))) {
-  
-  #if(!is.null(Param.List$Special)){Source.Pool <- Param.List$Special[[1]]
-  #                                 probs <- Param.List$Special[[2]]}
-  
+
   speciesDraw <- sample(sourcePool,size=length(speciesData),replace=FALSE,
                          prob=speciesProbs)
   
@@ -651,7 +647,7 @@ size_source_pool <- function(speciesData=21:30,sourcePool=
 #' the MASS library. The flexible gamma distribution can be fit to a variety of 
 #' normal, log-normal, and exponential distributions that are typical for trait 
 #' data measured on a continuous non-negative scale. 
-#' @seealso \code{\link{fitdr}} in the MASS library.
+#' @seealso \code{\link{fitdistr}} in the MASS library.
 #' @examples 
 #' obsOverlap <- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
 #' @import MASS

@@ -33,7 +33,7 @@ is used. For this reason, this algorithm is not recommended for size ratio
 analyses.
 }
 \examples{
-nullSizes <- uniform_size_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
+nullSizes <- size_uniform_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
 }
 \seealso{
 \code{\link{size_uniform}} size distribution algorithm.

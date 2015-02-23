@@ -101,7 +101,7 @@ return(mean(pairwise[,3]))
 #' need not sum to 1.0.
 #' @seealso \code{\link{pianka}} niche overlap index.
 #' @examples 
-#' obsVar <- pianka.var(m=matrix(rpois(40,0.5),nrow=8))
+#' obsVar <- pianka_var(m=matrix(rpois(40,0.5),nrow=8))
 #' @export
 
 pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
@@ -487,7 +487,7 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 #'
 #' 
 #' @examples 
-#' varCScore <- v_ratio(m=matrix(rpois(100,1,0.5),nrow=10)) 
+#' varCScore <- v_ratio(m=matrix(rbinom(100,1,0.5),nrow=10)) 
 #' @export
 
 v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 

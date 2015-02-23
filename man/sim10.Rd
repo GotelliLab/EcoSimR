@@ -3,7 +3,8 @@
 \alias{sim10}
 \title{Sim10 Co-occurrence Randomization Algorithm}
 \usage{
-sim10(speciesData, rowWeights, colWeights)
+sim10(speciesData, rowWeights = runif(dim(speciesData)[1]),
+  colWeights = runif(dim(speciesData)[2]))
 }
 \arguments{
 \item{speciesData}{binary presence-absence matrix
@@ -46,8 +47,7 @@ to justify biologically. Nevertheless, sim10 is worth exploring for rich
 data sets with site and species attributes.
 }
 \examples{
-randomMatrix <- sim10(speciesData=matrix(rbinom(40,1,0.5),nrow=8),rowWeights=
-bodyMassVector, colWeights=islandAreaVector)
+randomMatrix <- sim10(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Jenkins, D.G. 2006. In search of quorum effects in metacommunity

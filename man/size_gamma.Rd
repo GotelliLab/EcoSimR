@@ -28,6 +28,6 @@ data measured on a continuous non-negative scale.
 obsOverlap <- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
 }
 \seealso{
-\code{\link{fitdr}} in the MASS library.
+\code{\link{fitdistr}} in the MASS library.
 }
 

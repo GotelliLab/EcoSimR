@@ -37,7 +37,7 @@ with sim9 often detecting random or segregated patterns for matrices in
 which sim2 detects aggregated patterns.
 }
 \examples{
-randomMatrix <- sim2(m=matrix(rbinom(40,1,0.5),nrow=8))
+randomMatrix <- sim2(speciesData=matrix(rbinom(40,1,0.5),nrow=8))
 }
 \references{
 Gotelli, N.J. 2000. Null model analysis of species co-occurrence

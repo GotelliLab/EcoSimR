@@ -30,10 +30,10 @@ Create a niche overlap null model
 \examples{
 \dontrun{
 ## Load MacAruthur warbler data
-data(macwarb)
+data(dataMacWarb)
 
 ## Run the null model
-warbMod <- niche_null_model(macwarb)
+warbMod <- niche_null_model(dataMacWarb)
 ## Summary and plot info
 summary(warbMod)
 plot(warbMod)

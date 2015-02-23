@@ -1,4 +1,2 @@
 library(testthat)
-library(EcoSimR)
-
-test_package("EcoSimR")
+test_check('EcoSimR')

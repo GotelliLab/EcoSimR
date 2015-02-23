@@ -34,7 +34,7 @@ niche overlap values with this metric. It is not recommended for niche
 overlap analysis.
 }
 \examples{
-ranUtil <- ra1(m=matrix(rpois(40,0.5),nrow=8))
+ranUtil <- ra1(speciesData=matrix(rpois(40,0.5),nrow=8))
 }
 \references{
 Kobayashi, S. 1991. Interspecific relations in forest floor

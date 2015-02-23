@@ -10,9 +10,9 @@ size_null_model(speciesData, algo = "size_uniform", metric = "var_ratio",
 \arguments{
 \item{speciesData}{a dataframe <put some guidelines in here>}
 
-\item{algo}{the algorithm to use, must be "Uniform.Size", "Uniform.Size.User", "Source.Pool", "Gamma"}
+\item{algo}{the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma"}
 
-\item{metric}{the metric used to caluclate the null model: choices are "Min.Diff", "Min.Ratio", "Var.Diff", "Var.Ratio"; default is Var.Ratio}
+\item{metric}{the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio}
 
 \item{nReps}{the number of replicates to run the null model.}
 
@@ -30,21 +30,24 @@ Create a size Ratio null model
 \examples{
 \dontrun{
 ## Run the null model
-rodentMod <- size_null_model(rodents)
+rodentMod <- size_null_model(dataRodents)
 ## Summary and plot info
 summary(rodentMod)
 plot(rodentMod,type="hist")
 plot(rodentMod,type="size")
 
 ##  Uniform Size model with user inputs
-rodentMod2 <- size_null_model(rodents,algo="Uniform.Size.User",algoOpts = list(userLow = 3,userHigh=15))
+rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",
+algoOpts = list(userLow = 3,userHigh=15))
 summary(rodentMod2)
 plot(rodentMod2,type="hist")
 plot(rodentMod2,type="size")
 
 ### Source pool model
 
-rodentMod_sp <- size_null_model(rodents,algo="Source.Pool",algoOpts = list(sourcePool = runif(dim(rodents)[1],1,15)))
+rodentMod_sp <- size_null_model(dataRodents,algo="size_source_pool",
+algoOpts = list(sourcePool = runif(dim(dataRodents)[1],1,15)))
+
 summary(rodentMod_sp)
 plot(rodentMod_sp,type="hist")
 plot(rodentMod_sp,type="size")

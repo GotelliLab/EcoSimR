@@ -32,7 +32,7 @@ assumes that all sites are equiprobable, so it may generate large values (=
 positive covariance) that reflect heterogeneity among sites.
 }
 \examples{
-varCScore <- v_ratio(m=matrix(rpois(100,1,0.5),nrow=10))
+varCScore <- v_ratio(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 \references{
 Schluter, D. 1984. A variance test for detecting species associations,
