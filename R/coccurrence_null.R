@@ -14,23 +14,23 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(wiFinches, algo="simFast")
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burn_in")
 #' 
 #' ## Example that is repeatable with a saved seed
-#' finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed = TRUE)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed = TRUE)
 #' mean(finchMod$Sim)
 #' ## Run the model with the seed saved
 #' 
-#' finchMod <- cooc_null_model(wiFinches, algo="sim1",saveSeed=T)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 #' ## Check model output
 #' mean(finchMod$Sim)
 #' 
 #' reproduce_model(finchMod$Sim)
 #' 
-#' finchMod <- cooc_null_model(wiFinches, algo="sim1")
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 #' ## Check model output is the same as before
 #' mean(finchMod$Sim)
 #' reproduce_model(finchMod$Sim)

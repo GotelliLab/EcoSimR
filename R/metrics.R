@@ -351,6 +351,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10)) 
   
 {
+  m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
   shared = tcrossprod(m)
   sums = rowSums(m)
   
@@ -359,7 +360,7 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   scores = (sums[row(shared)[upper]] - shared[upper])*
       (sums[col(shared)[upper]] - shared[upper])
   
-  mean(scores)
+  return(mean(scores))
 }
 
 
@@ -395,26 +396,15 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
+  shared = tcrossprod(m)
+  sums = rowSums(m)
   
-  pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
+  upper = upper.tri(shared)
   
+  scores = (sums[row(shared)[upper]] - shared[upper])*
+    (sums[col(shared)[upper]] - shared[upper])
   
-  cScore <- mat.or.vec(nrow(pairwise),1)
-  shared <- mat.or.vec(nrow(pairwise),1)
-  
-  for (i in 1:nrow(pairwise)) 
-  {
-    shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
-      (sum(m[pairwise[i,2],]) - shared[i])
-    
-    
-  }
-  
-  
-  
-  return(var(cScore))  # return variance of pairwise C-score
-  
+  return(var(scores))  
 }
 
 
@@ -452,24 +442,17 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 {
   m <- m[which(rowSums(m)>0),] # make calculation on submatrix with no missing species
+  shared = tcrossprod(m)
+  sums = rowSums(m)
   
-  pairwise <- cbind(t(combn(nrow(m),2)),0) # set up pairwise species list
+  upper = upper.tri(shared)
+  
+  scores = (sums[row(shared)[upper]] - shared[upper])*
+    (sums[col(shared)[upper]] - shared[upper])
   
   
-  cScore <- mat.or.vec(nrow(pairwise),1)
-  shared <- mat.or.vec(nrow(pairwise),1)
-  
-  for (i in 1:nrow(pairwise)) 
-  {
-    shared[i] <- sum(m[pairwise[i,1],]==1 & m[pairwise[i,2],]==1)
-    cScore[i] <- (sum(m[pairwise[i,1],]) - shared[i])*
-      (sum(m[pairwise[i,2],]) - shared[i])
-    
-    
-  }
-  
-  m3 <- mean((cScore-mean(cScore))^3)
-  cScoreSkew <- m3/(sd(cScore)^3)
+  m3 <- mean((scores-mean(scores))^3)
+  cScoreSkew <- m3/(sd(scores)^3)
   
   
   return(cScoreSkew)  # return skewness of pairwise C-score

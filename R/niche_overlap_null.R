@@ -10,10 +10,10 @@
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
 #'@examples \dontrun{
 #' ## Load MacAruthur warbler data
-#' data(macwarb)
+#' data(dataMacWarb)
 #' 
 #' ## Run the null model
-#' warbMod <- niche_null_model(macwarb)
+#' warbMod <- niche_null_model(dataMacWarb)
 #' ## Summary and plot info
 #' summary(warbMod)
 #' plot(warbMod)
