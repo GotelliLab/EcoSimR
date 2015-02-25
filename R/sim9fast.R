@@ -85,8 +85,8 @@ sim9_single <- function (m = matrix(rbinom(100, 1, 0.5), nrow = 10), trim = FALS
   # find columns if any in pair for which colsum =1; these can be swapped
   Sum.Is.One = colSums(m.pair) == 1
   
-  
-  if(any(Sum.Is.One)){
+  # Only swap if there are two or more columns to swap
+  if(sum(Sum.Is.One) > 1){
     columns <- which(Sum.Is.One)
     
     # return swap entries in the two rows
