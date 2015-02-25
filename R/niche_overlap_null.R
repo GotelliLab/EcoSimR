@@ -17,6 +17,7 @@
 #' ## Summary and plot info
 #' summary(warbMod)
 #' plot(warbMod)
+#' plot(warbMod,type="niche")
 #'  
 #'}
 #'
@@ -92,11 +93,11 @@ plot.nichenullmod <- function(x, type = "hist",...)
 {
   nullmodObj <- x
   if(type == "hist"){
-  
+
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1)
+  par (mar=c(5,6,4,2)+0.1,mfrow=c(1,1))
   #------------------------------------------------------
   hist(nullmodObj$Sim, breaks=20, col="royalblue3",
        

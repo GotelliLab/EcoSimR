@@ -3,39 +3,28 @@
 #'@param speciesData a dataframe in which rows are species, columns are sites,
 #' and the entries indicate the absence (0) or presence (1) of a species in a 
 #' site. Empty rows and empty columns should not be included in the matrix.
-#' @param algo the algorithm to use. Algorithms for co-occurrence are "sim1",
-#' "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10". 
-#' The default is "sim2".
-#' @param metric the metric to use. Metrics for co-occurrence are 
-#' "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", 
-#' "v_ratio". The default is "c_score".
-#' @param nReps the number of replicates to run the null model. The default is 
-#' 1000.
-#' @param rowNames Does the dataframe have row names? If TRUE, they are 
-#' stripped, otherwise FALSE for data that has no row names. Default is TRUE.
-#' @param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the 
-#' simulation can be repeated. Default is FALSE.
-#' @param burn_in The number of burn_in iterations to use with the sim9 
-#' algorithm. Default is 0 (not used for algorithms other than sim9).
-#' @param algoOpts a list containing all the options for the particular 
-#' algorithm used. Must match the algorithm given in the 
-#' `algo` argument.
-#' @param metricOpts a list containing all the options for the particular 
-#' metric used.  Must match the metric given in the `metric` argument.
-#' @examples \dontrun{
+#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
+#'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
+#'@param nReps the number of replicates to run the null model.
+#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
+#'@param burn_in The number of burn_in iterations to use with the simFast algorithm
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim9")
 #' ## Summary and plot info
 #' summary(finchMod)
-#' plot(finchMod,type="hist")
+#' plot(finchMod,type="burn_in")
 #' 
 #' ## Example that is repeatable with a saved seed
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed = TRUE)
 #' mean(finchMod$Sim)
 #' ## Run the model with the seed saved
 #' 
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed = TRUE)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 #' ## Check model output
 #' mean(finchMod$Sim)
 #' 
@@ -51,7 +40,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "sim2", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 0,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 0,algoOpts = list(),metricOpts = list()){
   aChoice <- c(paste("sim",c(1:10),sep=""))
   mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
@@ -78,10 +67,7 @@ cooc_null_model <- function(speciesData, algo = "sim2", metric = "c_score", nRep
 
 
 #' Generic function for calculating null model summary statistics
-#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, 
-#' Elapsed Time, and Time Stamp values. 
-#' Returns model parameters, one-and two-tailed 95% confidence intervals and 
-#' tail probabilities for observed metric, and standardized effect size.
+#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @export
 
 summary.coocnullmod <- function(object,...)
@@ -104,11 +90,11 @@ summary.coocnullmod <- function(object,...)
   
   #P-values
   if (nullmodObj$Obs > max(nullmodObj$Sim)) {
-    cat("P(Obs <= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
-    cat("P(Obs >= null) < ",1/length(nullmodObj$Sim),  "\n")
-  } else if (nullmodObj$Obs < min(nullmodObj$Sim)) {
-    cat("P(Obs <= null) < ", 1/length(nullmodObj$Sim), "\n")
-    cat("P(Obs >= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
+    cat("P(Obs <= null) < ",1/length(nullmodObj$Sim),  "\n")
+    cat("P(Obs >= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
+  } else if (sum(nullmodObj$Obs <= nullmodObj$Sim)==0) {
+    cat("P(Obs <= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
+    cat("P(Obs >= null) < ", 1/length(nullmodObj$Sim), "\n")
   } else {
     cat("P(Obs <= null) = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
     cat("P(Obs >= null) = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
@@ -124,18 +110,7 @@ summary.coocnullmod <- function(object,...)
 
 
 #' Null Model Plot function
-#' @description Generic function for creating co-occurrence plots.
-#' Takes as input a list of Null.Model.Out, with Obs and Sim values. 
-#' @ details "Hist" plot type creates a histogram of simulated values of the 
-#' metric, and illustrates the observed value (vertical red line), and the 
-#' one- and two-tailed 95% confidence intervals (long-and short-dashed black 
-#' vertical lines). "cooc" plot type portrays the binary presence-absence matrix 
-#' for the observed data matrix (red) and one of the simulated data matrices 
-#' (blue). "burn_in" plot type creates a trace of the consecutive metric values 
-#' during the burn in period. The initial metric value is shown as a horizontal 
-#' red line, the consecutive simulated values are traced with a blue line, 
-#' and a loess curve fitted to the simulated values.
-
+#' @description Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
 #' @export
 
 
@@ -147,8 +122,7 @@ plot.coocnullmod <- function(x, type = "hist",...)
   if(type == "cooc"){
   Date.Stamp=date()
   par(mfrow=c(1,2))
-#  if(is.na(nullmodObj$burn.in)){
-if(nullmodObj$Algorithm!="sim9"){
+  if(is.na(nullmodObj$burn.in)){
   Fun.Alg <- get(nullmodObj$Algorithm)
   } else {
     Fun.Alg <- sim9_single
@@ -206,7 +180,7 @@ if(type == "hist"){
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1)
+  par (mar=c(5,6,4,2)+0.1,mfrow=c(1,1))
   #------------------------------------------------------
   hist(nullmodObj$Sim, breaks=20, col="royalblue3",
        
@@ -221,9 +195,10 @@ if(type == "hist"){
 
 if(type=="burn_in"){
   if(is.na(nullmodObj$burn.in)){
-    warning("You can only create a burn_in plot for a model run with the 'sim9' algorithm")
+    warning("You can only create a burn_in plot for a model run with the 'simFast' algorithm")
    
   }
+  par(mfrow=c(1,1))
   v <- nullmodObj$burn.in.metric
   z <- nullmodObj$Obs
   v <- c(z,v)
