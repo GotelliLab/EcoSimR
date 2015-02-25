@@ -55,7 +55,9 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
     setTxtProgressBar(pb, i)
   }
   close(pb)
-
+  ## Save final matrix for plotting
+  finalRandomData <- m
+  
   endTime <- Sys.time()
   elapsedTime <- format(endTime-startTime,digits=2)
   timeStamp <- date()
@@ -65,7 +67,8 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   
 
   
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, Reproducible = saveSeed,RandomSeed = randomSeed, Data = speciesData)
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, 
+                       Reproducible = saveSeed,RandomSeed = randomSeed, Data = speciesData,Randomized.Data = finalRandomData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
   

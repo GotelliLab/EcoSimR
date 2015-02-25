@@ -119,8 +119,7 @@ plot.nichenullmod <- function(x, type = "hist",...)
          main="Observed Utilization Matrix",col.main="red3",cex.main=1.5)
   mtext(as.character(nullmodObj$Time.Stamp),side=3,adj=1,line=3)
     
-  Fun.Alg <- get(nullmodObj$Algorithm)
-    One.Null.Matrix <- Fun.Alg(Data)
+    One.Null.Matrix <- nullmodObj$Randomized.Data
     One.Null.Matrix <- One.Null.Matrix/rowSums(One.Null.Matrix)
     plot(rep(1:ncol(One.Null.Matrix),times = nrow(One.Null.Matrix)),
          rep(1:nrow(One.Null.Matrix),each=ncol(One.Null.Matrix)),
