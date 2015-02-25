@@ -122,7 +122,7 @@ plot.coocnullmod <- function(x, type = "hist",...)
   if(type == "cooc"){
   Date.Stamp=date()
   par(mfrow=c(1,2))
-  if(is.na(nullmodObj$burn.in)){
+  if(nullmodObj$Algorithm!="sim9"){
   Fun.Alg <- get(nullmodObj$Algorithm)
   } else {
     Fun.Alg <- sim9_single
