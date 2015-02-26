@@ -14,11 +14,11 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim9",burn_in = 500)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim3",burn_in = 500)
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burn_in")
-#' plot(finchMod,type="cooc")
+#' plot(finchMod,type="hist")
 #' 
 #' ## Example that is repeatable with a saved seed
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed = TRUE)
@@ -172,10 +172,11 @@ plot.coocnullmod <- function(x, type = "hist",...)
 
 if(type == "hist"){
   opar <- par(no.readonly=TRUE)
+  par(mfrow=c(1,1))
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1,mfrow=c(1,1))
-  hist(nullmodObj$Sim, breaks=20, col="royalblue3"),
+  par (mar=c(5,6,4,2)+0.1)
+  hist(nullmodObj$Sim, breaks=20, col="royalblue3",
   xlab="Simulated Metric",ylab="Frequency",main="", xlim=range(c(nullmodObj$Sim,nullmodObj$Obs)))
   abline(v=nullmodObj$Obs,col="red",lty="solid",lwd=2.5)
   abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)

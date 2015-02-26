@@ -95,20 +95,21 @@ summary.sizenullmod <- function(object,...)
 }
 
 
-plot.sizenullmod <- function(nullmodObj, type = "hist",x = NULL,...)
+plot.sizenullmod <- function(x, type = "hist",...)
 {
-  
-#nullmodObj <- x
+cat("in here")
+nullmodObj <- x
 if(type == "hist"){
-  
+  par(mfrow=c(1,1))
   opar <- par(no.readonly=TRUE)
   par(cex=1, cex.axis = 1.5,
       cex.main=1,cex.lab=1.6)
-  par (mar=c(5,6,4,2)+0.1,mfrow=c(1,1))
+  par (mar=c(5,6,4,2)+0.1)
   hist(nullmodObj$Sim, breaks=20, col="royalblue3",
        
        xlab="Simulated Metric",ylab="Frequency",main="",
        xlim=range(c(nullmodObj$Sim,nullmodObj$Obs)))
+  
   abline(v=nullmodObj$Obs,col="red",lty="solid",lwd=2.5)
   abline(v=quantile(nullmodObj$Sim,c(0.05,0.95)),col="black",lty="dashed",lwd=2.5)
   abline(v=quantile(nullmodObj$Sim,c(0.025,0.975)),col="black",lty="dotted",lwd=2.5)
@@ -120,8 +121,8 @@ if(type=="size"){
 
   opar<- par(no.readonly=TRUE)
   par(mfrow=c(2,1))
-  Fun.Alg <- get(nullmodObj$Algorithm)
-  One.Null.Vector <- Fun.Alg(nullmodObj$Data)
+
+  One.Null.Vector <- nullmodObj$Randomized.Data
   
   limits <- range(c(nullmodObj$Data,One.Null.Vector))
   x.lims <- c((limits[1]-0.1*limits[2]),(1.1*limits[2]))
