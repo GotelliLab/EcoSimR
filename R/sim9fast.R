@@ -38,7 +38,7 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
   for (i in 1:burn_in)
   {
     msim <-sim9_single(msim)
-    Fb[i] <- metricF(msim)
+    burn.in.metric[i] <- metricF(msim)
     setTxtProgressBar(bi_pb, i)
   }
   close(bi_pb)
@@ -59,7 +59,7 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
   Elapsed.Time <- format(End.Time-Start.Time,digits=2)
   Time.Stamp <- date()
 
-  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed, Data = speciesData,burn.in = burn_in,burn.in.metric= burn.in.metric)
+  sim9.fast.out <- list(Obs=Obs,Sim=Sim, Elapsed.Time=Elapsed.Time, Time.Stamp=Time.Stamp,Metric = metric, Algorithm = algo, N.Reps = nReps, SaveSeed = saveSeed, RandomSeed = randomSeed,Randomized.Data = msim , Data = speciesData,burn.in = burn_in,burn.in.metric= burn.in.metric)
   # plot to screen the trace function for the burn in
   
   class(sim9.fast.out) <- "nullmod"

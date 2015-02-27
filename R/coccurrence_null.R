@@ -14,11 +14,12 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim3",burn_in = 500)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim9",burn_in = 500)
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burn_in")
 #' plot(finchMod,type="hist")
+#' plot(finchMod,type="cooc")
 #' 
 #' ## Example that is repeatable with a saved seed
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed = TRUE)
