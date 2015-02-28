@@ -67,7 +67,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   
 
   
-  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, n.reps = nReps, 
+  nullModelOut <- list(Obs=obs,Sim=sim, Elapsed.Time=elapsedTime, Time.Stamp=timeStamp,Metric = metric, Algorithm = algo, nReps = nReps, 
                        Reproducible = saveSeed,RandomSeed = randomSeed, Data = speciesData,Randomized.Data = finalRandomData)
   class(nullModelOut) <- "nullmod"
   return(nullModelOut)
