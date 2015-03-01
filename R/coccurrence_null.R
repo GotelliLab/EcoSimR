@@ -70,6 +70,7 @@ cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nRep
 
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+#' @param object the null model object to print a summary.
 #' @export
 
 summary.coocnullmod <- function(object,...)
@@ -111,8 +112,11 @@ summary.coocnullmod <- function(object,...)
 
 
 
-#' Null Model Plot function
-#' @description Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
+#' Co-Occurrence Model Plot function
+#' @description Plot co-occurrence null model object.
+#' @param x the null model to plot
+#' @param type the type of null plot to make.  See details for more information
+#' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
 #' @export
 
 

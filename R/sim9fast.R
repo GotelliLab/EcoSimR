@@ -1,5 +1,6 @@
 #' Sim9.fast function
-#' @description Special implementation of sequential swap algorithm
+#' @description Special implementation of sequential swap algorithm.
+
 #' @export
 
 

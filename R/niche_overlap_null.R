@@ -40,6 +40,7 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps
 
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+#' @param object the null model object to print a summary of. 
 #' @export
 
 summary.nichenullmod <- function(object,...)
@@ -83,8 +84,11 @@ summary.nichenullmod <- function(object,...)
 
 
 
-#' Null Model Plot function
+#' Niche Null Model Plot function
 #' @description Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
+#' @param x the null model to plot
+#' @param type the type of null plot to make.  See details for more information
+#' @details the valid types for size are "hist" to show a histogram and "niche" to show a sample draw from the null model.
 #' @export
 
 

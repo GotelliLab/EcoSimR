@@ -4,13 +4,12 @@ Title: <short description here>
 Version: 0.1.0
 Date: 2014-02-16
 BugReports: https://github.com/GotelliLab/EcoSimR/issues
-Authors@R: c(person("Nick", "Gotelli", role = c("aut", "cre"),
+Authors@R: c(person("Nick", "Gotelli", role = c("aut"),
     email = "ngotelli@uvm.edu"),
-    person("Edmund", "Hart", role = "aut",
+    person("Edmund", "Hart", role = c("aut","cre"),
     email = "edmund.m.hart@gmail.com"),
-    person("Aaron", "Ellison", role = c("aut","cre"),
+    person("Aaron", "Ellison", role = c("aut"),
     email = "aellison@fas.harvard.edu") )
-Maintainer: Edmund Hart <edmund.m.hart@gmail.com>
 LazyLoad: yes
 LazyData: yes
 Description: <longer description here>

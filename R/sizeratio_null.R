@@ -54,6 +54,7 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
 
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+#' @param object the null model object to print a summary of. 
 #' @export
 
 summary.sizenullmod <- function(object,...)
@@ -95,9 +96,16 @@ summary.sizenullmod <- function(object,...)
 }
 
 
+
+#' plot a size null model
+#' @description plot a variety of size null models
+#' @param x the null model to plot
+#' @param type the type of null plot to make.  See details for more information
+#' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+#' @export
+
 plot.sizenullmod <- function(x, type = "hist",...)
 {
-cat("in here")
 nullmodObj <- x
 if(type == "hist"){
   par(mfrow=c(1,1))

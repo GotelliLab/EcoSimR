@@ -5,6 +5,9 @@
 \usage{
 \method{summary}{sizenullmod}(object, ...)
 }
+\arguments{
+\item{object}{the null model object to print a summary of.}
+}
 \description{
 Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 }

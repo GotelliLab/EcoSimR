@@ -2,6 +2,7 @@
 
 S3method(plot,coocnullmod)
 S3method(plot,nichenullmod)
+S3method(plot,sizenullmod)
 S3method(summary,coocnullmod)
 S3method(summary,nichenullmod)
 S3method(summary,sizenullmod)

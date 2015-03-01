@@ -7,6 +7,6 @@ sim9(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
   saveSeed = FALSE, burn_in = 0)
 }
 \description{
-Special implementation of sequential swap algorithm
+Special implementation of sequential swap algorithm.
 }
 
