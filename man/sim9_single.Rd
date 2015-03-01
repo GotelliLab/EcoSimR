@@ -3,7 +3,7 @@
 \alias{sim9_single}
 \title{sim9_single function}
 \usage{
-sim9_single(m = matrix(rbinom(100, 1, 0.5), nrow = 10), trim = FALSE)
+sim9_single(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }
 \description{
 Function for a single iteration of the fast swap
