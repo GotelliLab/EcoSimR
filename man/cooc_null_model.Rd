@@ -39,6 +39,7 @@ finchMod <- cooc_null_model(dataWiFinches, algo="sim9",burn_in = 500)
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burn_in")
+plot(finchMod,type="hist")
 plot(finchMod,type="cooc")
 
 ## Example that is repeatable with a saved seed

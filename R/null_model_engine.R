@@ -5,7 +5,9 @@
 #'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param random.seed Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.
+#'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
+#'@param algoOpts a list containing options for a supplied alogrithm
+#'@param metricOpts a list containing options for a supplied metric
 #'
 #'@export
 

@@ -17,7 +17,11 @@ null_model_engine(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
 
 \item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
-\item{random.seed}{Choose a seed to start your random number.  0 will choose a random seed, otherwise set the seed with any integer.}
+\item{saveSeed}{Should the existing random seed be saved to make the model reproducible?}
+
+\item{algoOpts}{a list containing options for a supplied alogrithm}
+
+\item{metricOpts}{a list containing options for a supplied metric}
 }
 \description{
 This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.
