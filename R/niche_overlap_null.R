@@ -34,16 +34,17 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
   return(output)
-  
+
 }
 
 
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @param object the null model object to print a summary of. 
+#' @aliases 
 #' @export
 
-summary.nichenullmod <- function(object,...)
+summary.nichenullmod <- function(object)
 { 
  
   nullmodObj <- object 

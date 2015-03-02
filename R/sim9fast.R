@@ -1,6 +1,13 @@
 #' Sim9.fast function
 #' @description Special implementation of sequential swap algorithm.
-
+#'@param speciesData a dataframe <put some guidelines in here>
+#'@param algo the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"
+#'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
+#'@param nReps the number of replicates to run the null model.
+#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
+#'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
+#'@param burn_in The number of reps to burn in the swap algo
+#' @details Due to the extra swapping steps, this needs it's own special null model type engine for sim9.  So this fulfills that need.
 #' @export
 
 

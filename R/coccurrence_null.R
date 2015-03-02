@@ -73,7 +73,7 @@ cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nRep
 #' @param object the null model object to print a summary.
 #' @export
 
-summary.coocnullmod <- function(object,...)
+summary.coocnullmod <- function(object)
 { 
   nullmodObj <- object
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 

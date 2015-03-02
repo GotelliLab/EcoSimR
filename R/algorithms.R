@@ -300,50 +300,6 @@ matrix(vector_sample(speciesData,weights=matrixWeights),ncol=ncol(speciesData))
 
 
 
-###############################################
-######################################################################
-
-# sim9 function
-# @description Takes a binary presence absence matrix returns a new matrix 
-# with same number of rows and columns uses swapping function from Denitz
-	
-# Not used preserved for posterity
-# sim9 <- function(speciesData=matrix(rbinom(100,1,0.5),nrow=10)) 
-  
-#{
-#  speciesData <- speciesData[which(rowSums(speciesData)>0),] # make 
-# calculation on submatrix with no missing species
-#  
-#  Burn.In <- max(c(10*nrow(speciesData),1000)) # set the burn-in
-#  # select two random rows and create submatrix
-#  for(i in 1:Burn.In)
-#  {
-#    ran.rows <- sample(nrow(speciesData),2)
-#    
-#    speciesData.pair <- speciesData[ran.rows,]
-#    
-#    
-#    
-#    # find columns if any in pair for which colsum =1; these can be swapped
-#    
-#    Sum.Is.One <- which(colSums(speciesData.pair)==1)
-#    
-#    if(length(Sum.Is.One)>1)
-#    {
-#      # swap them in speciesData.pair.swapped
-#      speciesData.pair.swapped <- speciesData.pair
-#      speciesData.pair.swapped[,Sum.Is.One] <- speciesData.pair[,sample(Sum.Is.One)]
-#      
-#      # return the two swapped rows to the original speciesData matrix
-#      
-#      speciesData[ran.rows,] <- speciesData.pair.swapped
-#      
-#    }
-#  }
-#  return(speciesData)
-#}
-
-
 #' Sim10 Co-occurrence Randomization Algorithm
 #' @description Randomizes a binary matrix speciesData by reshuffling all 
 #' elements. Rows and column probabilities are proportional to user-supplied 
@@ -401,7 +357,7 @@ matrix(vector_sample(speciesData, weights =matrixWeights),ncol=ncol(speciesData)
 #' resource categories) may include zeroes, but no negative numbers or missing
 #' values. Relative resource within a species is first calculated, so the rows
 #' need not sum to 1.0.
-#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' @param speciesData a resource utilization matrix (rows = species, columns = discrete 
 #' resource states) filled with non-negative real numbers. 
 #' @return Returns a random utilization matrix with the same dimensions as the 
 #' input matrix.
@@ -435,7 +391,7 @@ matrix(runif(prod(dim(speciesData))),ncol=ncol(speciesData))
 #' resource categories) may include zeroes, but no negative numbers or missing
 #' values. Relative resource within a species is first calculated, so the rows
 #' need not sum to 1.0.
-#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' @param speciesData a resource utilization matrix (rows = species, columns = discrete 
 #' resource states) filled with non-negative real numbers. 
 #' @return Returns a random utilization matrix with the same dimensions as the 
 #' input matrix.
@@ -475,7 +431,7 @@ return(RM)
 #' resource categories) may include zeroes, but no negative numbers or missing
 #' values. Relative resource within a species is first calculated, so the rows
 #' need not sum to 1.0.
-#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' @param speciesData a resource utilization matrix (rows = species, columns = discrete 
 #' resource states) filled with non-negative real numbers. 
 #' @return Returns a random utilization matrix with the same dimensions as the 
 #' input matrix.
@@ -507,7 +463,7 @@ return(RM)
 #' resource categories) may include zeroes, but no negative numbers or missing
 #' values. Relative resource within a species is first calculated, so the rows
 #' need not sum to 1.0.
-#' @param m a resource utilization matrix (rows = species, columns = discrete 
+#' @param speciesData a resource utilization matrix (rows = species, columns = discrete 
 #' resource states) filled with non-negative real numbers. 
 #' @return Returns a random utilization matrix with the same dimensions as the 
 #' input matrix.

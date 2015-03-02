@@ -57,7 +57,7 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
 #' @param object the null model object to print a summary of. 
 #' @export
 
-summary.sizenullmod <- function(object,...)
+summary.sizenullmod <- function(object)
 { 
   nullmodObj <- object
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
@@ -101,6 +101,7 @@ summary.sizenullmod <- function(object,...)
 #' @description plot a variety of size null models
 #' @param x the null model to plot
 #' @param type the type of null plot to make.  See details for more information
+#' @param ... Other variables to be passed on to base plotting
 #' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
 #' @export
 
