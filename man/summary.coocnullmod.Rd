@@ -3,7 +3,7 @@
 \alias{summary.coocnullmod}
 \title{Generic function for calculating null model summary statistics}
 \usage{
-\method{summary}{coocnullmod}(object, ...)
+\method{summary}{coocnullmod}(object)
 }
 \arguments{
 \item{object}{the null model object to print a summary.}

@@ -18,18 +18,16 @@
 #' summary(warbMod)
 #' plot(warbMod)
 #' plot(warbMod,type="niche")
-#'  
 #'}
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,algoOpts = list(),metricOpts = list(),saveSeed=TRUE){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,saveSeed=FALSE,algoOpts = list(),metricOpts = list()){
+  
   aChoice <- c("ra1","ra2","ra3","ra4")
   mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
-  
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
@@ -41,7 +39,6 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @param object the null model object to print a summary of. 
-#' @aliases 
 #' @export
 
 summary.nichenullmod <- function(object)
@@ -50,7 +47,7 @@ summary.nichenullmod <- function(object)
   nullmodObj <- object 
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n")  
-  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Reproducible: ",nullmodObj$Reproducible,  "\n")
   cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$Metric,  "\n")
@@ -66,17 +63,19 @@ summary.nichenullmod <- function(object)
   
   #P-values
   if (nullmodObj$Obs > max(nullmodObj$Sim)) {
-    cat("P(Obs <= null) < ",1/length(nullmodObj$Sim),  "\n")
-    cat("P(Obs >= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
-  } else if (sum(nullmodObj$Obs <= nullmodObj$Sim)==0) {
-    cat("P(Obs <= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
-    cat("P(Obs >= null) < ", 1/length(nullmodObj$Sim), "\n")
+    cat("Lower-tail P > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
+    cat("Upper-tail P < ",1/length(nullmodObj$Sim),  "\n")
+  } else if(nullmodObj$Obs < min(nullmodObj$Sim)) {
+    cat("Lower-tail P > ", 1/length(nullmodObj$Sim), "\n")
+    cat("Upper-tail P < ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
   } else {
-    cat("P(Obs <= null) = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
-    cat("P(Obs >= null) = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
+    cat("Lower-tail P = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
+    cat("Upper-tail P = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
   }
-  
-  cat("P(Obs = null) = ",format(sum(nullmodObj$Obs == nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
+
+  cat(paste("Observed metric > ",sum(nullmodObj$Obs > nullmodObj$Sim)," simulated metrics",sep="") , "\n")
+  cat(paste("Observed metric < ",sum(nullmodObj$Obs < nullmodObj$Sim)," simulated metrics",sep="") , "\n")
+  cat(paste("Observed metric = ",sum(nullmodObj$Obs == nullmodObj$Sim)," simulated metrics",sep=""),  "\n")
   cat("Standardized Effect Size (SES): ", format((nullmodObj$Obs - mean(nullmodObj$Sim))/sd(nullmodObj$Sim),digits=5), "\n")
   
   #if(!is.null(Output.File)) close(outfile)

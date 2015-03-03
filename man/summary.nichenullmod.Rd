@@ -3,7 +3,7 @@
 \alias{summary.nichenullmod}
 \title{Generic function for calculating null model summary statistics}
 \usage{
-\method{summary}{nichenullmod}(object, ...)
+\method{summary}{nichenullmod}(object)
 }
 \arguments{
 \item{object}{the null model object to print a summary of.}

@@ -9,6 +9,8 @@
 \item{x}{the null model to plot}
 
 \item{type}{the type of null plot to make.  See details for more information}
+
+\item{...}{Other variables to be passed on to base plotting}
 }
 \description{
 plot a variety of size null models

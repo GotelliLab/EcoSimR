@@ -6,7 +6,7 @@
 ra3(speciesData = matrix(rpois(80, 1), nrow = 10))
 }
 \arguments{
-\item{m}{a resource utilization matrix (rows = species, columns = discrete
+\item{speciesData}{a resource utilization matrix (rows = species, columns = discrete
 resource states) filled with non-negative real numbers.}
 }
 \value{

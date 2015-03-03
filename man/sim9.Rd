@@ -6,7 +6,25 @@
 sim9(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
   saveSeed = FALSE, burn_in = 0)
 }
+\arguments{
+\item{speciesData}{a dataframe <put some guidelines in here>}
+
+\item{algo}{the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"}
+
+\item{metric}{the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka}
+
+\item{nReps}{the number of replicates to run the null model.}
+
+\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
+
+\item{saveSeed}{Should the existing random seed be saved to make the model reproducible?}
+
+\item{burn_in}{The number of reps to burn in the swap algo}
+}
 \description{
 Special implementation of sequential swap algorithm.
+}
+\details{
+Due to the extra swapping steps, this needs it's own special null model type engine for sim9.  So this fulfills that need.
 }
 

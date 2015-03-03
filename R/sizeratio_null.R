@@ -63,7 +63,7 @@ summary.sizenullmod <- function(object)
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
   
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
-  cat("Reproducible: ",nullmodObj$SaveSeed,  "\n")
+  cat("Reproducible: ",nullmodObj$Reproducible,  "\n")
   cat("Number of Replications: ",nullmodObj$nReps,  "\n")
   cat("Elapsed Time: ", nullmodObj$Elapsed.Time, "\n")
   cat("Metric: ", nullmodObj$Metric,  "\n")
@@ -79,17 +79,19 @@ summary.sizenullmod <- function(object)
   
   #P-values
   if (nullmodObj$Obs > max(nullmodObj$Sim)) {
-    cat("P(Obs <= null) < ",1/length(nullmodObj$Sim),  "\n")
-    cat("P(Obs >= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
-  } else if (sum(nullmodObj$Obs <= nullmodObj$Sim)==0) {
-    cat("P(Obs <= null) > ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
-    cat("P(Obs >= null) < ", 1/length(nullmodObj$Sim), "\n")
+    cat("Lower-tail P < ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim),  "\n")
+    cat("Upper-tail P > ",1/length(nullmodObj$Sim),  "\n")
+  } else if(nullmodObj$Obs < min(nullmodObj$Sim)) {
+    cat("Lower-tail P > ", 1/length(nullmodObj$Sim), "\n")
+    cat("Upper-tail P < ",(length(nullmodObj$Sim) - 1)/length(nullmodObj$Sim), "\n")
   } else {
-    cat("P(Obs <= null) = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
-    cat("P(Obs >= null) = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
+    cat("Lower-tail P = ", format(sum(nullmodObj$Obs >= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
+    cat("Upper-tail P = ", format(sum(nullmodObj$Obs <= nullmodObj$Sim)/length(nullmodObj$Sim),digits=5), "\n")
   }
   
-  cat("P(Obs = null) = ",format(sum(nullmodObj$Obs == nullmodObj$Sim)/length(nullmodObj$Sim),digits=5),  "\n")
+  cat(paste("Observed metric > ",sum(nullmodObj$Obs > nullmodObj$Sim)," simulated metrics",sep="") , "\n")
+  cat(paste("Observed metric < ",sum(nullmodObj$Obs < nullmodObj$Sim)," simulated metrics",sep="")  ,"\n")
+  cat(paste("Observed metric = ",sum(nullmodObj$Obs == nullmodObj$Sim)," simulated metrics",sep="") , "\n")
   cat("Standardized Effect Size (SES): ", format((nullmodObj$Obs - mean(nullmodObj$Sim))/sd(nullmodObj$Sim),digits=5), "\n")
   
   #if(!is.null(Output.File)) close(outfile)

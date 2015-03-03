@@ -4,8 +4,8 @@
 \title{Niche overlap}
 \usage{
 niche_null_model(speciesData, algo = "ra3", metric = "pianka",
-  nReps = 1000, rowNames = TRUE, algoOpts = list(), metricOpts = list(),
-  saveSeed = TRUE)
+  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(),
+  metricOpts = list())
 }
 \arguments{
 \item{speciesData}{a dataframe <put some guidelines in here>}
@@ -18,11 +18,11 @@ niche_null_model(speciesData, algo = "ra3", metric = "pianka",
 
 \item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
+\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
+
 \item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
 
 \item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
-
-\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 }
 \description{
 Create a niche overlap null model
@@ -38,7 +38,6 @@ warbMod <- niche_null_model(dataMacWarb)
 summary(warbMod)
 plot(warbMod)
 plot(warbMod,type="niche")
-
 }
 }
 
