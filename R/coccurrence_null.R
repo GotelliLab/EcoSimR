@@ -14,7 +14,7 @@
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim9",burn_in = 500)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=1000000,burn_in = 500)
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burn_in")
@@ -71,9 +71,10 @@ cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nRep
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @param object the null model object to print a summary.
+#' @param ... extra parameters
 #' @export
 
-summary.coocnullmod <- function(object)
+summary.coocnullmod <- function(object,...)
 { 
   nullmodObj <- object
   cat("Time Stamp: " , nullmodObj$Time.Stamp,   "\n") 
@@ -118,6 +119,7 @@ summary.coocnullmod <- function(object)
 #' @description Plot co-occurrence null model object.
 #' @param x the null model to plot
 #' @param type the type of null plot to make.  See details for more information
+#' @param ... Other variables to be passed on to base plotting
 #' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
 #' @export
 
