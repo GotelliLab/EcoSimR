@@ -33,7 +33,7 @@ Create a niche overlap null model
 data(dataMacWarb)
 
 ## Run the null model
-warbMod <- niche_null_model(dataMacWarb)
+warbMod <- niche_null_model(dataMacWarb,nReps=100000)
 ## Summary and plot info
 summary(warbMod)
 plot(warbMod)

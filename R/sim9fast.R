@@ -78,12 +78,13 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
 
 #' sim9_single function
 #' @description Function for a single iteration of the fast swap
+#' @param speciesData binary presence-absence matrix
 #' @export
-sim9_single <- function (m = matrix(rbinom(100, 1, 0.5), nrow = 10)) 
+sim9_single <- function (speciesData = matrix(rbinom(100, 1, 0.5), nrow = 10)) 
 {
   # select two random rows and create submatrix
-  ran.rows <- sample.int(nrow(m), 2)
-  m.pair <- m[ran.rows, ]
+  ran.rows <- sample.int(nrow(speciesData), 2)
+  m.pair <- speciesData[ran.rows, ]
   
   # find columns if any in pair for which colsum =1; these can be swapped
   Sum.Is.One = colSums(m.pair) == 1
@@ -93,10 +94,10 @@ sim9_single <- function (m = matrix(rbinom(100, 1, 0.5), nrow = 10))
     columns <- which(Sum.Is.One)
     
     # return swap entries in the two rows
-    m[ran.rows, columns] <- m.pair[, sample(columns)]
+    speciesData[ran.rows, columns] <- m.pair[, sample(columns)]
   }
   
-  return(m)
+  return(speciesData)
 }
 
 

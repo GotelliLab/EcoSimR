@@ -9,6 +9,8 @@
 \item{x}{the null model to plot}
 
 \item{type}{the type of null plot to make.  See details for more information}
+
+\item{...}{Other variables to be passed on to base plotting}
 }
 \description{
 Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values

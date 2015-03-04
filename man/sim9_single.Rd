@@ -3,7 +3,10 @@
 \alias{sim9_single}
 \title{sim9_single function}
 \usage{
-sim9_single(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
+sim9_single(speciesData = matrix(rbinom(100, 1, 0.5), nrow = 10))
+}
+\arguments{
+\item{speciesData}{binary presence-absence matrix}
 }
 \description{
 Function for a single iteration of the fast swap

@@ -35,7 +35,7 @@ Create a Co-Occurrence null model
 \dontrun{
 
 ## Run the null model
-finchMod <- cooc_null_model(dataWiFinches, algo="sim9",burn_in = 500)
+finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=1000000,burn_in = 500)
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burn_in")

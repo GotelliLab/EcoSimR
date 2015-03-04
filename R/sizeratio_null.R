@@ -55,9 +55,10 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @param object the null model object to print a summary of. 
+#' @param ... Extra parameters for summary
 #' @export
 
-summary.sizenullmod <- function(object)
+summary.sizenullmod <- function(object,...)
 { 
   nullmodObj <- object
   #if (!is.null(Output.File)) outfile <- file(p$Output.File, "w") else outfile <-""
