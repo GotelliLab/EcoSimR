@@ -42,7 +42,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "sim1", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "sim9", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,algoOpts = list(),metricOpts = list()){
   aChoice <- c(paste("sim",c(1:10),sep=""))
   mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 

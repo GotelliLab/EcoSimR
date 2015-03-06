@@ -1,6 +1,6 @@
-#'Niche overlap 
-#'@description Create a niche overlap null model
-#'@param speciesData a dataframe <put some guidelines in here>
+#'Niche overlap null models 
+#'@description Create a niche overlap null models, choices of algorithm and metric are constrained to be valid for niche null models.
+#'@param speciesData a data frame in which each row is a species, each column is a resource utilization category, and the entries represent the quantity of the resource used by each species. Examples might be the amount of time a species spends foraging in different microhabitats, the biomass of different prey types, or counts of the number of times an adult female oviposits eggs on different species of a host plant.
 #'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
 #'@param metric the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka
 #'@param nReps the number of replicates to run the null model.
