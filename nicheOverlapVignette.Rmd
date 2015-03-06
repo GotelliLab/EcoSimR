@@ -19,6 +19,10 @@ The data for a niche overlap analysis consists of a data frame in which each row
 
 The supplied data set `macwarb` for niche overlap analysis is taken from Table 2 of MacArthur's (1958) classic study on niche overlap of coexisting warblers. Each row represents one of 5 species of warbler that coexist in northern New England. Each column represents one of 16 subregions of an idealized coniferous tree. The entries are the percentage of time that each species was observed foraging in a different subregion of a (hypothetical) tree. MacArthur (1958) proposed that the species specialized on different subregions, and that this specialization was the basis for resource partitioning and coexistence. As we will see, the null model analysis provides a different perspective on this classic data set.
 
+```{r, echo=FALSE, results='asis'}
+knitr::kable(dataMacWarb)
+```
+
 ## Metrics
 
 The basic metrics for niche overlap are either the `pianka` or the `czekanowski` index. The `pianka` index is similar to the competition coefficient $\alpha$ in the Lotka-Volterra equations, and the `czekanowski` index is  the area of intersection of two resource utilization histograms. These indices are calculated for an individual species pair, and are then averaged over all possible pairs of species in the assemblage. Both indices range from 0.0 (no overlap) to 1.0 (complete overlap). They are highly correlated with one another, and it makes little difference which one you use.
