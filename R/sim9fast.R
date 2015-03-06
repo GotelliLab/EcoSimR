@@ -1,14 +1,29 @@
-#' Sim9.fast function
-#' @description Special implementation of sequential swap algorithm.
-#'@param speciesData a dataframe <put some guidelines in here>
-#'@param algo the algorithm to use, must be "RA1", "RA2", "RA3", "RA4"
-#'@param metric the metric used to caluclate the null model: choices are "Pianka", "Czekanowski", "Pianka.var", "Czekanowski.var", "Pianka.skew", "Czekanowski.skew"; default is Pianka
+#'sim9.fast
+#'@description A special implementation of the sequential swap algorithm
+#'@param speciesData a dataframe in which rows are species, columns are sites,
+#' and the entries indicate the absence (0) or presence (1) of a species in a 
+#' site. Empty rows and empty columns should not be included in the matrix.
+#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
+#'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
 #'@param nReps the number of replicates to run the null model.
 #'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
-#'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
-#'@param burn_in The number of reps to burn in the swap algo
-#' @details Due to the extra swapping steps, this needs it's own special null model type engine for sim9.  So this fulfills that need.
-#' @export
+#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
+#'@param burn_in The number of burn_in iterations to use with the simFast algorithm
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@examples \dontrun{
+#' 
+#' ## Run the null model
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=1000000,burn_in = 500)
+#' ## Summary and plot info
+#' summary(finchMod)
+#' plot(finchMod,type="burn_in")
+#' plot(finchMod,type="hist")
+#' plot(finchMod,type="cooc")
+#'}
+#'
+#'@export
+
 
 
 
@@ -76,8 +91,8 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
 
 
 
-#' sim9_single function
-#' @description Function for a single iteration of the fast swap
+#' sim9_single 
+#' @description Function for a single iteration of the sequential swap
 #' @param speciesData binary presence-absence matrix
 #' @export
 sim9_single <- function (speciesData = matrix(rbinom(100, 1, 0.5), nrow = 10)) 
