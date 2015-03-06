@@ -1,4 +1,4 @@
-#'Niche overlap null models 
+#'Niche overlap null model engine
 #'@description Create a niche overlap null models, choices of algorithm and metric are constrained to be valid for niche null models.
 #'@param speciesData a data frame in which each row is a species, each column is a resource utilization category, and the entries represent the quantity of the resource used by each species. Examples might be the amount of time a species spends foraging in different microhabitats, the biomass of different prey types, or counts of the number of times an adult female oviposits eggs on different species of a host plant.
 #'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
@@ -8,18 +8,17 @@
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
-#'@examples \dontrun{
-#' ## Load MacAruthur warbler data
+#'@examples 
+#' # Load MacAruthur warbler data
 #' data(dataMacWarb)
 #' 
-#' ## Run the null model
+#' # Run the null model
 #' warbMod <- niche_null_model(dataMacWarb,nReps=100000)
-#' ## Summary and plot info
+#' # Summary and plot info
 #' summary(warbMod)
 #' plot(warbMod)
 #' plot(warbMod,type="niche")
-#'}
-#'
+
 #'@export
 
 niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,saveSeed=FALSE,algoOpts = list(),metricOpts = list()){

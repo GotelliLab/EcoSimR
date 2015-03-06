@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>size_source_pool. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">EcoSimR 0.1.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+       <p>custom header test</p>  
+      </header>
+      
+      <h1>SizeSourcePoolDraw Size Overlap Randomization Algorithm</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>size_source_pool(speciesData&nbsp;=&nbsp;21:30, sourcePool&nbsp;=&nbsp;runif(n&nbsp;=&nbsp;2 * length(speciesData), min&nbsp;=&nbsp;10, max&nbsp;=&nbsp;50), speciesProbs&nbsp;=&nbsp;rep(1, length(sourcePool)))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a vector of observed body sizes.</dd>
+      <dt>sourcePool</dt>
+      <dd>a vector of body sizes of species in the user-defined
+pool of potential colonists.</dd>
+      <dt>speciesProbs</dt>
+      <dd>a vector of relative colonization weights of
+length 'sourcePool'.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a vector of body sizes of an assemblage randomly drawn
+from a user-defined source pool.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Function to randomize body sizes by drawing species from a
+user-defined source pool. Species are drawn without replacement,
+and there is a specified probability vector for the source pool species</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>Although delineating a source pool of species and estimating their
+relative colonization probabilities is difficult, this is the most realistic
+approach to constructing a null distribution.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Strong, D.R. Jr., L.A. Szyska, and D. Simberloff. 1979. Tests of
+community-wide character displacement against null hypotheses. Evolution 33:
+897-913.
+Schluter, D. and P.R. Grant. 1984. Determinants of morphological patterns in
+communities of Darwin's finches. American Naturalist 123: 175-196.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>obsOverlap &lt;- size_source_pool(dataRodents$Sonoran)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>size_source_pool</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

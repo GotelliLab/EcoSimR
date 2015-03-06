@@ -3,7 +3,7 @@
 \alias{cooc_null_model}
 \title{Co-Occurrence Null model}
 \usage{
-cooc_null_model(speciesData, algo = "sim1", metric = "c_score",
+cooc_null_model(speciesData, algo = "sim9", metric = "c_score",
   nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,
   algoOpts = list(), metricOpts = list())
 }

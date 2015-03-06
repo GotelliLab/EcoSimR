@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>size_uniform. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">EcoSimR 0.1.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+       <p>custom header test</p>  
+      </header>
+      
+      <h1>SizeUniform Size Overlap Randomization Algorithm</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>size_uniform(speciesData&nbsp;=&nbsp;runif(20))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a vector of positive real values representing the body
+sizes or trait values for each species.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a vector of body sizes that have been randomly assigned. The
+largest and smallest body sizes in the randomized assemblage match those in
+the empirical data.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Function to randomize body sizes within a uniform distribution
+with boundaries set by the largest and smallest species in the assemblage.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>If the assemblage contains n species,
+only the body sizes of the inner n - 2 species are randomized.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>Although the distribution of body sizes may not be truly uniform,
+it may be approximately uniform within the range of observed values,
+particularly for small assemblages.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Simberloff, D. and W. Boecklen. 1981. Santa Rosalia
+reconsidered: size ratios and competition. Evolution 35: 1206-1228.</p>
+  
+      <p>Tonkyn, D.W. and B.J. Cole. 1986. The statistical analysis of size ratios.
+American Naturalist 128: 66-81.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>nullSizes &lt;-size_uniform(speciesData=runif(20))
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>size_uniform</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='size_gamma.html'>size_gamma</a></code> size distribution function.
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
