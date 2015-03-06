@@ -1,0 +1,112 @@
+---
+title: "Niche Overlap"
+author: "Nicholas J. Gotelli, Edmund M. Hart, Aaron M. Ellison "
+date: "5 March 2015"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Niche Overlap}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Theory
+Based in part on Gause's (1934) classic laboratory experiments, the competitive exclusion principle (Hardin 1960) is that coexisting species must differ in some aspect of their resource utilization. The idea was expanded into mathematical theories of limiting similarity (MacArthur and Levins 1967) and more recent treatments of the ecological niche (Chase and Leibold 2003). Ecologists have spent a lot of time measuring niche axes of potential resource competition, especially those related to the utilization of food, space, or time (Schoener 1974). The “ghost of competition past” predicts that species currently coexisting should exhibit relatively low overlap in resource utilization (Connell 1980). Alternatively, if competition for limited resources is current, there should be high overlap in the niches of two species.
+
+Whether niche overlap is high or low has to first be measured relative to some null expectation. This module of `EcoSimR` tests for overlap in resource use among a set of coexisting species using a set of unordered, discrete resource categories. The analysis reveals whether the average niche overlap, calculated among all unique pairs of species, is more or less than would be expected if species used resource categories independently of one another. If the resources are measured on an ordered scale (such as prey size) or even a circular scale (such as time of day), then other kinds of null models are more appropriate (Castro-Arellano *et al*. 2010). Different algorithms are also needed if the utilization data are collected on a continuous scale (prey body size measured in g) versus a set of discrete categories (prey classified as invertebrates, small fish, or large fish). 
+
+## Data
+The data for a niche overlap analysis consists of a data frame in which each row is a species and each column is a discrete, unordered resource category (such as host plant species, diet categories, or microhabitats). The first column of the data frame optionally contains the species names. Each entry is the utilization (measured in appropriate units) of a particular resource category by a particular species. Entries must be non-negative real numbers. Zero values are allowed (some species may not use certain resource categories), but missing `NA` values are not allowed. All entries must be in the same units, but they do not have to be proportions or percentages. All of the niche overlap metrics first scale the data to proportions by dividing each entry by its row sum.
+
+The supplied data set `macwarb` for niche overlap analysis is taken from Table 2 of MacArthur's (1958) classic study on niche overlap of coexisting warblers. Each row represents one of 5 species of warbler that coexist in northern New England. Each column represents one of 16 subregions of an idealized coniferous tree. The entries are the percentage of time that each species was observed foraging in a different subregion of a (hypothetical) tree. MacArthur (1958) proposed that the species specialized on different subregions, and that this specialization was the basis for resource partitioning and coexistence. As we will see, the null model analysis provides a different perspective on this classic data set.
+
+## Metrics
+
+The basic metrics for niche overlap are either the `pianka` or the `czekanowski` index. The `pianka` index is similar to the competition coefficient $\alpha$ in the Lotka-Volterra equations, and the `czekanowski` index is  the area of intersection of two resource utilization histograms. These indices are calculated for an individual species pair, and are then averaged over all possible pairs of species in the assemblage. Both indices range from 0.0 (no overlap) to 1.0 (complete overlap). They are highly correlated with one another, and it makes little difference which one you use.
+
+The basic `pianka` and `czekanowski` indices give an index that is the mean overlap of all possible species pairs. You can also analyze the variance of pairwise overlap with `pianka_var` and `czekanowski_var`, and the skewness of pairwise overlap with `pianka_skew` and `czekanowski_skew`. A large value of the variance indicates that some species pairs have very high overlap and others have very overlap, relative to the null model. A large positive value of skewness indicates asymmetry with some strong high-overlap species pairs in the data matrix. A large negative value of skewness indicates asymmetry with some strong low-overlap species pairs in the matrix. As with all higher moments of a distribution, the variance and skewness can be very sensitive to outliers in the data, although the randomization test controls for this to some extent. The variance and skew functions have not been well-tested, but they may provide some additional insight into the niche overlap patterns.
+
+## Algorithms
+
+Following the terminology of Lawlor (1980a) and the benchmark testing of Winemiller and Pianka (1990), EcoSimR provides four randomization algorithm. We recommend the default `ra3`  or the slightly more conservative `ra4`.
+
+In brief, `ra3` reshuffles the row values, and `ra4` reshuffles the non-zero row values. Both of these algorithms retain the observed “niche breadth” of each species- that is the relative degree of specialization, but they randomly alter which particular resource categories are used.
+
+`ra2` preserves the non-zero elements, but replaces the non-zero elements by a (0,1) random uniform value. `ra1` replaces all matrix entries by a random (0,1) uniform value, so the null hypothesis is that each species is an isotropic super-generalist.
+
+`ra1` and `ra2` are too liberal and do not give good results with artificial test matrices (Winemiller and Pianka 1990). For the `dataMacWarb`, try running these variations. Compared to `ra1`, the observed (Pianka) niche overlap is significantly greater than expected. Compared to `ra2`, the observed (Pianka) niche overlap is not different from random, and compared to `ra3` and `ra4`, the observed (Pianka) niche overlap is significantly greater than expected. Run these options yourself in EcoSimR to confirm these patterns.
+
+The statistical properties of `ra3` and `ra4` are good, although it is an open question whether resource categories that were never utilized by a species might have been utilized in a null assemblage. All four of the algorithms assume that all resource categories are equally abundant, which is often not the case.
+
+If independent data on resource abundance are available, the observed utilization can be divided by resource abundance to create an “electivity” index (Lawlor 1980b). This index effectively provides more weight for resource categories that are rare. Such a weighting is useful because we expect high overlap in abundant resource categories. However, the weightings may be sensitive to sampling error for very scarce resource states.
+
+Although it might seem reasonable to do so, you should not sum the resource utilization across species in order to estimate resource abundance. This estimate is not independent of observed utilization and can lead to Type I errors (incorrect rejection of a true null hypothesis).
+
+Some people are disturbed and suspicious of the fact that the null model results may depend on which algorithm is used and how the data are processed. But this is exactly as it should be: the results depend on the assumptions of the model. In the more familiar world of a simple ANOVA, the results will depend on whether the factors are treated as fixed or random and whether the data are transformed or not. And of course the results will depend on the sample size, the spatial scale of the study, and whether the data were collected as random, haphazard, systematic, or representative samples. Although there is often a preferred set of options for a null model analysis (which we have used in our defaults), we think it is always worthwhile to explore different variations of the model so that you can understand the result. See Gotelli and Ulrich (2012) for a  discussion of other general issues in null model analysis.
+
+## Graphics
+
+The niche overlap module offers two graphic outputs. `plot(type="hist") generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
+
+## Defaults
+```{r, eval=FALSE}
+metric = pianka      # pianka niche overlap index
+algo = ra3           # reshuffle elements within each row of the matrix
+nReps = 1000       # number of null assemblage created
+Reproducible = FALSE # do not save the random number seed provided by the system
+RandomSeed = NULL    # random number seed not provided by user
+```
+
+## Examples
+
+## Caveats
+
+## Literature
+
+# Old Template Material
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
