@@ -19,7 +19,7 @@ The data for a niche overlap analysis consists of a data frame in which each row
 
 The supplied data set `macwarb` for niche overlap analysis is taken from Table 2 of MacArthur's (1958) classic study on niche overlap of coexisting warblers. Each row represents one of 5 species of warbler that coexist in northern New England. Each column represents one of 16 subregions of an idealized coniferous tree. The entries are the percentage of time that each species was observed foraging in a different subregion of a (hypothetical) tree. MacArthur (1958) proposed that the species specialized on different subregions, and that this specialization was the basis for resource partitioning and coexistence. As we will see, the null model analysis provides a different perspective on this classic data set.
 
-```{r,echo=FALSE,warning=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(EcoSimR)
 ```
 ```{r, echo=FALSE, results='asis'}
