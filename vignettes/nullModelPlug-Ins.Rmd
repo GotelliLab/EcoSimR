@@ -1,0 +1,67 @@
+---
+title: "Null Model Plug-Ins"
+author: "Nicholas J. Gotelli, Edmund M. Hart, Aaron M. Ellison"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    
+vignette: >
+  %\VignetteIndexEntry{Null Model Plug-Ins}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+## Introduction
+
+EcoSimR provides a variety of options to fit niche-overlap, size ratio and  co-occurrence null models with algorithms and metrics out of the box.  Each of these are easily callable with `niche_null_model()`,`size_null_model()`, or `cooc_null_model()`.  These functions are actually just wrappers for a function called `null_model_engine()`. The wrappers are conveniences that control inputs, and provide easy summary and plotting functions.  However you can add your own algorithm and metrics.  These can be completely novel or can be used with an existing null model. The first part is defining a metric or algorithm function that is compatible with the null model engine.  This is because each user defined function requires a standard set of inputs to work with the null model engine.  
+
+## User Defined Function Overview
+
+_**Algorithms**_ 
+
+Algorithms in the context of the null model engine are any function that will randomize an input data frame and return that randomization in the same form of the input.  The classic example is of a co-occurrence null model.  The input is a data frame of 1's and 0's that reperesent a species x site co-occurrence matrix where a 1 or 0 represents incidence of Species 1 at Site 1 (and so forth).  A suitable randomization algorithm will accept this input and return a randomized matrix of the same size.  All user defined algorithm require that the first parameter be called `speciesData` and is the species data to randomize e.g.:
+
+```{r,eval=FALSE}
+foo <- function(speciesData,...){
+  ## Code to randomize here!
+}
+```
+
+A simple example might look like this (this is actually `sim1()` )
+
+```{r,eval=FALSE}
+myAlgo <- function(speciesData) {
+return(matrix(sample(speciesData), ncol=ncol(speciesData)))
+}
+```
+
+Following the required `speciesData` parameter, you can include an arbitrary number of parameters.  Here's an example (actually `sim10()` )
+
+```{r, eval = FALSE}
+myAlgo2 <- function(speciesData,rowWeights,colWeights) {
+matrixWeights <- outer(rowWeights,colWeights)
+return(matrix(vector_sample(speciesData, weights =matrixWeights),ncol=ncol(speciesData)))
+} 
+```
+
+_**Metrics**_ 
+
+A user defined metric function will take data frame and calculate a scalar value. The null model distribution is the distribution of these values.  Similar to algorithms, metrics require that the first parameter be called `m`.  Here's a simple example (`species_combo()` in the package).
+
+```{r,eval=FALSE}
+bar <- function(m){
+  return(ncol(unique(m,MARGIN=2))) 
+}
+```
+
+Also an arbirtary number of parameters can be added with any names you choose.
+
+```{r, eval=FALSE}
+bar <- function(m, trim = FALSE){
+  if(trim){
+   m <- m[which(rowSums(m)>0),] 
+   }
+  return(ncol(unique(m,MARGIN=2))) 
+}
+```

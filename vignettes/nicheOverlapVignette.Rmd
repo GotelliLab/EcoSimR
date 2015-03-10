@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ## Theory
-Based in part on Gause's (1934) classic laboratory experiments, the competitive exclusion principle (Hardin 1960) is that coexisting species must differ in some aspect of their resource utilization. The idea was expanded into mathematical theories of limiting similarity (MacArthur and Levins 1967) and more recent treatments of the ecological niche (Chase and Leibold 2003). Ecologists have spent a lot of time measuring niche axes of potential resource competition, especially those related to the utilization of food, space, or time (Schoener 1974). The “ghost of competition past” predicts that species currently coexisting should exhibit relatively low overlap in resource utilization (Connell 1980). Alternatively, if competition for limited resources is current, there should be high overlap in the niches of two species.
+Based in part on Gause's (1934) classic laboratory experiments, the competitive exclusion principle (Hardin 1960) is that coexisting species must differ in some aspect of their resource utilization. The idea was expanded into mathematical theories of limiting similarity (MacArthur and Levins 1967) and more recent treatments of the ecological niche (Chase and Leibold 2003). Ecologists have spent a lot of time measuring niche axes of potential resource competition, especially those related to the utilization of food, space, or time (Schoener 1974). The ?ghost of competition past? predicts that species currently coexisting should exhibit relatively low overlap in resource utilization (Connell 1980). Alternatively, if competition for limited resources is current, there should be high overlap in the niches of two species.
 
 Whether niche overlap is high or low has to first be measured relative to some null expectation. This module of `EcoSimR` tests for overlap in resource use among a set of coexisting species using a set of unordered, discrete resource categories. The analysis reveals whether the average niche overlap, calculated among all unique pairs of species, is more or less than would be expected if species used resource categories independently of one another. If the resources are measured on an ordered scale (such as prey size) or even a circular scale (such as time of day), then other kinds of null models are more appropriate (Castro-Arellano *et al*. 2010). Different algorithms are also needed if the utilization data are collected on a continuous scale (prey body size measured in g) versus a set of discrete categories (prey classified as invertebrates, small fish, or large fish). 
 
@@ -19,6 +19,9 @@ The data for a niche overlap analysis consists of a data frame in which each row
 
 The supplied data set `macwarb` for niche overlap analysis is taken from Table 2 of MacArthur's (1958) classic study on niche overlap of coexisting warblers. Each row represents one of 5 species of warbler that coexist in northern New England. Each column represents one of 16 subregions of an idealized coniferous tree. The entries are the percentage of time that each species was observed foraging in a different subregion of a (hypothetical) tree. MacArthur (1958) proposed that the species specialized on different subregions, and that this specialization was the basis for resource partitioning and coexistence. As we will see, the null model analysis provides a different perspective on this classic data set.
 
+```{r,echo=FALSE,warning=FALSE}
+library(EcoSimR)
+```
 ```{r, echo=FALSE, results='asis'}
 knitr::kable(dataMacWarb)
 ```
@@ -33,7 +36,7 @@ The basic `pianka` and `czekanowski` indices give an index that is the mean over
 
 Following the terminology of Lawlor (1980a) and the benchmark testing of Winemiller and Pianka (1990), EcoSimR provides four randomization algorithm. We recommend the default `ra3`  or the slightly more conservative `ra4`.
 
-In brief, `ra3` reshuffles the row values, and `ra4` reshuffles the non-zero row values. Both of these algorithms retain the observed “niche breadth” of each species- that is the relative degree of specialization, but they randomly alter which particular resource categories are used.
+In brief, `ra3` reshuffles the row values, and `ra4` reshuffles the non-zero row values. Both of these algorithms retain the observed ?niche breadth? of each species- that is the relative degree of specialization, but they randomly alter which particular resource categories are used.
 
 `ra2` preserves the non-zero elements, but replaces the non-zero elements by a (0,1) random uniform value. `ra1` replaces all matrix entries by a random (0,1) uniform value, so the null hypothesis is that each species is an isotropic super-generalist.
 
@@ -41,7 +44,7 @@ In brief, `ra3` reshuffles the row values, and `ra4` reshuffles the non-zero row
 
 The statistical properties of `ra3` and `ra4` are good, although it is an open question whether resource categories that were never utilized by a species might have been utilized in a null assemblage. All four of the algorithms assume that all resource categories are equally abundant, which is often not the case.
 
-If independent data on resource abundance are available, the observed utilization can be divided by resource abundance to create an “electivity” index (Lawlor 1980b). This index effectively provides more weight for resource categories that are rare. Such a weighting is useful because we expect high overlap in abundant resource categories. However, the weightings may be sensitive to sampling error for very scarce resource states.
+If independent data on resource abundance are available, the observed utilization can be divided by resource abundance to create an ?electivity? index (Lawlor 1980b). This index effectively provides more weight for resource categories that are rare. Such a weighting is useful because we expect high overlap in abundant resource categories. However, the weightings may be sensitive to sampling error for very scarce resource states.
 
 Although it might seem reasonable to do so, you should not sum the resource utilization across species in order to estimate resource abundance. This estimate is not independent of observed utilization and can lead to Type I errors (incorrect rejection of a true null hypothesis).
 
@@ -66,51 +69,3 @@ RandomSeed = NULL    # random number seed not provided by user
 
 ## Literature
 
-# Old Template Material
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))

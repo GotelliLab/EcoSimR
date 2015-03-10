@@ -14,7 +14,9 @@ LazyLoad: yes
 LazyData: yes
 Description: <longer description here>
 License: MIT + file LICENSE
-Depends:
+Depends: 
     MASS
-Suggests:
-    testthat
+Suggests: 
+    testthat,
+    knitr
+VignetteBuilder: knitr

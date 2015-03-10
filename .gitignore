@@ -13,3 +13,4 @@ EcoSimR.Rcheck/
 *~
 *.swp
 sync_site.sh
+inst/doc
