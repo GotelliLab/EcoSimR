@@ -1,0 +1,129 @@
+---
+title: "Co-occurrence Analysis"
+author: "Nicholas J. Gotelli, Edmund M. Hart, Aaron M. Ellison"
+date: "8 March 2015"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Theoretical Background
+Diamond (1975) proposed that communities are comprised of species whose occurrences (and morphology) are shaped primarily by interspecific competition for shared resources. When "replicated" communities such as island assemblages are compared, recurrent patterns emerge that reflect this competition, which Diamond (1975) designated as "assembly rules". Two such rules are
+
+- Of the 2^*S*^ - 1 possible species combinations that can be can be formed from a set of *S* species, some combinations will never be found in nature because they represent "forbidden combinations" that do not persist because of interspecific interactions.
+
+- Particular pairs of species may never co-occur, so that replicate communities will contain species *A* or species *B*, but never both together. These "checkerboard pairs" reflect interspecific competition and priority effects that can allow one species to exclude a later arrival.
+
+Connor and Simberloff (1979) challenged these interpretations by asking what patterns of co-occurrence would be expected by in the absence of such interactions. They introduced an important class of null models to ecology, and triggered a debate that continues to this day (Collins et al., Pimm & Sanderson). 
+
+This module of EcoSimR includes metrics and algorithms for testing for patterns of community co-occurrence. This literature remains controversial and continues to evolve. EcoSimR contains a variety of randomization algorithms that were developed for co-occurrence analyses, but may be applicable to other kinds of problems. Not all of these algorithms and metrics are recommended, because most of them are vulnerable to Type I statistical errors (incorrectly rejecting a null hypothesis for a purely random data set). We have recommended particular tools based on previous benchmark analyses with artificial data sets (Gotelli 2000).
+
+## Data
+The data for co-occurrence analysis consist of a binary presence-absence matrix in which each row is a species, each column is a site (or sample), and the entries represent the presence (1) or absence (0) of a species in a site. `NA` values and negative values are not allowed. Positive real numbers should be converted to 1s before analysis. As in other EcoSimR modules, these data should be organized into a data frame, with optional species and/or site names in the first column. For one of the algorithms, `sim10` users can supply an additional vector of row and/or column weights, which would reflect the relative occurrence probability of the different species (row weights) and/or the relative suitability of the different sites for species occurrence (column weights). 
+
+The sample data set for this analysis is `dataWiFinches`, the occurrence records for the 17 species of finches (Fringillidae) recorded from the 19 major islands of the West Indies (Gotelli and Abele 1982). 
+
+## Metrics
+EcoSimR offers 4 basic metrics for co-occurrence analysis. Two of these (`v_ratio` and `c_score`) quantify the average degree of co-occurrence (which can range from segregated through random to aggregated) for all possible pairs of species. The other two (`checker` and `species_combo`) count the number of checkerboard species pairs and the number of unique species combinations in the matrix, which directly address two of Diamond's (1975) original assembly rules.
+
+The V-ratio (Variance ratio) measures the average covariance in association between all possible species pairs (Schluter 1984). It is the ratio of the variance of the column sums to the sum of the column variances. In a random matrix, this ratio should be close to 1.0. In an aggregated matrix, the V-ratio will be much larger than 1.0, and in a segregated matrix, the V-ratio will be much smaller than 1.0. The V-ratio will equal the minimum value of 0.0 when all sites contain identical numbers of species. The V-ratio depends entirely on the row and column sums of the matrix, so it cannot be used with the `sim9` algorithm, in which the row and column sums are the same in the original and all simulated matrices.
+
+The C-score (Checkerboard score; Stone and Roberts 1990) measures association between species pairs in a slightly different way. Rather than using the average covariance between each species pair, the C-score is based on the number of checkerboard units. The C-score for species pair *AB* is calculated as
+
+$$C_{AB} = (R_A - SS)(R_B -SS)$$
+
+where *R~A~* is the row total for species *A*, *R~B~* is the row total for species *B*, and *SS* is the number of sites that contain both *A* and *B*. Thus, for any particular species pair, the C-score is a numerical index that ranges from a minimum of 0 (maximally aggregated) to a maximum of *R~A~R~B~* (maximally segregated with no shared sites). 
+
+The higher the C-score, the less co-occurrence, on average, between all of the species pairs in the matrix. A relatively large C-score indicates a more segregated matrix, and a relatively small C-score indicates a more aggregated matrix. However, within any matrix, there will be a mixture of segregated, aggregated, and random species pairs, all of which contribute to the observed C-score (Gotelli and Ulrich 2010). When used with `sim9`, the C-score measures co-occurrence patterns above and beyond those determined by the row and column sums of the matrix, so the information (and null model) is different from what is provided by the V-ratio.
+
+Although `c_score` is an average for all pairs of species in the matrix, EcoSimR will also allow for analyses of the variance of the C-score (`c_score_var`), and the skewness of the C-score (`c_score_skew`). These metrics respectively quantify the degree of heterogeneity in the C-scores of the different species, and the presence of asymmetrically large (or small) outlier pairs that are highly segregated (positive skewness) or highly aggregated (negative skewness). These measures have not been well-explored so far, but they do provide a nice complement to the results for `c_score`.
+
+
+## Algorithms
+EcoSimR allows for 3 basic strategies to randomize a presence-absence matrix based on the marginal row and column totals of the data matrix.
+
+- margin totals allowed to vary randomly and equiprobably ("Equiprobable")
+
+- margin totals allowed to vary randomly, with probabilities proportional to the margin totals in the original matrix ("Proportional")
+
+- marginal totals fixed and identical to the margin totals in the original matrix ("fixed-fixed").
+
+Applying these 3 strategies to both row and column marginals yields a set of 9 possible null model algorithms (`sim1` to `sim9`). A tenth algorithm is to supply vectors of external weights for rows and columns. These vectors represent independent data about the relative occurrence potential of the different species (row weights) and/or the relative suitability of the different sites for species occupancy (column weights). 
+
+TABLE HERE TO BE CONSTRUCTED
+
+Of these 10 algorithms, only 3 have acceptable performance in benchmark tests and do not have high frequencies of Type I error when tested with random matrices. These algorithms are 
+
+- `sim9` This algorithm preserves the observed row and column totals, conforming to the field biologist's intuition that there are marked differences in the commonness and rarity of species, and variation in species richness among sites. This algorithm measures non-random above and beyond those introduced by heterogeneity in the marginal totals. It is conservative, but it performs fairly well with a variety of different kinds of random matrices. This is the default algorithm for co-occurrence in EcoSimR.^[Unlike all of the other algorithms so far introduced into EcoSimR, `sim9` is a Markov chain, in which each algorithm is derived by altering the one before it in a sequence. To eliminate transient behavior as the simulated algorithms move away from the original matrix, `sim9` allows you to specify a burn-in period and lets you inspect the trace of the index during the burn-in. 
+
+It is not a trivial problem to draw a random matrix from the large set of all possible matrices with fixed row and column sums. The original Connor and Simberloff (1979) method was to randomly draw two rows and two columns, swap the elements if they formed a checkerboard unit, and replace them to create a new matrix. This method gives acceptable results, but it is slow and introduces a small bias by only retaining solutions that can be swapped. The version we have implemented in EcoSimR draws two random rows to create a sub-matrix, reshuffles all of the columns in the submatrix that can be swapped, and then replaces it. This is much more efficient, eliminates the bias in the original swap, and requires a shorter burn-in to achieve stationarity. Especially for large matrices (> 100 x 100), there is still substantial autocorrelation in the sequential matrices, and future versions of EcoSimR will contain a thinning option to select a subset of the sequential matrices. See more details in the `sim9` documentation.]. 
+
+- `sim2` By reshuffling elements within each row of the matrix, `sim2` preserves the differences among species in incidence, but assumes that all sites are equiprobable. This algorithm is typically used with `v_ratio`, which often yields aggregated or random patterns (Schluter 1984). If the column totals of the matrix differ considerably (e.g., sites are islands that differ greatly in area), when the `c-score` is used with `sim2` it may yield a random or an aggregated pattern, but when it is used with `sim9`, it may yield a segregated pattern. In such a case, the aggregated pattern of a few sites with a great number of species would be improbable with `sim2`, which assumes sites are equiprobable.
+
+- `sim10` This algorithm offers the greatest chance to inject ecological realism into the model because it incorporates information beyond what is contained in the data matrix itself. Sites can be conditioned on resources, area, or isolation, and species can be conditioned on body size, population size, or geographic range placement. The only caveat is that, if there is too much heterogeneity in the species weights, the simulated matrices may contain empty rows or columns.  
+
+## Graphics
+The co-occurrence module offers three graphic outputs. `plot(type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
+
+The second graphic, `plot(type="cooc"), illustrates graphically one simulated matrix (left panel, blue) and the original data matrix (right panel, red). The data are portrayed as a grid with colored cells (species presences) and empty cells (species absences). A careful comparison of these two matrices should confirm the behavior of the chosen randomization algorithm.
+
+## Defaults
+
+## Examples
+
+## Caveats
+
+## Literature
+
+
+
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
