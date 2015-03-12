@@ -65,3 +65,46 @@ bar <- function(m, trim = FALSE){
   return(ncol(unique(m,MARGIN=2))) 
 }
 ```
+
+Now that user defined functions have been written they can easily be plugged into the null model engine. 
+
+## Adding to existing null models
+
+One use case for creating your own algorithms and metrics is because you want to plug into the existing null model frame works in the package.  Let's use co-occurrence models as an example. The `cooc_null_model()` function provides an easy interface with existing models, but power users may want to build upon the provided metrics and algorithms.  First create a user defined algorithm.
+
+```{r}
+myAlgo <- function(speciesData) {
+matrixWeights <- outer(rowSums(speciesData),rep(1,ncol(speciesData)))
+return(matrix(vector_sample(speciesData, weights=matrixWeights),ncol=ncol(speciesData)))
+}
+```
+
+Now choose an existing metric you want to use, for this example let's choose the `checker` metric. Because we want to have our results be compatible with an existing co-occurrence model, we need to specify the type of model we're running.  The options are
+
+* `cooc` for co-occurrence models
+* `niche` for niche overlap models
+* `size` for size ratio models
+
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE}
+## Simulate data
+coocSimData <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
+aBetaRow=0.5,bBetaRow=0.5, numRows=30,numCols=30, mFill=0.25,abun=0,emptyRow=FALSE, emptyCol=FALSE)$m
+
+coocOut <- null_model_engine(speciesData = coocSimData, algo = "myAlgo", metric = "checker",type="cooc")
+
+```
+
+```{r,eval=false}
+## Simulate data
+coocSimData <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
+aBetaRow=0.5,bBetaRow=0.5, numRows=30,numCols=30, mFill=0.25,abun=0,emptyRow=FALSE, emptyCol=FALSE)$m
+
+coocOut <- null_model_engine(speciesData = coocSimData,nReps=1000, algo = "myAlgo", metric = "checker",type="cooc")
+
+```
+
+
+
+null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL)
+

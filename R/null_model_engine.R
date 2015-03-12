@@ -8,8 +8,12 @@
 #'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
 #'@param algoOpts a list containing options for a supplied alogrithm
 #'@param metricOpts a list containing options for a supplied metric
-#'@param type The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models.
+#'@param type The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models and a generic null model will be returned.
+#'@examples \dontrun{
+#' # User defined function
+#' 
 #'
+#'}
 #'@export
 
 
@@ -40,10 +44,10 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   metricF <- get(metric)
   
   ### Error check for input functions
-  if(grepl("speciesData",names(formals(algoF)[1]))){
+  if(!grepl("speciesData",names(formals(algoF)[1]))){
     stop("Please enter a valid algorithm with 'speciesData' as the first parameter")
   }
-  if(grepl("m",names(formals(metricF)[1])) && nchar(names(formals(metricF)[1])) == 1 ){
+  if(!grepl("m",names(formals(metricF)[1])) && nchar(names(formals(metricF)[1])) == 1 ){
     stop("Please enter a valid metric with 'm' as the first parameter")
   }
     
@@ -85,7 +89,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   
   if(is.null(type)){
   class(nullModelOut) <- "nullmod"
-} else if (type %in% c("niche,cooc,size")){
+} else if (type %in% c("niche","cooc","size")){
   class(nullModelOut) <- paste(type,"nullmod",sep="")
   
   
