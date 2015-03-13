@@ -11,6 +11,7 @@
 #'@param burn_in The number of burn_in iterations to use with the simFast algorithm
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
@@ -28,7 +29,7 @@
 
 
 
-sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSeed = FALSE,burn_in = 0)
+sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSeed = FALSE,burn_in = 0,suppressProg = TRUE)
 {
   
   if(saveSeed){
@@ -55,9 +56,12 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
   burn.in.metric <- vector(mode="numeric",length = burn_in)
   simulated.metric <- vector(mode="numeric",length = nReps)
   # run sequential swap for burn in series
-  cat("Burn-in Progress \n")
-  
-  bi_pb <- txtProgressBar(min = 0, max = burn_in, style = 3)
+  if(suppressProg){
+    bi_pb <- txtProgressBar(min = 0, max = nReps, style = 3, file = stderr())
+  } else{
+    cat("Burn-in Progress \n")
+    bi_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
+  }
   for (i in 1:burn_in)
   {
     msim <-sim9_single(msim)
@@ -66,9 +70,13 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
   }
   close(bi_pb)
   # run sequential swap for simulated series
-  cat("Swap Progress \n")
-  
-  stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
+  if(suppressProg){
+    cat("Swap Progress \n")
+    stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3, file = stderr())
+  } else{
+    cat("Burn-in Progress \n")
+    stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
+  }
   for (i in 1: nReps)
   {
     msim <-sim9_single(msim)

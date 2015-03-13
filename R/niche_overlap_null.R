@@ -8,6 +8,7 @@
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
 #'@examples \dontrun{
 #' ## Load MacAruthur warbler data
 #' data(dataMacWarb)
@@ -22,13 +23,13 @@
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,saveSeed=FALSE,algoOpts = list(),metricOpts = list()){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,saveSeed=FALSE,algoOpts = list(),metricOpts = list(),suppressProg = FALSE){
   
   aChoice <- c("ra1","ra2","ra3","ra4")
   mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts, suppressProg = suppressProg)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
   return(output)

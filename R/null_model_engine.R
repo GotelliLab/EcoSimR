@@ -9,6 +9,7 @@
 #'@param algoOpts a list containing options for a supplied alogrithm
 #'@param metricOpts a list containing options for a supplied metric
 #'@param type The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models and a generic null model will be returned.
+#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
 #'@examples \dontrun{
 #' # User defined function
 #' 
@@ -17,10 +18,13 @@
 #'@export
 
 
-null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL)
+null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL,suppressProg=FALSE)
 {
-
+  if(suppressProg){
+    pb <- txtProgressBar(min = 0, max = nReps, style = 3, file = stderr())
+  } else{
   pb <- txtProgressBar(min = 0, max = nReps, style = 3)
+  }
   ## Set the seed
   if(saveSeed){
     randomSeed <- .Random.seed

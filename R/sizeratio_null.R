@@ -8,6 +8,7 @@
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
 #'@examples \dontrun{
 #' ## Run the null model
 #' rodentMod <- size_null_model(dataRodents)
@@ -17,8 +18,7 @@
 #' plot(rodentMod,type="size")
 #' 
 #' ##  Uniform Size model with user inputs
-#' rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",
-#' algoOpts = list(userLow = 3,userHigh=15))
+#' rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",algoOpts = list(userLow = 3,userHigh=15))
 #' summary(rodentMod2)
 #' plot(rodentMod2,type="hist")
 #' plot(rodentMod2,type="size")
@@ -36,7 +36,7 @@
 #'
 #'@export
 
-size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list()){
+size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),suppressProg = FALSE){
 
   mChoice<- c("min_diff", "min_ratio", "var_diff", "var_ratio")
   aChoice <- c("size_uniform", "size_uniform_user", "size_source_pool", "size_gamma")
@@ -44,7 +44,7 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
   
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts,suppressProg = suppressProg)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)

@@ -87,22 +87,45 @@ Now choose an existing metric you want to use, for this example let's choose the
 
 
 ```{r, message=FALSE,warning=FALSE,echo=FALSE}
+library(EcoSimR)
 ## Simulate data
 coocSimData <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
 aBetaRow=0.5,bBetaRow=0.5, numRows=30,numCols=30, mFill=0.25,abun=0,emptyRow=FALSE, emptyCol=FALSE)$m
 
-coocOut <- null_model_engine(speciesData = coocSimData, algo = "myAlgo", metric = "checker",type="cooc")
+coocOut <- null_model_engine(speciesData = coocSimData, algo = "myAlgo", metric = "checker",type="cooc",suppressProg = TRUE)
 
 ```
 
-```{r,eval=false}
+```{r,eval=FALSE}
 ## Simulate data
-coocSimData <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
-aBetaRow=0.5,bBetaRow=0.5, numRows=30,numCols=30, mFill=0.25,abun=0,emptyRow=FALSE, emptyCol=FALSE)$m
+coocSimData <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5, aBetaRow=0.5,bBetaRow=0.5, numRows=30,numCols=30, 
+                          mFill=0.25,abun=0,emptyRow=FALSE, emptyCol=FALSE)$m
 
-coocOut <- null_model_engine(speciesData = coocSimData,nReps=1000, algo = "myAlgo", metric = "checker",type="cooc")
+coocOut <- null_model_engine(speciesData = coocSimData,nReps=1000, 
+                             algo = "myAlgo", metric = "checker",type="cooc")
 
 ```
+
+This will create a co-occurrence null model with your own alogrithm, and use the `checker` metric.  The advantage of this is that you can now make co-occurrence plots and compare to existing null models.
+
+```{r, fig.height=4,fig.width=4}
+## Histogram plots
+plot(coocOut,type='hist')
+```
+```{r,fig.height = 4,fig.width=6}
+## Matrix examples
+plot(coocOut, type='cooc')
+
+## Summary function
+summary(coocOut)
+
+```
+
+## Creating novel null models
+
+You can create novel null models in a similar manner. Instead of just adding your own new algorithm and using an existing metric, you just create a new algorithm and a metric. If you do this, there's no need to specify the type.  However if your new alogrithm and metric combination work on the same data as a co-occurrence model, you could specify the type as `cooc`.  Specifying the type simply allows you to make type specific plots.  
+
+First we'll create new algorithms and new metrics.
 
 
 

@@ -11,6 +11,7 @@
 #'@param burn_in The number of burn_in iterations to use with the simFast algorithm
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
+#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
@@ -42,7 +43,7 @@
 #'
 #'@export
 
-cooc_null_model <- function(speciesData, algo = "sim9", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,algoOpts = list(),metricOpts = list()){
+cooc_null_model <- function(speciesData, algo = "sim9", metric = "c_score", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,algoOpts = list(),metricOpts = list(),suppressProg = FALSE){
   aChoice <- c(paste("sim",c(1:10),sep=""))
   mChoice <- c("species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio")
 
@@ -52,13 +53,13 @@ cooc_null_model <- function(speciesData, algo = "sim9", metric = "c_score", nRep
   if(algo != "sim9"){
   params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed
  = saveSeed
-  ,algoOpts = algoOpts,metricOpts = metricOpts)
+  ,algoOpts = algoOpts,metricOpts = metricOpts,suppressProg = suppressProg)
   output <- do.call(null_model_engine,params)
   output$burn.in <- burn_in
   class(output) <- "coocnullmod"
   return(output)
   } else if(algo == "sim9"){
-    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, burn_in = burn_in)
+    params <- list(speciesData = speciesData,algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, burn_in = burn_in, suppressProg = suppressProg)
     output <- do.call(sim9,params)
     class(output) <- "coocnullmod"
     return(output)
