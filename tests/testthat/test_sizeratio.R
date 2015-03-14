@@ -105,3 +105,12 @@ test_that("size_null_model works with all combinations of metrics and algorithms
   
 })
 
+test_that("all text data frames are handled proprely",{
+  expect_is(size_null_model(dataRodents,metric ="var_ratio" ,algo = "size_gamma",nRep=10),"sizenullmod")
+  
+  
+  
+  
+})
+
+

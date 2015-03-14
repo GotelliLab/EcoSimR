@@ -152,7 +152,7 @@ myMetric <- function(m)
 
 ```
 
-It's easy to plug our new metric and algorithm into the null model engine.
+It's easy to plug our new metric and algorithm into the null model engine. Note that at the end we have a list of parameter options.  This is how you can pass any extra parameters to your algorithms or metrics.
 
 ```{r,message=FALSE,warning=FALSE,echo=FALSE}
 
@@ -161,8 +161,21 @@ novelNull <- null_model_engine(coocSimData,algo="myAlgo",metric="myMetric",
                                                colWeights = runif(dim(coocSimData)[2])),suppressProg=T)
 
 ```
+```{r,eval=FALSE}
+
+novelNull <- null_model_engine(coocSimData,algo="myAlgo",metric="myMetric",
+                               algoOpts = list(rowWeights = runif(dim(coocSimData)[1]), 
+                                               colWeights = runif(dim(coocSimData)[2])))
+```
+
+Your new null model can produce a similar summary to the standard null models, as well as a basic histogram plot.
+
+```{r, fig.height=4,fig.width=4,fig.align='center'}
+summary(novelNull)
+plot(novelNull)
+
+```
 
 
-
-null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL)
+Any randomization algorithm and metric can be plugged into the null model framework. You can also set the type of null model you create to easily print summaries and plots to compare to the existing null models available in `EcoSimR`.
 
