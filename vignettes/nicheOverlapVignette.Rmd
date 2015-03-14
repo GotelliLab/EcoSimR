@@ -2,7 +2,9 @@
 title: "Niche Overlap"
 author: "Nicholas J. Gotelli, Edmund M. Hart, Aaron M. Ellison "
 date: "13 March 2015"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 fig_caption: yes  
 vignette: >
   %\VignetteIndexEntry{Niche Overlap}
@@ -57,16 +59,19 @@ Some people are disturbed and suspicious of the fact that the null model results
 
 The niche overlap module offers two graphic outputs. `plot(type="hist") generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
 
-```{r, fig.show='hold', fig.align='center',echo=FALSE}
+```{r, fig.show='hold', fig.align='center',fig.height=4,fig.width=4,echo=FALSE}
 set.seed(56)                              # for repeatable results
 myModel <- niche_null_model(dataMacWarb,suppressProg=TRUE)  # default model settings
 plot(myModel,type="hist")
-
-
-
 ```
 
 `plot(type="niche")` generates a rendering of the species $\times$ utilization matrix for the original data matrix (red) and one simulated data matrix (blue). The area of each circle depicted is proportional to the utilization of a resource category by a species. If no circle is shown, the utilization was 0.0.
+
+```{r,fig.show='hold',fig.height=6,fig.width = 4,fig.align='center'}
+plot(myModel,type="niche")
+```
+
+
 
 ```{r, fig.align='center',echo=FALSE, eval=FALSE}
 set.seed(56)                              # for repeatable results
