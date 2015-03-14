@@ -4,7 +4,6 @@
 #'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
 #'@param metric the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka
 #'@param nReps the number of replicates to run the null model.
-#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
@@ -14,7 +13,7 @@
 #' data(dataMacWarb)
 #' 
 #' ## Run the null model
-#' warbMod <- niche_null_model(dataMacWarb,nReps=100000)
+#' warbMod <- niche_null_model(dataMacWarb,nReps=1000)
 #' ## Summary and plot info
 #' summary(warbMod)
 #' plot(warbMod)
@@ -23,13 +22,13 @@
 #'
 #'@export
 
-niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000, rowNames = TRUE,saveSeed=FALSE,algoOpts = list(),metricOpts = list(),suppressProg = FALSE){
+niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps = 1000,saveSeed=FALSE,algoOpts = list(),metricOpts = list(),suppressProg = FALSE){
   
   aChoice <- c("ra1","ra2","ra3","ra4")
   mChoice<- c("pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew")
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts, suppressProg = suppressProg)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, saveSeed = saveSeed,algoOpts = algoOpts,metricOpts = metricOpts, suppressProg = suppressProg)
   output <- do.call(null_model_engine,params)
   class(output) <- "nichenullmod"
   return(output)

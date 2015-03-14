@@ -123,7 +123,13 @@ expect_true(is.list(plot(nmod,type="niche")))
 
 
   
+test_that("all text data frames are handled proprely",{
+  textMat <- cbind(letters[1:dim(nicheTmat)[1]],nicheTmat)
+  expect_is(niche_null_model(textMat,metric ="czekanowski_skew" ,algo = "ra4",nRep=10),"nichenullmod")
   
+})
+
+
 
 
 

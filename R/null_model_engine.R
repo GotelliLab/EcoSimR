@@ -4,7 +4,6 @@
 #'@param algo the algorithm to use
 #'@param metric the metric used to caluclate the null model
 #'@param nReps the number of replicates to run the null model.
-#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
 #'@param algoOpts a list containing options for a supplied alogrithm
 #'@param metricOpts a list containing options for a supplied metric
@@ -18,7 +17,7 @@
 #'@export
 
 
-null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL,suppressProg=FALSE)
+null_model_engine <- function(speciesData, algo, metric, nReps = 1000, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),type=NULL,suppressProg=FALSE)
 {
   if(suppressProg){
     pb <- txtProgressBar(min = 0, max = nReps, style = 3, file = stderr())
@@ -31,19 +30,17 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, rowNames 
   } else {
     randomSeed <- NULL
   }
-  
-  ### Strip out row names
-  
-  if(rowNames){
-    speciesData <- speciesData[,-1] 
-  }
+ 
   ## Convert to matrix for type consistency
   if(!is.matrix(speciesData)){ speciesData <- as.matrix(speciesData)}
   
-  ### check if rownames accidentally was set to FALSE
-  if(is.character(speciesData)){stop("Did you forget to set rowNames to TRUE?  Your data is non-numeric")}
+  ### Check for row names hidden in the data frame and automagically strip them.
   
-  
+  if(suppressWarnings(is.na(as.numeric(speciesData[2,1])))){
+    speciesData <- speciesData[,-1] 
+    class(speciesData) <- "numeric"
+  }
+
   algoF <- get(algo)
   metricF <- get(metric)
   

@@ -4,7 +4,6 @@
 #'@param algo the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma"
 #'@param metric the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio
 #'@param nReps the number of replicates to run the null model.
-#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
@@ -36,7 +35,7 @@
 #'
 #'@export
 
-size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),suppressProg = FALSE){
+size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ratio", nReps = 1000, saveSeed = FALSE, algoOpts = list(), metricOpts = list(),suppressProg = FALSE){
 
   mChoice<- c("min_diff", "min_ratio", "var_diff", "var_ratio")
   aChoice <- c("size_uniform", "size_uniform_user", "size_source_pool", "size_gamma")
@@ -44,7 +43,7 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
   algo <- match.arg(algo,choices = aChoice)
   metric <- match.arg(metric,choices = mChoice)
   
-  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, rowNames = rowNames, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts,suppressProg = suppressProg)
+  params <- list(speciesData = speciesData, algo = algo, metric = metric, nReps = nReps, saveSeed = saveSeed, algoOpts = algoOpts, metricOpts = metricOpts,suppressProg = suppressProg)
   output <- do.call(null_model_engine,params)
   class(output) <- "sizenullmod"
   return(output)

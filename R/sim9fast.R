@@ -6,7 +6,6 @@
 #'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
 #'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
 #'@param nReps the number of replicates to run the null model.
-#'@param rowNames Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names
 #'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
 #'@param burn_in The number of burn_in iterations to use with the simFast algorithm
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
@@ -38,13 +37,16 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSe
     randomSeed <- NULL
   }
 
-  ### Strip out row names
-  
-  if(rowNames){
-    speciesData <- speciesData[,-1] 
-  }
   ## Convert to matrix for type consistency
   if(!is.matrix(speciesData)){ speciesData <- as.matrix(speciesData)}
+  
+  ### Check for row names hidden in the data frame and automagically strip them.
+  
+  if(suppressWarnings(is.na(as.numeric(speciesData[2,1])))){
+    speciesData <- speciesData[,-1] 
+    class(speciesData) <- "numeric"
+  }
+  
   
   Start.Time <- Sys.time()
   metricF <- get(metric)

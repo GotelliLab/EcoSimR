@@ -1,7 +1,7 @@
 library(EcoSimR)
 context("Co-occurrence null model tests")
 tmat <- testMatrix <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5, aBetaRow=0.5,bBetaRow=0.5,numRows=30,numCols=30,
-mFill=0.25,abun=0,emptyRow=FALSE,emptyCol=FALSE)$m
+                                mFill=0.25,abun=0,emptyRow=FALSE,emptyCol=FALSE)$m
 
 tmatW0 <- tmat
 tmatW0[10,] <- rep(0,dim(tmat)[2])
@@ -190,7 +190,12 @@ test_that("All combinations of co-occurrence models work",{
   
 })
 
-
+test_that("all text data frames are handled proprely",{
+  textMat <- cbind(letters[1:dim(tmat)[1]],tmat)
+  expect_is(cooc_null_model(textMat, algo="sim8",metric="v_ratio",nRep=10),"coocnullmod")  
+  
+  
+})
 
 test_that("Reproduce model works",{
   smod <-   cooc_null_model(dataWiFinches, algo="sim8",metric="v_ratio",nRep=10,saveSeed = T)
