@@ -1,8 +1,9 @@
 ---
 title: "Niche Overlap"
 author: "Nicholas J. Gotelli, Edmund M. Hart, Aaron M. Ellison "
-date: "5 March 2015"
+date: "13 March 2015"
 output: rmarkdown::html_vignette
+fig_caption: yes  
 vignette: >
   %\VignetteIndexEntry{Niche Overlap}
   %\VignetteEngine{knitr::rmarkdown}
@@ -10,11 +11,13 @@ vignette: >
 ---
 
 ## Theory
+
 Based in part on Gause's (1934) classic laboratory experiments, the competitive exclusion principle (Hardin 1960) is that coexisting species must differ in some aspect of their resource utilization. The idea was expanded into mathematical theories of limiting similarity (MacArthur and Levins 1967) and more recent treatments of the ecological niche (Chase and Leibold 2003). Ecologists have spent a lot of time measuring niche axes of potential resource competition, especially those related to the utilization of food, space, or time (Schoener 1974). The ?ghost of competition past? predicts that species currently coexisting should exhibit relatively low overlap in resource utilization (Connell 1980). Alternatively, if competition for limited resources is current, there should be high overlap in the niches of two species.
 
 Whether niche overlap is high or low has to first be measured relative to some null expectation. This module of `EcoSimR` tests for overlap in resource use among a set of coexisting species using a set of unordered, discrete resource categories. The analysis reveals whether the average niche overlap, calculated among all unique pairs of species, is more or less than would be expected if species used resource categories independently of one another. If the resources are measured on an ordered scale (such as prey size) or even a circular scale (such as time of day), then other kinds of null models are more appropriate (Castro-Arellano *et al*. 2010). Different algorithms are also needed if the utilization data are collected on a continuous scale (prey body size measured in g) versus a set of discrete categories (prey classified as invertebrates, small fish, or large fish). 
 
 ## Data
+
 The data for a niche overlap analysis consists of a data frame in which each row is a species and each column is a discrete, unordered resource category (such as host plant species, diet categories, or microhabitats). The first column of the data frame optionally contains the species names. Each entry is the utilization (measured in appropriate units) of a particular resource category by a particular species. Entries must be non-negative real numbers. Zero values are allowed (some species may not use certain resource categories), but missing `NA` values are not allowed. All entries must be in the same units, but they do not have to be proportions or percentages. All of the niche overlap metrics first scale the data to proportions by dividing each entry by its row sum.
 
 The supplied data set `macwarb` for niche overlap analysis is taken from Table 2 of MacArthur's (1958) classic study on niche overlap of coexisting warblers. Each row represents one of 5 species of warbler that coexist in northern New England. Each column represents one of 16 subregions of an idealized coniferous tree. The entries are the percentage of time that each species was observed foraging in a different subregion of a (hypothetical) tree. MacArthur (1958) proposed that the species specialized on different subregions, and that this specialization was the basis for resource partitioning and coexistence. As we will see, the null model analysis provides a different perspective on this classic data set.
@@ -23,7 +26,7 @@ The supplied data set `macwarb` for niche overlap analysis is taken from Table 2
 library(EcoSimR)
 ```
 ```{r, echo=FALSE, results='asis'}
-knitr::kable(dataMacWarb)
+knitr::kable(dataMacWarb,caption="MacArthur's (1958) warbler data.")
 ```
 
 ## Metrics
@@ -44,7 +47,7 @@ In brief, `ra3` reshuffles the row values, and `ra4` reshuffles the non-zero row
 
 The statistical properties of `ra3` and `ra4` are good, although it is an open question whether resource categories that were never utilized by a species might have been utilized in a null assemblage. All four of the algorithms assume that all resource categories are equally abundant, which is often not the case.
 
-If independent data on resource abundance are available, the observed utilization can be divided by resource abundance to create an ?electivity? index (Lawlor 1980b). This index effectively provides more weight for resource categories that are rare. Such a weighting is useful because we expect high overlap in abundant resource categories. However, the weightings may be sensitive to sampling error for very scarce resource states.
+If independent data on resource abundance are available, the observed utilization can be divided by resource abundance to create an "electivity" index (Lawlor 1980b). This index effectively provides more weight for resource categories that are rare. Such a weighting is useful because we expect high overlap in abundant resource categories. However, the weightings may be sensitive to sampling error for very scarce resource states.
 
 Although it might seem reasonable to do so, you should not sum the resource utilization across species in order to estimate resource abundance. This estimate is not independent of observed utilization and can lead to Type I errors (incorrect rejection of a true null hypothesis).
 
@@ -54,18 +57,87 @@ Some people are disturbed and suspicious of the fact that the null model results
 
 The niche overlap module offers two graphic outputs. `plot(type="hist") generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
 
+```{r, fig.show='hold', fig.align='center',echo=FALSE}
+set.seed(56)                              # for repeatable results
+myModel <- niche_null_model(dataMacWarb,suppressProg=TRUE)  # default model settings
+plot(myModel,type="hist")
+
+
+
+```
+
+`plot(type="niche")` generates a rendering of the species $\times$ utilization matrix for the original data matrix (red) and one simulated data matrix (blue). The area of each circle depicted is proportional to the utilization of a resource category by a species. If no circle is shown, the utilization was 0.0.
+
+```{r, fig.align='center',echo=FALSE, eval=FALSE}
+set.seed(56)                              # for repeatable results
+myModel <- niche_null_model(dataMacWarb,suppressProg=TRUE)  # default model settings
+#plot(myModel,type="hist")  #<- throws error, figure margins too large
+
+
+
+```
+
 ## Defaults
+
 ```{r, eval=FALSE}
-metric = pianka      # pianka niche overlap index
-algo = ra3           # reshuffle elements within each row of the matrix
-nReps = 1000       # number of null assemblage created
-Reproducible = FALSE # do not save the random number seed provided by the system
-RandomSeed = NULL    # random number seed not provided by user
+
+speciesData          # user must supply a data frame; speciesData=dataMacWarb for default run
+algo = "ra3"           # reshuffle elements within each row of the matrix
+metric = "pianka"      # pianka niche overlap index
+nReps = 1000         # number of null assemblage created
+rowNames=TRUE        # reads speciesData as a data frame wtih row labels in the first column
+saveSeed=FALSE       # if TRUE, saves random number seed
+algoOpts=list()      # list of other specific options for the algorithm
+metricOpts=list()    # list of other specific options for the metric
+suppressProg= FALSE  # suppress printing of progress bar (for creating markdown files)
 ```
 
 ## Examples
 
+```{r, eval=FALSE}
+str(dataMacWarb)  # structure of MacArthur's warbler data set
+summary(myModel)  # output summary of null model analysis
+
+#create a random data set with uniform (0,1) values
+myRandomData <- matrix(runif(300), nrow=30)
+
+# run null model with czekanowski index and ra1, 5000 replications
+myRandomModel <- niche_null_model(speciesData=myRandomData, rowNames=FALSE, 
+                            algo="ra1", metric="czekanowski", 
+                            suppressProg=TRUE,nReps=5000)
+
+# print summary of model and plot histogram
+summary(myRandomModel)
+plot(myRandomModel,type="hist")
+                            
+```
+
 ## Caveats
+
+This null model is appropriate only for unordered niche categories, such as host plant species or dietary type. Different kinds of null models are appropriate for continuous data (such as prey body size) or circular data (such as temporal niches measured over diurnal or annual time scales). The niche overlap model used here also assumes all resource categories are equally available to all species. However, `ra2` and `ra4` fix the zero states, which means that resource categories that were never used by a species are assumed to be unavailable to that species even in the absence of competition. None of the algorithm explicitly account for sampling variation in the number of observations per category. However, `ra3` and `ra4` do account somewhat for sampling variation because the percent utilization values are themselves randomized among resource categories.
 
 ## Literature
 
+Castro-Arellano, I., T.E. Lacher, Jr., M.R. Willig, and T.F. Rangel. 2010. Assessment of assemblage-wide temporal niche segregation using null models. Methods in Ecology & Evolution 1: 311-318.
+
+Chase, J.M. and M.A. Leibold. 2003. Ecological Niches: Linking Classical And Contemporary Approaches. University of Chicago Press, Chicago.
+
+Connell, J.H. 1980. Diversity and the coevolution of competitors, or the ghost of competition past. Oikos 35: 131-138.
+
+Gause, G.F. 1934. The Struggle For Existence. Williams & Wilkins, Baltimore.
+
+Hardin, G. 1960. The competitive exclusion principle. Science 131: 1292-1297.
+
+Gotelli, N.J. and W. Ulrich. 2012. Statistical challenges in null model analysis. Oikos 121: 171-180.
+
+Lawlor, L.R. 1980a. Structure and stability in natural and randomly constructed model ecosystems. American Naturalist 116: 394-408.
+
+Lawlor, L.R. 1980b. Overlap, similarity, and competition coefficients. Ecology 61: 245-251.
+
+MacArthur, R.H. 1958. Population ecology of some warblers of northeastern coniferous forests. Ecology 39: 599-699.
+
+MacArthur, R.H. And R. Levins. 1967. The limiting similarity, convergence, and divergence of coexisting species. American Naturalist 101: 377-385.
+
+Schoener, T.S. 1974. Resource partitioning in ecological communities. Science 185: 27-39.
+
+Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.
