@@ -5,7 +5,7 @@
 \title{Size Ratio}
 \usage{
 size_null_model(speciesData, algo = "size_uniform", metric = "var_ratio",
-  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(),
+  nReps = 1000, saveSeed = FALSE, algoOpts = list(),
   metricOpts = list(), suppressProg = FALSE)
 }
 \arguments{
@@ -16,8 +16,6 @@ size_null_model(speciesData, algo = "size_uniform", metric = "var_ratio",
 \item{metric}{the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio}
 
 \item{nReps}{the number of replicates to run the null model.}
-
-\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 

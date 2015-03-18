@@ -4,8 +4,8 @@
 \alias{null_model_engine}
 \title{Run null model}
 \usage{
-null_model_engine(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
-  saveSeed = FALSE, algoOpts = list(), metricOpts = list(), type = NULL,
+null_model_engine(speciesData, algo, metric, nReps = 1000, saveSeed = FALSE,
+  algoOpts = list(), metricOpts = list(), type = NULL,
   suppressProg = FALSE)
 }
 \arguments{
@@ -16,8 +16,6 @@ null_model_engine(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
 \item{metric}{the metric used to caluclate the null model}
 
 \item{nReps}{the number of replicates to run the null model.}
-
-\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{saveSeed}{Should the existing random seed be saved to make the model reproducible?}
 

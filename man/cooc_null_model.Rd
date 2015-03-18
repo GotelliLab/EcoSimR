@@ -5,8 +5,8 @@
 \title{Co-Occurrence Null model}
 \usage{
 cooc_null_model(speciesData, algo = "sim9", metric = "c_score",
-  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, burn_in = 500,
-  algoOpts = list(), metricOpts = list(), suppressProg = FALSE)
+  nReps = 1000, saveSeed = FALSE, burn_in = 500, algoOpts = list(),
+  metricOpts = list(), suppressProg = FALSE)
 }
 \arguments{
 \item{speciesData}{a dataframe in which rows are species, columns are sites,
@@ -18,8 +18,6 @@ site. Empty rows and empty columns should not be included in the matrix.}
 \item{metric}{the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"}
 
 \item{nReps}{the number of replicates to run the null model.}
-
-\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 

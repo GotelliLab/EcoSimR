@@ -18,8 +18,6 @@ site. Empty rows and empty columns should not be included in the matrix.}
 
 \item{nReps}{the number of replicates to run the null model.}
 
-\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
-
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 
 \item{burn_in}{The number of burn_in iterations to use with the simFast algorithm}

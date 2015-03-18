@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Nicholas J. Gotelli, Edmund M. Hart, and Aaron M. Ellison" />
+
+<meta name="date" content="2015-03-16" />
+
+<title>Size Ratios</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; }
+code > span.dt { color: #902000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #4070a0; }
+code > span.st { color: #4070a0; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css,body%20%7B%0A%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20max%2Dwidth%3A%20700px%3B%0A%20%20overflow%3A%20visible%3B%0A%20%20padding%2Dleft%3A%202em%3B%0A%20%20padding%2Dright%3A%202em%3B%0A%20%20font%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0A%20%20font%2Dsize%3A%2014px%3B%0A%20%20line%2Dheight%3A%201%2E35%3B%0A%7D%0A%0A%23header%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20clear%3A%20both%3B%0A%20%20margin%3A%200%200%2010px%2010px%3B%0A%20%20padding%3A%204px%3B%0A%20%20width%3A%20400px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20border%2Dradius%3A%205px%3B%0A%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20font%2Dsize%3A%2013px%3B%0A%20%20line%2Dheight%3A%201%2E3%3B%0A%7D%0A%20%20%23TOC%20%2Etoctitle%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%20%20font%2Dsize%3A%2015px%3B%0A%20%20%20%20margin%2Dleft%3A%205px%3B%0A%20%20%7D%0A%0A%20%20%23TOC%20ul%20%7B%0A%20%20%20%20padding%2Dleft%3A%2040px%3B%0A%20%20%20%20margin%2Dleft%3A%20%2D1%2E5em%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20margin%2Dbottom%3A%205px%3B%0A%20%20%7D%0A%20%20%23TOC%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dleft%3A%20%2D2em%3B%0A%20%20%7D%0A%20%20%23TOC%20li%20%7B%0A%20%20%20%20line%2Dheight%3A%2016px%3B%0A%20%20%7D%0A%0Atable%20%7B%0A%20%20margin%3A%201em%20auto%3B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dcolor%3A%20%23DDDDDD%3B%0A%20%20border%2Dstyle%3A%20outset%3B%0A%20%20border%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0A%20%20border%2Dwidth%3A%202px%3B%0A%20%20padding%3A%205px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0A%20%20border%2Dwidth%3A%201px%3B%0A%20%20border%2Dstyle%3A%20inset%3B%0A%20%20line%2Dheight%3A%2018px%3B%0A%20%20padding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0A%20%20border%2Dleft%2Dstyle%3A%20none%3B%0A%20%20border%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Ap%20%7B%0A%20%20margin%3A%200%2E5em%200%3B%0A%7D%0A%0Ablockquote%20%7B%0A%20%20background%2Dcolor%3A%20%23f6f6f6%3B%0A%20%20padding%3A%200%2E25em%200%2E75em%3B%0A%7D%0A%0Ahr%20%7B%0A%20%20border%2Dstyle%3A%20solid%3B%0A%20%20border%3A%20none%3B%0A%20%20border%2Dtop%3A%201px%20solid%20%23777%3B%0A%20%20margin%3A%2028px%200%3B%0A%7D%0A%0Adl%20%7B%0A%20%20margin%2Dleft%3A%200%3B%0A%7D%0A%20%20dl%20dd%20%7B%0A%20%20%20%20margin%2Dbottom%3A%2013px%3B%0A%20%20%20%20margin%2Dleft%3A%2013px%3B%0A%20%20%7D%0A%20%20dl%20dt%20%7B%0A%20%20%20%20font%2Dweight%3A%20bold%3B%0A%20%20%7D%0A%0Aul%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%7D%0A%20%20ul%20li%20%7B%0A%20%20%20%20list%2Dstyle%3A%20circle%20outside%3B%0A%20%20%7D%0A%20%20ul%20ul%20%7B%0A%20%20%20%20margin%2Dbottom%3A%200%3B%0A%20%20%7D%0A%0Apre%2C%20code%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20color%3A%20%23333%3B%0A%7D%0Apre%20%7B%0A%20%20white%2Dspace%3A%20pre%2Dwrap%3B%20%20%20%20%2F%2A%20Wrap%20long%20lines%20%2A%2F%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20margin%3A%205px%200px%2010px%200px%3B%0A%20%20padding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0A%20%20background%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0A%0Acode%20%7B%0A%20%20font%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0A%20%20font%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0A%20%20padding%3A%202px%200px%3B%0A%7D%0A%0Adiv%2Efigure%20%7B%0A%20%20text%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0A%20%20background%2Dcolor%3A%20%23FFFFFF%3B%0A%20%20padding%3A%202px%3B%0A%20%20border%3A%201px%20solid%20%23DDDDDD%3B%0A%20%20border%2Dradius%3A%203px%3B%0A%20%20border%3A%201px%20solid%20%23CCCCCC%3B%0A%20%20margin%3A%200%205px%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20margin%2Dtop%3A%200%3B%0A%20%20font%2Dsize%3A%2035px%3B%0A%20%20line%2Dheight%3A%2040px%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20border%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20padding%2Dbottom%3A%202px%3B%0A%20%20font%2Dsize%3A%20145%25%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20border%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0A%20%20padding%2Dtop%3A%2010px%3B%0A%20%20font%2Dsize%3A%20120%25%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0A%20%20margin%2Dleft%3A%208px%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Ah5%2C%20h6%20%7B%0A%20%20border%2Dbottom%3A%201px%20solid%20%23ccc%3B%0A%20%20font%2Dsize%3A%20105%25%3B%0A%7D%0A%0Aa%20%7B%0A%20%20color%3A%20%230033dd%3B%0A%20%20text%2Ddecoration%3A%20none%3B%0A%7D%0A%20%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%236666ff%3B%20%7D%0A%20%20a%3Avisited%20%7B%0A%20%20%20%20color%3A%20%23800080%3B%20%7D%0A%20%20a%3Avisited%3Ahover%20%7B%0A%20%20%20%20color%3A%20%23BB00BB%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%20%20a%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20underline%3B%20%7D%0A%0A%2F%2A%20Class%20described%20in%20https%3A%2F%2Fbenjeffrey%2Ecom%2Fposts%2Fpandoc%2Dsyntax%2Dhighlighting%2Dcss%0A%20%20%20Colours%20from%20https%3A%2F%2Fgist%2Egithub%2Ecom%2Frobsimmons%2F1172277%20%2A%2F%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Keyword%20%2A%2F%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%2F%2A%20DataType%20%2A%2F%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%2F%2A%20DecVal%20%28decimal%20values%29%20%2A%2F%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20BaseN%20%2A%2F%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Float%20%2A%2F%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20Char%20%2A%2F%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%2F%2A%20String%20%2A%2F%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%2F%2A%20Comment%20%2A%2F%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%2F%2A%20OtherToken%20%2A%2F%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20AlertToken%20%2A%2F%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%2F%2A%20Function%20calls%20%2A%2F%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%2F%2A%20ErrorTok%20%2A%2F%0A%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Size Ratios</h1>
+<h4 class="author"><em>Nicholas J. Gotelli, Edmund M. Hart, and Aaron M. Ellison</em></h4>
+<h4 class="date"><em>16 March 2015</em></h4>
+</div>
+
+
+<hr />
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(EcoSimR)    <span class="co"># load EcoSimR library</span>
+<span class="kw">set.seed</span>(<span class="dv">56</span>)        <span class="co"># for reproducible results</span></code></pre>
+<div id="theory" class="section level2">
+<h2>Theory</h2>
+<p>In his seminal paper “Homage To Santa Rosalia or why are there so many kinds of animals?”, Hutchinson (1959) noted that, if the species in an assemblage are ordered from smallest to largest, the average body size ratios of adjacent species varied between 1.1 and 1.4 for several bird and mammal assemblages. Hutchinson speculated that the mean ratio, roughly 1.3, could be “tentatively” interpreted as the amount of separation necessary for species to coexist at the same trophic level. This modest suggestion spawned a vast amount of research, as ecologists sought to confirm or refute this “1.3 rule” for different assemblages.</p>
+<p>For animal assemblages, constancy in the ratios of body sizes or feeding appendages might result either from character displacement or colonization extinction dynamics. For plants, similar effects of competition for pollinators might lead to a constant difference in flowering times, rather than a constant ratio. Even if differences or ratios were not unusually constant, there might still be some minimum spacing or ratio that was necessary to permit coexistence. Important null model tests by Poole and Rathcke (1979) for even spacing of plant flowering phenologies, and by Simberloff and Boecklen (1981) for constancy of animal body size ratios found little support for these generalities.</p>
+<p>This module of EcoSimR includes metrics and algorithms for constant size ratios or size differences, as well as for critical minimum size ratios or size differences. Although the module is described in terms of animal body size, any morphological trait could be analyzed for constancy in size ratios. Flowering or activity times can also be tested for evidence of regular or minimum spacing. These analyses do not take into account intraspecific variation, and instead summarize body size or other traits as a single number for each species.</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>The data for a size ratio analysis consists of a vector of species body sizes. Each entry represents the average body size or trait value for a species in an assemblage. These values must be non-negative real or integer values. Negative numbers are <code>NA</code> values are not allowed.</p>
+<p>The sample data set for this analysis is <code>dataRodents</code>, the body size in grams of 6 coexisting rodent species in the Sonoran desert (Brown 1975). Brown and his colleagues have studied competitive interactions among desert rodents (and among rodents and ants) for many years at these sites (see Brown 1998 for a summary of this work). Experimental studies have established that, in some locations, rodents compete for seed resources (Brown et al. 1986). We can use EcoSimR to test for any non-randomness in the body size pattern of these species.</p>
+<table>
+<caption>Average body sizes of Sonoran desert rodents. Data from Brown (1975)</caption>
+<thead>
+<tr class="header">
+<th align="left">species</th>
+<th align="right">Sonoran</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Perognathus_flavus</td>
+<td align="right">7.2</td>
+</tr>
+<tr class="even">
+<td align="left">Reithrodontomys_megalotis</td>
+<td align="right">11.4</td>
+</tr>
+<tr class="odd">
+<td align="left">Perognathus_penicillatus</td>
+<td align="right">17.1</td>
+</tr>
+<tr class="even">
+<td align="left">Peromyscus_maniculatus</td>
+<td align="right">24.3</td>
+</tr>
+<tr class="odd">
+<td align="left">Dipodomys_merriami</td>
+<td align="right">45.3</td>
+</tr>
+<tr class="even">
+<td align="left">Dipodomys_spectabilis</td>
+<td align="right">120.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="metrics" class="section level2">
+<h2>Metrics</h2>
+<p>The Size Ratio module of EcoSimR offers four metrics for analysis. Prior to calculation of these metrics, the body sizes (or trait values) are ordered from smallest to largest.</p>
+<ul>
+<li><p><code>var_ratio</code> calculates the variance in the size ratios of consecutively ordered body sizes. Ratios are always calculated as (larger/next larger). so they must be <span class="math">\(\ge 1\)</span>. If this variance is unusually small, there is evidence of constancy in size ratios for the assemblage. In the extreme case, if the size ratio between adjacent species is a constant, the variance in these ratios will be 0.0.</p></li>
+<li><p><code>var_diff</code> calculates the variance of the absolute size differences between adjacent species. A small variance indicates a regular spacing of observations. In the extreme case, if the spacing between adjacent species is a constant, the variance in these differences will be zero. Note that if <code>var_diff</code> is very small, <code>var_ratio</code> will not be, and vice-versa. This metric was introduced by Poole and Rathcke (1979) to test for regular spacing of flowering phenologies.</p></li>
+<li><p><code>min_ratio</code> calculates the minimum size ratio between adjacent pairs of species. If there are ties in the data, then <code>min_ratio</code> will equal 1.0.</p></li>
+<li><p><code>min_diff</code> calculates the absolute minimum size difference between adjacent pairs of species. If there are ties in the data, then <code>min_diff</code> will equal 0.0.</p></li>
+</ul>
+</div>
+<div id="algorithms" class="section level2">
+<h2>Algorithms</h2>
+<p>The Size Ratio module of EcoSimR offers four algorithms for randomizing a set of body size or trait values:</p>
+<ul>
+<li><p><code>size_uniform</code> simulates a uniform distribution of body sizes within the limits defined by the largest and smallest species in the assemblage. Thus, if there are <em>n</em> species in the assemblage, the two endpoints are fixed at the largest and smallest observed values, and the remaining <em>n</em> - 1 values are randomly assigned. Although the true distribution of body sizes may not be uniform, it may be approximately uniform within the observed limits of the data, particularly for small sample sizes. This is the default algorithm and corresponds to the tests used in Simberloff and Boecklen (1981).</p></li>
+<li><p><code>size_uniform_user</code> also simulates a uniform distribution of body sizes, but in this case, the user specifies the maximum and minimum body sizes possible. These limits must encompass the largest and smallest body sizes in the data set. Because the extreme values in the data are not used to set the limits of the distribution, all <em>n</em> of the species in each null assemblage are randomly assigned. The more extreme the endpoints, the more the observed distribution will show significant aggregation or clumping. The same data set might exhibit a pattern of randomness or segregation when tested with the <code>size_uniform</code> distribution. For this reason, the <code>size_uniform_user</code> is not the preferred algorithm because the degree of clumping will depend entirely on how widely spaced the boundaries are.</p></li>
+<li><p><code>size_gamma</code> is a more realistic way to simulate a distribution of body sizes that is not a simple uniform bounded by the data. The gamma distribution is appropriate for positive real values that may have a long right hand tail (such as the distribution of animal body sizes). Depending on the two parameters of the distribution, the gamma can resemble the profile of a normal, exponential or log-normal distribution. EcoSimR uses the <code>fitdr()</code> function in the MASS library to first obtain maximum likelihood estimates for the shape and scale paramters of the gamma distribution. Those parameters are then used to simulate a sample of <em>n</em> species for each null assemblage. Note that the null assemblage may include some species that are larger or smaller than any of the empirical observations. For small assemblages, the <code>size_gamma</code> algorithm may not give results that differ from the default <code>size_uniform</code>. However, for species-rich assemblages, it may be be a more realistic function to use.</p></li>
+<li><p><code>size_source_pool</code> offers a realistic alternative to the parametric distributions of body size available from the <code>size_uniform</code>, <code>size_uniform_user</code> and <code>size_gamma</code> algorithms. For the <code>size_source_pool</code> algorithm, the user provides an explicit source pool: a vector of the body sizes of all species in the source pool (=sourcePool). We assume that the species represented in the actual assemblage (=speciesData) are a proper subset of the species in this source pool. The user also can provide a vector of relative colonization weights (positive real numbers). These weights (= speciesProbs) determine the probability that each species is drawn without replacement every time a null assemblage is created. If these weights are not provided, the default weight of 1 for every source pool species means they are all drawn equiprobably.</p></li>
+</ul>
+</div>
+<div id="graphics" class="section level2">
+<h2>Graphics</h2>
+<p>The size-ratio module offers two graphic outputs. <code>plot(myModel, type=&quot;hist&quot;)</code> generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.</p>
+<pre><code>## Swap Progress</code></pre>
+<p><img src="data:image/png;base64,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" /></p>
+<p>The second graphic, <code>plot(myModel,type=&quot;size&quot;)</code>, illustrates graphically the body sizes of one simulated assemblage (blue points) and the observed body sizes (red points). These same data are portrayed as histograms (red and blue) of the ordered size differences between adjacent species pairs. A careful comparison of the observed and simulated data should confirm the behavior of the chosen randomization algorithm.</p>
+<p><img src="data:image/png;base64,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" /></p>
+</div>
+<div id="defaults" class="section level2">
+<h2>Defaults</h2>
+<pre class="sourceCode r"><code class="sourceCode r">speciesData           <span class="co"># user must supply a data frame; speciesData=dataWiFinches for default run</span>
+algo =<span class="st"> &quot;size_uniform&quot;</span> <span class="co"># randomize interior species with a uniform distribution</span>
+metric =<span class="st"> &quot;var_ratio&quot;</span>  <span class="co"># variance of size ratios of adjacent species</span>
+nReps =<span class="st"> </span><span class="dv">1000</span>          <span class="co"># number of null assemblage created</span>
+rowNames=<span class="ot">TRUE</span>         <span class="co"># reads speciesData as a data frame wtih row labels in the first column</span>
+saveSeed=<span class="ot">FALSE</span>        <span class="co"># if TRUE, saves random number seed</span>
+burn_in=<span class="dv">500</span>           <span class="co"># number of burn-in iterations for sim9</span>
+algoOpts=<span class="kw">list</span>()       <span class="co"># list of other specific options for the algorithm (used for size_source_pool)</span>
+metricOpts=<span class="kw">list</span>()     <span class="co"># list of other specific options for the metric</span>
+suppressProg=<span class="st"> </span><span class="ot">FALSE</span>   <span class="co"># suppress printing of progress bar (for creating markdown files)</span></code></pre>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># run default settings and show all output</span>
+myModel &lt;-<span class="st"> </span><span class="kw">size_null_model</span>(<span class="dt">speciesData=</span>dataRodents,<span class="dt">suppressProg=</span><span class="ot">TRUE</span>)
+<span class="kw">summary</span>(myModel)</code></pre>
+<pre><code>## Time Stamp:  Tue Mar 17 22:46:31 2015 
+## Reproducible:  FALSE 
+## Number of Replications:  1000 
+## Elapsed Time:  0.29 secs 
+## Metric:  var_ratio 
+## Algorithm:  size_uniform 
+## Observed Index:  0.25135 
+## Mean Of Simulated Index:  3.5785 
+## Variance Of Simulated Index:  23.193 
+## Lower 95% (1-tail):  0.29999 
+## Upper 95% (1-tail):  13.658 
+## Lower 95% (2-tail):  0.20587 
+## Upper 95% (2-tail):  19.377 
+## Lower-tail P =  0.035 
+## Upper-tail P =  0.965 
+## Observed metric &gt; 35 simulated metrics 
+## Observed metric &lt; 965 simulated metrics 
+## Observed metric = 0 simulated metrics 
+## Standardized Effect Size (SES):  -0.69088</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(myModel,<span class="dt">type =</span> <span class="st">&quot;hist&quot;</span>)</code></pre>
+<p><img src="data:image/png;base64,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" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot(myModel,type=&quot;size&quot;) # throws error in vignette: figure margins too large</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># test for minimum size differences with a source pool model</span>
+
+<span class="co"># create a source pool of the rodent body sizes plus 20 other species</span>
+mySource &lt;-<span class="kw">c</span>(dataRodents$Sonoran,<span class="kw">as.double</span>(<span class="kw">sample</span>(<span class="dv">150</span>,<span class="dv">20</span>)))
+<span class="kw">print</span>(mySource)              </code></pre>
+<pre><code>##  [1]   7.2  11.4  17.1  24.3  45.3 120.0  19.0 120.0  63.0  95.0   8.0
+## [12] 140.0  94.0 141.0  31.0  45.0  11.0  73.0  27.0  70.0  65.0  93.0
+## [23]  83.0 145.0  84.0  29.0</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an arbitrary set of probabilty weights</span>
+myProbs &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">26</span>)
+
+myModel &lt;-<span class="st"> </span><span class="kw">size_null_model</span>(<span class="dt">speciesData=</span>dataRodents,<span class="dt">suppressProg=</span><span class="ot">TRUE</span>,
+           <span class="dt">metric=</span><span class="st">&quot;min_diff&quot;</span>,<span class="dt">algo=</span><span class="st">&quot;size_source_pool&quot;</span>,
+           <span class="dt">algoOpts=</span><span class="kw">list</span>(<span class="dt">sourcePool=</span>mySource,<span class="dt">speciesProbs=</span>myProbs))
+<span class="kw">summary</span>(myModel)</code></pre>
+<pre><code>## Time Stamp:  Tue Mar 17 22:46:31 2015 
+## Reproducible:  FALSE 
+## Number of Replications:  1000 
+## Elapsed Time:  0.29 secs 
+## Metric:  min_diff 
+## Algorithm:  size_source_pool 
+## Observed Index:  4.2 
+## Mean Of Simulated Index:  3.5292 
+## Variance Of Simulated Index:  10.226 
+## Lower 95% (1-tail):  0.4 
+## Upper 95% (1-tail):  10 
+## Lower 95% (2-tail):  0.4 
+## Upper 95% (2-tail):  11.802 
+## Lower-tail P =  0.708 
+## Upper-tail P =  0.348 
+## Observed metric &gt; 652 simulated metrics 
+## Observed metric &lt; 292 simulated metrics 
+## Observed metric = 56 simulated metrics 
+## Standardized Effect Size (SES):  0.20977</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(myModel,<span class="dt">type=</span><span class="st">&quot;cooc&quot;</span>)</code></pre>
+</div>
+<div id="caveats" class="section level2">
+<h2>Caveats</h2>
+</div>
+<div id="literature" class="section level2">
+<h2>Literature</h2>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
