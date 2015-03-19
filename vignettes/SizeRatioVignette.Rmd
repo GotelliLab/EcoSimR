@@ -49,9 +49,9 @@ The Size Ratio module of EcoSimR offers four algorithms for randomizing a set of
 
 - `size_uniform_user` also simulates a uniform distribution of body sizes, but in this case, the user specifies the maximum and minimum body sizes possible. These limits must encompass the largest and smallest body sizes in the data set. Because the extreme values in the data are not used to set the limits of the distribution, all *n* of the species in each null assemblage are randomly assigned. The more extreme the endpoints, the more the observed distribution will show significant aggregation or clumping. The same data set might exhibit a pattern of randomness or segregation when tested with the `size_uniform` distribution. For this reason, the `size_uniform_user` is not the preferred algorithm because the degree of clumping will depend entirely on how widely spaced the boundaries are. 
 
-- `size_gamma` is a more realistic way to simulate a distribution of body sizes that is not a simple uniform bounded by the data. The gamma distribution is appropriate for positive real values that may have a long right hand tail (such as the distribution of animal body sizes). Depending on the two parameters of the distribution, the gamma can resemble the profile of a normal, exponential or log-normal distribution. EcoSimR uses the `fitdr()` function in the MASS library to first obtain maximum likelihood estimates for the shape and scale paramters of the gamma distribution. Those parameters are then used to simulate a sample of *n* species for each null assemblage. Note that the null assemblage may include some species that are larger or smaller than any of the empirical observations. For small assemblages, the `size_gamma` algorithm may not give results that differ from the default `size_uniform`. However, for species-rich assemblages, it may be be a more realistic function to use.
+- `size_gamma` is a more realistic way to simulate a distribution of body sizes that is not a simple uniform bounded by the data. The gamma distribution is appropriate for positive real values that may have a long right hand tail (such as the distribution of animal body sizes). Depending on the two parameters of the distribution, the gamma can resemble the profile of a normal, exponential or log-normal distribution (see also Tonkyn and Cole 1986). EcoSimR uses the `fitdr()` function in the MASS library to first obtain maximum likelihood estimates for the shape and scale paramters of the gamma distribution fitted to the observed data. Those parameters are then used to simulate a sample of *n* species for each null assemblage. Note that the null assemblage may include some species that are larger or smaller than any of the empirical observations. For small assemblages, the `size_gamma` algorithm may not give results that differ from the default `size_uniform`. However, for species-rich assemblages, it may be be a more realistic function to use.
 
-- `size_source_pool` offers a realistic alternative to the parametric distributions of body size available from the `size_uniform`, `size_uniform_user` and `size_gamma` algorithms. For the `size_source_pool` algorithm, the user provides an explicit source pool: a vector of the body sizes of all species in the source pool (=sourcePool). We assume that the species represented in the actual assemblage (=speciesData) are a proper subset of the species in this source pool. The user also can provide a vector of relative colonization weights (positive real numbers). These weights (= speciesProbs) determine the probability that each species is drawn without replacement every time a null assemblage is created. If these weights are not provided, the default weight of 1 for every source pool species means they are all drawn equiprobably.
+- `size_source_pool` offers a realistic alternative to the parametric distributions of body size available from the `size_uniform`, `size_uniform_user` and `size_gamma` algorithms. For the `size_source_pool` algorithm, the user provides an explicit source pool: a vector of the body sizes of all species in the source pool (=sourcePool). We assume that the species represented in the actual assemblage (=speciesData) are a proper subset of the species in this source pool (Graves and Gotelli 1983). The user also can provide a vector of relative colonization weights (positive real numbers). These weights (= speciesProbs) determine the probability that each species is drawn without replacement every time a null assemblage is created. If these weights are not provided, the default weight of 1 for every source pool species means they are all drawn equiprobably.
 
 ## Graphics
 The size-ratio module offers two graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
@@ -64,9 +64,9 @@ plot(myModel,type="hist")
 
 The second graphic, `plot(myModel,type="size")`, illustrates graphically the body sizes of one simulated assemblage (blue points) and the observed body sizes (red points).  These same data are portrayed as histograms (red and blue) of the ordered size differences between adjacent species pairs. A careful comparison of the observed and simulated data should confirm the behavior of the chosen randomization algorithm.
 
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
+```{r}
 myModel <- size_null_model(dataRodents,suppressProg=TRUE)
-plot(myModel,type="hist")
+# plot(myModel,type="size") # throws error: figure margins too large
 
 ```
 
@@ -123,4 +123,25 @@ These models carry the usual restrictions on the analysis of body size patterns 
 
 
 ## Literature
+
+Brown, J.H. 1998. The desert granivory experiments at Portal. Pages 71-95 in W.J. Resetarits, Jr. and J. Bernardo, eds. Experimental ecology: issues and perspectives. Oxford University Press, New York. 
+
+Brown, J.H., D.W. Davidson, J.C. Munger, and R.S. Inouye. 1986. Experimental community ecology: the desert granivore system. Pages 41-61 in J. Diamond and T. J. Case, eds. Community ecology. Harper and Row, New York. 
+
+Gotelli, N.J. and G.R. Graves. 1996. Null models in ecology. Smithsonian Institution Press, Washington DC.
+
+Graves, G.R. and N.J. Gotelli. 1983. Neotropical land-bridge avifaunas: new approaches to null hypotheses in biogeography. Oikos 41: 322-333. 
+
+Hutchinson, G.E. 1959. Homage to Santa Rosalia or why are there so many kinds of animals? The American Naturalist 93: 145-159. 
+
+Losos, J.B. 1990. A phylogenetic analysis of character displacement in Caribbean Anolis lizards. Evolution 44: 558-569. 
+Poole and Rathcke 1979
+
+Simberloff, D., and W. Boecklen. 1981. Santa Rosalia reconsidered: size ratios and competition. Evolution 35: 1206-1228. 
+
+Tonkyn, D.W., and B.J. Cole. 1986. The statistical analysis of size ratios. The American Naturalist 128: 66-81. 
+
+
+
+
 
