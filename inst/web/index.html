@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>Index. staticdocs 0.1</title>
+<title>Index. EcoSimR 0.1.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="Hadley Wickham &lt;h.wickham@gmail.com&gt;">
+<meta name="author" content="">
 
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -17,27 +17,18 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">staticdocs 0.1</a>
+      <a class="navbar-brand" href="index.html">EcoSimR 0.1.0</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
-      
-    
-      <li><a href="vignettes/staticdocs.html"><i class="icon-home icon-white"></i>Staticdocs</a></li>
-    
 
-
-      
-      
-      <li><a href="index.html"><i class="icon-home icon-white"></i>TED</a></li>
-<li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
 
 
       </ul>
     </div>
   </div>
 </nav>
-
   </head>
 
   <body>
@@ -50,57 +41,174 @@
       
       <div class="row">
   <div class="col-md-9">
- <h1>staticdocs</h1>
+ <h2>EcoSimR</h2>
 
-<p><a href="https://travis-ci.org/hadley/staticdocs"><img src="https://travis-ci.org/hadley/staticdocs.png?branch=master" alt="Build Status"/></a></p>
+<p><a href="https://travis-ci.org/GotelliLab/EcoSimR"><img src="https://travis-ci.org/GotelliLab/EcoSimR.svg?branch=master" alt="Build Status"/></a>
+<a href="https://ci.appveyor.com/project/emhart/ecosimr"><img src="https://ci.appveyor.com/api/projects/status/fc5qpu8v3b1ku4ud?svg=true" alt="Build status"/></a>
+<a href="https://coveralls.io/r/GotelliLab/EcoSimR?branch=master"><img src="https://coveralls.io/repos/GotelliLab/EcoSimR/badge.svg?branch=master" alt="Coverage Status"/></a>
+<a href="http://opensource.org/licenses/MIT"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT license"/></a></p>
 
-<p>staticdocs provides a way to conveniently render R package documentation into html pages suitable for stand-alone viewing, such as on a package webpage. You can see staticdocs in action at <a href="http://staticdocs.had.co.nz/dev/:">http://staticdocs.had.co.nz/dev/:</a> this is the output of staticdocs applied to the latest version of staticdocs.</p>
-
-<p>staticdocs is not currently available from CRAN, but you can install the development version from github with:</p>
-
-<pre><code class="R"># install.packages(&quot;devtools&quot;)
-devtools::install_github(&quot;hadley/staticdocs&quot;)
-</code></pre>
-
-<h1>Features</h1>
-
-<ul>
-<li><p>Attractive defaults: staticdocs uses <a href="http://twitter.github.com/bootstrap/">bootstrap</a> to provide an attractive website.</p></li>
-<li><p>Customisable: you can override the default templates to provide
-alternative rendering</p></li>
-<li><p>Flexible ways to specify the index page so you can group related
-functions together.</p></li>
-</ul>
-
-<p>Compared to <code>Rd2html</code>, staticdocs:</p>
-
-<ul>
-<li><p>Makes it easier to customise the output.</p></li>
-<li><p>Runs examples, so users see both input and output.</p></li>
-<li><p>Assumes only one package is being rendered - links to documentation in
-other packages are forwarded to <a href="http://www.inside-r.org/">inside-R</a>.</p></li>
-</ul>
+<p>EcoSimR is a software package to fit null models to ecological data.  Currently three different types of models are supported: co-occurrence, niche overlap, and size ratio. The software comes with existing alogrithms and metrics, but individual users can also integrate their own algorithms, or use the null model engine to create new null models. If you publish using our software please cite it as:
+<em><insert citation here></em></p>
 
 
     <h2>Help topics</h2>
 
-    <h3>Settings functions</h3>
-    <p>These functions are used in <code>index.r</code> to configure various
-    settings that staticdocs uses when rendering a package.  This is
-    particularly useful for generating an index page that groups functions
-    into useful categories</p>
+    <h3>Niche overlap null models</h3>
+    <p>Functions used for running niche overlap null models</p>
 
     
     <ul class="index">
         
       <li>
-        <code><a href="sd_icon.html">sd_icon</a></code><br />Define the icon for a function.</li>
+        <code><a href="niche_null_model.html">niche_null_model</a></code><br />Niche overlap null models</li>
             
       <li>
-        <code><a href="sd_item.html">sd_item</a></code><br />Define an item in a section of the index.</li>
+        <code><a href="ra1.html">ra1</a></code><br />RA1 Niche Overlap Randomization Algorithm</li>
             
       <li>
-        <code><a href="sd_section.html">sd_section</a></code><br />Define a section for the index page</li>
+        <code><a href="ra2.html">ra2</a></code><br />RA2 Niche Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="ra3.html">ra3</a></code><br />RA3 Niche Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="ra4.html">ra4</a></code><br />RA4 Niche Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="pianka.html">pianka</a></code><br />Pianka niche overlap</li>
+            
+      <li>
+        <code><a href="czekanowski.html">czekanowski</a></code><br />Czekanowski niche overlap</li>
+            
+      <li>
+        <code><a href="pianka_var.html">pianka_var</a></code><br />Pianka variance</li>
+            
+      <li>
+        <code><a href="czekanowski_var.html">czekanowski_var</a></code><br />Czekanowski variance</li>
+            
+      <li>
+        <code><a href="pianka_skew.html">pianka_skew</a></code><br />Pianka skew</li>
+            
+      <li>
+        <code><a href="czekanowski_skew.html">czekanowski_skew</a></code><br />Czekanowski skew</li>
+    
+    </ul>
+    <h3>Size Ratio null models</h3>
+    <p>Functions used for running size ratio null models</p>
+
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="size_null_model.html">size_null_model</a></code><br />Size Ratio</li>
+            
+      <li>
+        <code><a href="size_uniform.html">size_uniform</a></code><br />SizeUniform Size Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="size_uniform_user.html">size_uniform_user</a></code><br />SizeUser Size Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="size_source_pool.html">size_source_pool</a></code><br />SizeSourcePoolDraw Size Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="size_gamma.html">size_gamma</a></code><br />SizeGamma Size Overlap Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="min_diff.html">min_diff</a></code><br />Minimum size difference</li>
+            
+      <li>
+        <code><a href="min_ratio.html">min_ratio</a></code><br />Minimum size ratio</li>
+            
+      <li>
+        <code><a href="var_diff.html">var_diff</a></code><br />Variance in size differences</li>
+            
+      <li>
+        <code><a href="var_ratio.html">var_ratio</a></code><br />Variance in size ratios</li>
+    
+    </ul>
+    <h3>Co-Occurrence null models</h3>
+    <p>Functions used for running co-occurrence null models</p>
+
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="cooc_null_model.html">cooc_null_model</a></code><br />Co-Occurrence Null model</li>
+            
+      <li>
+        <code><a href="vector_sample.html">vector_sample</a></code><br />Vector Sample Function</li>
+            
+      <li>
+        <code><a href="sim1.html">sim1</a></code><br />Sim1 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim2.html">sim2</a></code><br />Sim2 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim3.html">sim3</a></code><br />Sim3 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim4.html">sim4</a></code><br />Sim4 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim5.html">sim5</a></code><br />Sim5 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim6.html">sim6</a></code><br />Sim6 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim7.html">sim7</a></code><br />Sim7 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim8.html">sim8</a></code><br />Sim8 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="sim9.html">sim9</a></code><br />sim9.fast</li>
+            
+      <li>
+        <code><a href="sim10.html">sim10</a></code><br />Sim10 Co-occurrence Randomization Algorithm</li>
+            
+      <li>
+        <code><a href="species_combo.html">species_combo</a></code><br />Number of species combinations</li>
+            
+      <li>
+        <code><a href="checker.html">checker</a></code><br />Number of checkerboard species pairs</li>
+            
+      <li>
+        <code><a href="c_score.html">c_score</a></code><br />C-score</li>
+            
+      <li>
+        <code><a href="c_score_var.html">c_score_var</a></code><br />C-score variance</li>
+            
+      <li>
+        <code><a href="c_score_skew.html">c_score_skew</a></code><br />C-score skew</li>
+            
+      <li>
+        <code><a href="v_ratio.html">v_ratio</a></code><br />Schluter's V-ratio</li>
+            
+      <li>
+        <code><a href="checker.html">checker</a></code><br />Number of checkerboard species pairs</li>
+    
+    </ul>
+    <h3>Data Sets</h3>
+    <p>Data sets used in examples</p>
+
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="dataMacWarb.html">dataMacWarb</a></code><br />MacArthur Warbler data warbler data</li>
+            
+      <li>
+        <code><a href="dataRodents.html">dataRodents</a></code><br />Desert rodent data set</li>
+            
+      <li>
+        <code><a href="dataWiFinches.html">dataWiFinches</a></code><br />West Indian Finches data</li>
+            
+      <li>
+        <code><a href="ranMatGen.html">ranMatGen</a></code><br />Random Matrix Generator</li>
     
     </ul>
     <h3>Other</h3>
@@ -109,16 +217,40 @@ other packages are forwarded to <a href="http://www.inside-r.org/">inside-R</a>.
     <ul class="index">
         
       <li>
-        <code><a href="build_site.html">build_site</a></code>(build_package, staticdocs-package)<br />Build complete static documentation for a package.</li>
+        <code><a href="EcoSimR.html">EcoSimR</a></code>(EcoSimR-package)<br />EcoSimR</li>
             
       <li>
-        <code><a href="parse_rd.html">parse_rd</a></code><br />Parse an rd file in to staticdocs format.</li>
+        <code><a href="null_model_engine.html">null_model_engine</a></code><br />Run null model</li>
             
       <li>
-        <code><a href="render_page.html">render_page</a></code><br />Render complete page.</li>
+        <code><a href="plot.coocnullmod.html">plot.coocnullmod</a></code><br />Co-Occurrence Model Plot function</li>
             
       <li>
-        <code><a href="to_html.html">to_html</a></code><br />Convert an rdoc to a list of html components.</li>
+        <code><a href="plot.nichenullmod.html">plot.nichenullmod</a></code><br />Niche Null Model Plot function</li>
+            
+      <li>
+        <code><a href="plot.nullmod.html">plot.nullmod</a></code><br />plot a histogram null model</li>
+            
+      <li>
+        <code><a href="plot.sizenullmod.html">plot.sizenullmod</a></code><br />plot a size null model</li>
+            
+      <li>
+        <code><a href="reproduce_model.html">reproduce_model</a></code><br />Reproduce a result</li>
+            
+      <li>
+        <code><a href="sim9_single.html">sim9_single</a></code><br />sim9_single</li>
+            
+      <li>
+        <code><a href="summary.coocnullmod.html">summary.coocnullmod</a></code><br />Generic function for calculating null model summary statistics</li>
+            
+      <li>
+        <code><a href="summary.nichenullmod.html">summary.nichenullmod</a></code><br />Generic function for calculating null model summary statistics</li>
+            
+      <li>
+        <code><a href="summary.nullmod.html">summary.nullmod</a></code><br />Generic function for calculating null model summary statistics</li>
+            
+      <li>
+        <code><a href="summary.sizenullmod.html">summary.sizenullmod</a></code><br />Generic function for calculating null model summary statistics</li>
     
     </ul>
   </div>
@@ -126,24 +258,24 @@ other packages are forwarded to <a href="http://www.inside-r.org/">inside-R</a>.
   <div class="col-md-3">
     <h2>Vignettes</h2>
     <ul>
-      <li><a href="vignettes/staticdocs.html">Staticdocs</a></li>
+      <li><a href="vignettes/CoOccurrenceVignette.html">Co-Occurrence null models</a></li>
+      <li><a href="vignettes/nicheOverlapVignette.html">Niche Overlap</a></li>
+      <li><a href="vignettes/nullModelPlug-Ins.html">Null Model Plug-Ins</a></li>
+      <li><a href="vignettes/SizeRatioVignette.html">Size Ratio null models</a></li>
     </ul>
-    
-    <h2>Demos</h2>
-    <ul>
-      <li><a href="demo-plot.html">This is a demo for plotting</a></li>
-      <li><a href="demo-stats.html">This is a demo for statistics</a></li>
-    </ul>
-    
+        
     <h2>Dependencies</h2>
     <ul>
-      <li><strong>Depends</strong>: </li>
-      <li><strong>Imports</strong>: stringr, testthat, evaluate, whisker, highlight, tools, markdown, devtools, digest, grid</li>
-      <li><strong>Suggests</strong>: knitr</li>
+      <li><strong>Depends</strong>: MASS</li>
+      <li><strong>Imports</strong>: </li>
+      <li><strong>Suggests</strong>: testthat, knitr</li>
       <li><strong>Extends</strong>: </li>
     </ul>
     <h2>Authors</h2>
     <ul>
+      <li><a href="mailto:ngotelli@uvm.edu">Nick Gotelli</a> [aut]</li>
+      <li><a href="mailto:edmund.m.hart@gmail.com">Edmund Hart</a> [aut, cre]</li>
+      <li><a href="mailto:aellison@fas.harvard.edu">Aaron Ellison</a> [aut]</li>
     </ul>
 
   </div>
