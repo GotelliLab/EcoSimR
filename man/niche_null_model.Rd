@@ -5,7 +5,7 @@
 \title{Niche overlap null models}
 \usage{
 niche_null_model(speciesData, algo = "ra3", metric = "pianka",
-  nReps = 1000, rowNames = TRUE, saveSeed = FALSE, algoOpts = list(),
+  nReps = 1000, saveSeed = FALSE, algoOpts = list(),
   metricOpts = list(), suppressProg = FALSE)
 }
 \arguments{
@@ -16,8 +16,6 @@ niche_null_model(speciesData, algo = "ra3", metric = "pianka",
 \item{metric}{the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka}
 
 \item{nReps}{the number of replicates to run the null model.}
-
-\item{rowNames}{Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names}
 
 \item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
 
@@ -36,7 +34,7 @@ Create a niche overlap null models, choices of algorithm and metric are constrai
 data(dataMacWarb)
 
 ## Run the null model
-warbMod <- niche_null_model(dataMacWarb,nReps=100000)
+warbMod <- niche_null_model(dataMacWarb,nReps=1000)
 ## Summary and plot info
 summary(warbMod)
 plot(warbMod)

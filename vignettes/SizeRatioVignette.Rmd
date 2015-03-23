@@ -16,7 +16,7 @@ set.seed(56)        # for reproducible results
 ```
 
 ## Theory
-In his seminal paper "Homage To Santa Rosalia or why are there so many kinds of animals?", Hutchinson (1959) noted that, if the species in an assemblage are ordered from smallest to largest, the average body size ratios of adjacent species varied between 1.1 and 1.4 for several bird and mammal assemblages. Hutchinson speculated that the mean ratio, roughly 1.3, could be "tentatively" interpreted as the amount of separation necessary for species to coexist at the same trophic rule. This modest suggestion spawned a vast amount of research, as ecologists sought to confirm or refute this "1.3 rule" for different assemblages. 
+In his seminal paper "Homage To Santa Rosalia or why are there so many kinds of animals?", Hutchinson (1959) noted that, if the species in an assemblage are ordered from smallest to largest, the average body size ratios of adjacent species varied between 1.1 and 1.4 for several bird and mammal assemblages. Hutchinson speculated that the mean ratio, roughly 1.3, could be "tentatively" interpreted as the amount of separation necessary for species to coexist at the same trophic level. This modest suggestion spawned a vast amount of research, as ecologists sought to confirm or refute this "1.3 rule" for different assemblages. 
 
 For animal assemblages, constancy in the ratios of body sizes or feeding appendages might result either from character displacement or colonization extinction dynamics. For plants, similar effects of competition for pollinators might lead to a constant difference in flowering times, rather than a constant ratio. Even if differences or ratios were not unusually constant, there might still be some minimum spacing or ratio that was necessary to permit coexistence.  Important null model tests by Poole and Rathcke (1979) for even spacing of plant flowering phenologies, and by Simberloff and Boecklen (1981) for constancy of animal body size ratios found little support for these generalities. 
 
@@ -32,11 +32,29 @@ knitr::kable(dataRodents, caption='Average body sizes of Sonoran desert rodents.
 ```
 
 ## Metrics
+The Size Ratio module of EcoSimR offers four metrics for analysis. Prior to calculation of these metrics, the body sizes (or trait values) are ordered from smallest to largest.
+
+- `var_ratio` calculates the variance in the size ratios of consecutively ordered body sizes. Ratios are always calculated as (larger/next larger). so they must be $\ge 1$. If this variance is unusually small, there is evidence of constancy in size ratios for the assemblage. In the extreme case, if the size ratio between adjacent species is a constant, the variance in these ratios will be 0.0.
+
+- `var_diff` calculates the variance of the absolute size differences between adjacent species. A small variance indicates a regular spacing of observations. In the extreme case, if the spacing between adjacent species is a constant, the variance in these differences will be zero. Note that if `var_diff` is very small, `var_ratio` will not be, and vice-versa. This metric was introduced by Poole and Rathcke (1979) to test for regular spacing of flowering phenologies.
+
+- `min_ratio` calculates the minimum size ratio between adjacent pairs of species. If there are ties in the data, then `min_ratio` will equal 1.0.
+
+- `min_diff` calculates the absolute minimum size difference between adjacent pairs of species. If there are ties in the data, then `min_diff` will equal 0.0.
 
 ## Algorithms
+The Size Ratio module of EcoSimR offers four algorithms for randomizing a set of body size or trait values:
+
+- `size_uniform` simulates a uniform distribution of body sizes within the limits defined by the largest and smallest species in the assemblage. Thus, if there are *n* species in the assemblage, the two endpoints are fixed at the largest and smallest observed values, and the remaining *n* - 1 values are randomly assigned. Although the true distribution of body sizes may not be uniform, it may be approximately uniform within the observed limits of the data, particularly for small sample sizes. This is the default algorithm and corresponds to the tests used in Simberloff and Boecklen (1981). 
+
+- `size_uniform_user` also simulates a uniform distribution of body sizes, but in this case, the user specifies the maximum and minimum body sizes possible. These limits must encompass the largest and smallest body sizes in the data set. Because the extreme values in the data are not used to set the limits of the distribution, all *n* of the species in each null assemblage are randomly assigned. The more extreme the endpoints, the more the observed distribution will show significant aggregation or clumping. The same data set might exhibit a pattern of randomness or segregation when tested with the `size_uniform` distribution. For this reason, the `size_uniform_user` is not the preferred algorithm because the degree of clumping will depend entirely on how widely spaced the boundaries are. 
+
+- `size_gamma` is a more realistic way to simulate a distribution of body sizes that is not a simple uniform bounded by the data. The gamma distribution is appropriate for positive real values that may have a long right hand tail (such as the distribution of animal body sizes). Depending on the two parameters of the distribution, the gamma can resemble the profile of a normal, exponential or log-normal distribution (see also Tonkyn and Cole 1986). EcoSimR uses the `fitdr()` function in the MASS library to first obtain maximum likelihood estimates for the shape and scale paramters of the gamma distribution fitted to the observed data. Those parameters are then used to simulate a sample of *n* species for each null assemblage. Note that the null assemblage may include some species that are larger or smaller than any of the empirical observations. For small assemblages, the `size_gamma` algorithm may not give results that differ from the default `size_uniform`. However, for species-rich assemblages, it may be be a more realistic function to use.
+
+- `size_source_pool` offers a realistic alternative to the parametric distributions of body size available from the `size_uniform`, `size_uniform_user` and `size_gamma` algorithms. For the `size_source_pool` algorithm, the user provides an explicit source pool: a vector of the body sizes of all species in the source pool (=sourcePool). We assume that the species represented in the actual assemblage (=speciesData) are a proper subset of the species in this source pool (Graves and Gotelli 1983). The user also can provide a vector of relative colonization weights (positive real numbers). These weights (= speciesProbs) determine the probability that each species is drawn without replacement every time a null assemblage is created. If these weights are not provided, the default weight of 1 for every source pool species means they are all drawn equiprobably.
 
 ## Graphics
-The co-occurrence module offers three graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
+The size-ratio module offers two graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
 ```{r, echo=FALSE}
 myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
 plot(myModel,type="hist")
@@ -44,96 +62,86 @@ plot(myModel,type="hist")
 ```
 
 
-The second graphic, `plot(myModel,type="cooc")`, illustrates graphically one simulated matrix (left panel, blue) and the original data matrix (right panel, red). The data are portrayed as a grid with colored cells (species presences) and empty cells (species absences). A careful comparison of these two matrices should confirm the behavior of the chosen randomization algorithm.
+The second graphic, `plot(myModel,type="size")`, illustrates graphically the body sizes of one simulated assemblage (blue points) and the observed body sizes (red points).  These same data are portrayed as histograms (red and blue) of the ordered size differences between adjacent species pairs. A careful comparison of the observed and simulated data should confirm the behavior of the chosen randomization algorithm.
 
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
-myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
-plot(myModel,type="cooc")
+```{r}
+myModel <- size_null_model(dataRodents,suppressProg=TRUE)
+# plot(myModel,type="size") # throws error: figure margins too large
 
 ```
 
 
-If the algorithm is `sim9`, a third graphic option is available in the co-occurrence module. in this case, `plot(myModel,type="burn_in")` will show the trace value for the burn in period of the Markov chain. This can be useful for determining how many burn-in iterations are necessary to ensure that the distribution is approximately stationary. The plot shows the number of burn-in iterations on the *x*-axis and the metric value on the *y*-axis. The observed index is shown as a horizontal red line, the simulated values are shown as a blue line, and a grey spline curve is fit through the simulated sequence. For example, the default analysis uses a burn-in of 500 interations, and generates this plot:
-
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
-plot(myModel,type='burn_in')
-```
 
 ## Defaults
 
 ```{r, eval=FALSE}
 
-speciesData          # user must supply a data frame; speciesData=dataWiFinches for default run
-algo = "sim9"        # randomize occurrences but preserve observed row and columns sums
-metric = "c_score"   # Stone and Roberts (1990) C-score
-nReps = 1000         # number of null assemblage created
-rowNames=TRUE        # reads speciesData as a data frame wtih row labels in the first column
-saveSeed=FALSE       # if TRUE, saves random number seed
-burn_in=500          # number of burn-in iterations for sim9
-algoOpts=list()      # list of other specific options for the algorithm (used for sim10)
-metricOpts=list()    # list of other specific options for the metric
-suppressProg= FALSE  # suppress printing of progress bar (for creating markdown files)
+speciesData           # user must supply a data frame; speciesData=dataWiFinches for default run
+algo = "size_uniform" # randomize interior species with a uniform distribution
+metric = "var_ratio"  # variance of size ratios of adjacent species
+nReps = 1000          # number of null assemblage created
+rowNames=TRUE         # reads speciesData as a data frame wtih row labels in the first column
+saveSeed=FALSE        # if TRUE, saves random number seed
+burn_in=500           # number of burn-in iterations for sim9
+algoOpts=list()       # list of other specific options for the algorithm (used for size_source_pool)
+metricOpts=list()     # list of other specific options for the metric
+suppressProg= FALSE   # suppress printing of progress bar (for creating markdown files)
 ```
 
 ## Examples
 ```{r}
 # run default settings and show all output
-myModel <- cooc_null_model(speciesData=dataWiFinches,suppressProg=TRUE)
+myModel <- size_null_model(speciesData=dataRodents,suppressProg=TRUE)
 summary(myModel)
 plot(myModel,type = "hist")
+#plot(myModel,type="size") # throws error in vignette: figure margins too large
 ```
 
 ```{r}
-plot(myModel,type = "cooc") 
-```
+# test for minimum size differences with a source pool model
 
-```{r}
-plot(myModel,type = "burn_in")
+# create a source pool of the rodent body sizes plus 20 other species
+mySource <-c(dataRodents$Sonoran,as.double(sample(150,20)))
+           
+# create an arbitrary set of probabilty weights
+myProbs <- runif(26)
 
-# create a model with sim10 and user-supplied species and site weights
-myModel <- cooc_null_model(speciesData=dataWiFinches,algo="sim10",
-                           suppressProg=TRUE,algoOpts=list(rowWeights
-                           =(1:17),colWeights=(1:19)))
+# run the model
+myModel <- size_null_model(speciesData=dataRodents,suppressProg=TRUE,
+           metric="min_diff",algo="size_source_pool",
+           algoOpts=list(sourcePool=mySource,speciesProbs=myProbs))
+
+# show the results
 summary(myModel)
 plot(myModel,type="hist")
-
+#plot(myModel,type="size") # throws error in vignette: figure margins too large
 ```
 
-```{r}
-plot(myModel,type="cooc")
-```
 
 ## Caveats
+These models carry the usual restrictions on the analysis of body size patterns as they relate to competition and resource use: 1) body size or morphology are related to resource use; 2) the underlying resource spectrum is symmetric; 3) competition occurs primarily among adult organisms; 4) sexual size dimorphism and intraspecific variation in body size are ignored; 5) abundances of all species are approximately equal (Gotelli and Graves 1996). These models also treat each species as an independent data point and do not explicitly incorporate effects of phylogenetic inertia (Losos 1990).
 
-`sim9` used with the `c_score` has been tested repeatedly and has satisfactory performance with most kinds of random matrices (= low Type I errors). However, the C-score is an average across hundreds or even thousands of unique species pairs. Highly non-random matrices will always have a mixture of aggregated, random, or segregated species pairs. In future versions of EcoSimR, we hope to provide algorithms for Werner Ulrich's [PAIRS](http://www.keib.umk.pl/pairs/?lang=en) program, which uses an empirical Bayes approach to test all individual species pairs and screen for false positives (see Gotelli and Ulrich 2010 for details). 
-
-Although co-occurrence analyses arose from the controversy over assembly rules and interspecific competition, these null model analyses can only establish that a matrix or species pair is significantly aggregated or segregated. The causes of such segregation can include species interactions, habitat assocations, and dispersal limitations. Bloise et al. (2014) use additional data layers (geo-referenced sites and measures of environmental conditions in each site) to construct a logic tree with 9 possible branch tips for interpreting the outcomes of species co-occurrence analyses.
 
 ## Literature
 
-Blois, J.L., N.J. Gotelli, A.K. Behrensmeyer, J.T. Faith, S.K. Lyons, J.W. Williams, K.L. Amatangelo, A. Bercovici, A. Du, J.T. Eronen, G.R. Graves, N. Jud, C. Labandeira, C.V. Looy, B. McGill, D. Patterson, R. Potts, B. Riddle, R. Terry, A. Toth, A. Villasenor, and S. Wing. 2014. A framework for evaluating the influence of climate, dispersal limitation, and biotic interactions using fossil pollen associations across the late Quaternary. Ecography 37:1095-1108.
+Brown, J.H. 1998. The desert granivory experiments at Portal. Pages 71-95 in W.J. Resetarits, Jr. and J. Bernardo, eds. Experimental ecology: issues and perspectives. Oxford University Press, New York. 
 
-Connor, E.F. and D. Simberloff. 1979. The assembly of species communities: chance or competition? Ecology 60: 1132-1140.
+Brown, J.H., D.W. Davidson, J.C. Munger, and R.S. Inouye. 1986. Experimental community ecology: the desert granivore system. Pages 41-61 in J. Diamond and T. J. Case, eds. Community ecology. Harper and Row, New York. 
 
-Connor, E.F., M.D. Collins, and D. Simberloff. 2013. The checkered history of checkerboard distributions. Ecology 94: 2403-2414
+Gotelli, N.J. and G.R. Graves. 1996. Null models in ecology. Smithsonian Institution Press, Washington DC.
 
-Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in: Ecology and Evolution of Communities. M.L. Cody and J.M. Diamond (eds.). Harvard University Press, Cambridge.
+Graves, G.R. and N.J. Gotelli. 1983. Neotropical land-bridge avifaunas: new approaches to null hypotheses in biogeography. Oikos 41: 322-333. 
 
-Gotelli, N.J. 2000. Null model analysis of species co-occurrence patterns. Ecology 81: 2606-2621.
+Hutchinson, G.E. 1959. Homage to Santa Rosalia or why are there so many kinds of animals? The American Naturalist 93: 145-159. 
 
-Gotelli, N.J. and L.G. Abele. 1982. Statistical distributions of West Indian land bird families. Journal of Biogeography 9: 421-435.
+Losos, J.B. 1990. A phylogenetic analysis of character displacement in Caribbean Anolis lizards. Evolution 44: 558-569. 
+Poole and Rathcke 1979
 
-Gotelli, N.J. and W. Ulrich. 2010. The empirical Bayes approach as a tool to identify non-random species associations. Oecologia 162:463-477.
+Simberloff, D., and W. Boecklen. 1981. Santa Rosalia reconsidered: size ratios and competition. Evolution 35: 1206-1228. 
 
-Gotelli, N.J., G.R. Graves, and C. Rahbek. 2010. Macroecological signals of species interactions in the Danish avifauna. Proceedings of the National Academy of Sciences, U.S.A. 107: 530-535.
+Tonkyn, D.W., and B.J. Cole. 1986. The statistical analysis of size ratios. The American Naturalist 128: 66-81. 
 
-Jenkins, D.G. 2006. In search of quorum effects in metacommunity structure: species co-occurrence analyses. Ecology 87:1523-1531
 
-Sanderson, J.G., J.M. Diamond, and S.L. Pimm. 2010. Pairwise co-existence of Bismarck and Solomon landbird species. Evolutionary Ecology Research pp. 771-786. 
 
-Schluter, D. 1984. A variance test for detecting species associations, with some example applications. Ecology 65: 998-1005.
 
-Stone. L. and A. Roberts. 1990. The checkerboard score and species distributions. Oecologia 85: 74-79.
-
-Strona. G., D. Nappo, F. Boccacci, S. Fattorini, and J. San-Miguel-Ayanz. 2014. A fast and unbiased procedure to randomize ecological binary matrices with fixed row and column totals. Nature Communications 5:4114 | DOI: 10.1038/ncomms5114.
 
