@@ -4,8 +4,9 @@
 \alias{sim9}
 \title{sim9.fast}
 \usage{
-sim9(speciesData, algo, metric, nReps = 1000, rowNames = TRUE,
-  saveSeed = FALSE, burn_in = 0, suppressProg = TRUE)
+sim9(speciesData, algo, metric, nReps = 1000, saveSeed = FALSE,
+  burn_in = 0, algoOpts = list(), metricOpts = list(),
+  suppressProg = TRUE)
 }
 \arguments{
 \item{speciesData}{a dataframe in which rows are species, columns are sites,
@@ -22,11 +23,11 @@ site. Empty rows and empty columns should not be included in the matrix.}
 
 \item{burn_in}{The number of burn_in iterations to use with the simFast algorithm}
 
-\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
-
 \item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
 
 \item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
+
+\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
 }
 \description{
 A special implementation of the sequential swap algorithm
