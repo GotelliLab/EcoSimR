@@ -4,7 +4,7 @@ author: "Nicholas J. Gotelli, Edmund M. Hart, and Aaron M. Ellison"
 date: "16 March 2015"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Size Ratio null models}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
