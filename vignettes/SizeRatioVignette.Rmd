@@ -4,7 +4,7 @@ author: "Nicholas J. Gotelli, Edmund M. Hart, and Aaron M. Ellison"
 date: "16 March 2015"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Size Ratio null models}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -55,7 +55,7 @@ The Size Ratio module of EcoSimR offers four algorithms for randomizing a set of
 
 ## Graphics
 The size-ratio module offers two graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=4,fig.width=4,fig.align='center'}
 myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
 plot(myModel,type="hist")
 
@@ -64,10 +64,9 @@ plot(myModel,type="hist")
 
 The second graphic, `plot(myModel,type="size")`, illustrates graphically the body sizes of one simulated assemblage (blue points) and the observed body sizes (red points).  These same data are portrayed as histograms (red and blue) of the ordered size differences between adjacent species pairs. A careful comparison of the observed and simulated data should confirm the behavior of the chosen randomization algorithm.
 
-```{r}
+```{r, fig.height=8,fig.width=4,fig.align='center'}
 myModel <- size_null_model(dataRodents,suppressProg=TRUE)
-# plot(myModel,type="size") # throws error: figure margins too large
-
+plot(myModel,type="size") 
 ```
 
 
@@ -89,15 +88,17 @@ suppressProg= FALSE   # suppress printing of progress bar (for creating markdown
 ```
 
 ## Examples
-```{r}
+```{r, fig.height=4,fig.width=4,fig.align='center'}
 # run default settings and show all output
 myModel <- size_null_model(speciesData=dataRodents,suppressProg=TRUE)
 summary(myModel)
 plot(myModel,type = "hist")
-#plot(myModel,type="size") # throws error in vignette: figure margins too large
+```
+```{r,fig.height=8,fig.width=4,fig.align='center'}
+plot(myModel,type="size") # throws error in vignette: figure margins too large
 ```
 
-```{r}
+```{r, fig.height=4,fig.width=4,fig.align='center'}
 # test for minimum size differences with a source pool model
 
 # create a source pool of the rodent body sizes plus 20 other species
@@ -114,7 +115,10 @@ myModel <- size_null_model(speciesData=dataRodents,suppressProg=TRUE,
 # show the results
 summary(myModel)
 plot(myModel,type="hist")
-#plot(myModel,type="size") # throws error in vignette: figure margins too large
+```
+
+```{r, fig.height=8,fig.width=4,fig.align='center'}
+plot(myModel,type="size") 
 ```
 
 

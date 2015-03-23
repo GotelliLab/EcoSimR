@@ -28,7 +28,7 @@
 
 
 
-sim9 <- function (speciesData,algo,metric, nReps = 1000 ,rowNames = TRUE, saveSeed = FALSE,burn_in = 0,suppressProg = TRUE)
+sim9 <- function (speciesData,algo,metric, nReps = 1000 , saveSeed = FALSE,burn_in = 0,algoOpts = list(),metricOpts = list(),suppressProg = TRUE)
 {
   
   if(saveSeed){
