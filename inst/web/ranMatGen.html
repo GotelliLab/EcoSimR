@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>ranMatGen. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+<li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Random Matrix Generator</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>ranMatGen(aBetaRow&nbsp;=&nbsp;1, bBetaRow&nbsp;=&nbsp;1, aBetaCol&nbsp;=&nbsp;1, bBetaCol&nbsp;=&nbsp;1, numRows&nbsp;=&nbsp;20, numCols&nbsp;=&nbsp;5, mFill&nbsp;=&nbsp;0.5, abun&nbsp;=&nbsp;0, emptyRow&nbsp;=&nbsp;FALSE, emptyCol&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>aBetaRow</dt>
+      <dd>parameter shape1 for beta of row marginals</dd>
+      <dt>bBetaRow</dt>
+      <dd>parameter shape2 for beta of row marginals</dd>
+      <dt>aBetaCol</dt>
+      <dd>parameter shape1 for beta of column marginals</dd>
+      <dt>bBetaCol</dt>
+      <dd>parameter shape2 for beta of column marginals</dd>
+      <dt>numRows</dt>
+      <dd>number of rows in random matrix</dd>
+      <dt>numCols</dt>
+      <dd>number of columns in random matrix</dd>
+      <dt>mFill</dt>
+      <dd>proportion of matrix cells to be filled with non-zero elements</dd>
+      <dt>abun</dt>
+      <dd>expected total abundance (from Poisson distribution) of individuals in the matrix. If set to the default value of 0, abundances are not shown but are replaced by occurrences (1s)</dd>
+      <dt>emptyRow</dt>
+      <dd>specifies whether empty rows in random matrix will be retained (TRUE) or stripped out (FALSE)</dd>
+      <dt>emptyCol</dt>
+      <dd>specified wither empty columns will be retained (TRUE) or stripped out (FALSE)</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create a random matrix with specified dimensions, percentage fill, marginal distributions, and matrix type (abundance or binary) to test the behavior of null model randomization algorithms.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Understanding the behavior of null models with artificial data is an essential step before applying them to real data. This function creates stochastic community matrices in which each row is a species, each column is a site or island, and each entry is the occurrence (presence-absence) or abundance of a species in a site. For the analysis of niche overlap, the sites can be treated as unordered niche categories, and the abundances are the utilization values for each species.</p>
+  
+      <p>Row and column marginal distributions are described from a beta distribution, with user supplied coefficients. Marginal distributions are rescaled to one, and the conjoint probability of a species occurring in a site is determined with the outer product of the species (=row) and site(= column) marginals. This simple calculation assumes sites and species are independent, and excludes site x species interactions as well as species x species interactions.</p>
+  
+      <p>The user specifies the percent fill of the matrix, and this number of cells are randomly selected without replacement using the cojoint probabilities calculated from each marginal distribution. If the user has requested a presence-absence matrix (`abun = 0'), these cells are assigned a value of 1. If the user has reqested an abundance matrix ('abun > 0'), then the value of abundance specifies the summed abundance of all individuals in the matrix. The value of `abun` is used to set the lambda parameter for each occupied cell, and then a single draw from a Poisson distribution is used for the abundance in that cell. Small conjoint marginal probabilities can lead to empty rows or columns and the user can specify whether or not to retain empty rows and columns. The matrix rows and columns are sorted in descending order according to the marginal frequencies, and these are returned (matrix$rowMarg and matrix$colMarg) along with the matrix (matrix$m) in list form.</p>
+  
+      <p>`aBetaRow`, `bBetaRow`, `aBetaCol`, and `bBetaCol` specify the two shape parameters for the row and column marginals. The marginal values are created by a single random draw from these beta distributions, and then are rescaled so they sum to 1.0. Thus, the mean parameter value specified by the beta distribution does not matter in the calculation. Instead, it is the size of the variance that determines the amount of heterogeneity among row or column margins. Small values for the two shape parameters generate greater heterogeneity among the rows or columns marginals of the matrix.</p>
+  
+      <p>Thus, a distribution with `aBetaRow=1000` and `bBetaRow=1000` will generate marginal probabilities that are virtually identical for the different species (=rows), whereas `aBetaRow=1` and `bBetaRow=1` will generate uniform probabilities. These default values applied to both rows and columns will generate a typical presence-absence matrix, with some common and some sparse species, and some species-rich and species-poor sites.</p>
+  
+      <p>Setting `numRows`, `numCols`, and `mFill` allow the test matrix to be tailored to match the observed matrix. However, it may be necessary to increase `numRows` and `nCols` if the parameters often generate empty rows or columns.</p>
+  
+      <p>If low values of `abun` are specified, some occupied cells may be set to 0 because of a random draw from the Poisson distribution for that matrix cell.</p>
+  
+      <p>Once the test matrix is created, it can be used to explore any of the combinations of algorithm and matrix that are available in EcoSimR.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# ## Create a null matrix similar to MacArthur&#39;s warblers
+# testMatrix &lt;- ranMatGen(aBetaCol=1000,bBetaCol=1000,
+#                         aBetaRow=1,bBetaRow=1,
+#                         numRows=5,numCols=16,
+#                         mFill=0.75, abun=1000,
+#                         emptyRow=FALSE,emptyCol=TRUE)$m
+# 
+# ## Run the null model
+# testMod &lt;- niche_null_model(testMatrix)
+# 
+# ## Summary and niche utilization plot
+# summary(testAnalysis)
+# plot(testMod,type=&quot;niche&quot;)
+# 
+# 
+# ## Create a null matrix similar to West Indies Finches
+# testMatrix &lt;- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
+#                         aBetaRow=0.5,bBetaRow=0.5,
+#                         numRows=30,numCols=30,
+#                         mFill=0.25,abun=0,emptyRow=FALSE,
+#                         emptyCol=FALSE)$m
+# 
+# ## Run the null model
+# testMod &lt;- cooc_null_model(testMatrix$m,
+#                            algo=&quot;simFast&quot;,
+#                            burnin=10000,n.reps=1000)
+# 
+# ## Summary and matrix, burn-in plots
+# summary(testMod)
+# plot(testMod,type=&quot;cooc&quot;)
+# plot(testMod,type=&quot;burnin&quot;)
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>ranMatGen</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

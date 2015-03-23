@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>pianka. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+<li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Pianka niche overlap</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>pianka(m&nbsp;=&nbsp;matrix(rpois(80, 1), nrow&nbsp;=&nbsp;10))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a matrix of resource utilization values.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns the average pairwise niche overlap.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Takes a resource utilization matrix as input and
+returns the average pairwise Pianka's niche overlap index.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Pianka's niche overlap index is averaged
+over each unique species pair. The index is symmetric,
+with a normalization term in the denominator for the overlap
+between species 1 and 2. Values of Pianka's niche overlap index close to 0.0
+reflect usage of exclusive resource categories, whereas values close to 1.0
+reflect similar resource utilization spectra.
+<pre class = 'eq'>O_jk = O_kj = sum(p_ij*p_jk) / sqrt(sum((p_ij)^2)sum((p_jk)^2))</pre></p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>The resource utilization matrix (rows = species, columns = discrete
+resource categories) may include zeroes, but no negative numbers or missing
+values. Relative resource within a species is first calculated, so the rows
+need not sum to 1.0.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Pianka, E. 1973. The structure of lizard communities.
+Annual Review of Ecology and Systematics 4:53-74.</p>
+  
+      <p>Winemiller, K.O. and E.R. Pianka. 1990. Organization in natural assemblages
+of desert lizards and tropical fishes. Ecological Monographs 60: 27-55.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>obsOverlap &lt;- pianka(m=matrix(rpois(40,0.5),nrow=8))
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>pianka</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='czekanowski.html'>czekanowski</a></code> niche overlap index.
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

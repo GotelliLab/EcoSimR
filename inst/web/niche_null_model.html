@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>niche_null_model. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+<li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Niche overlap null models</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>niche_null_model(speciesData, algo&nbsp;=&nbsp;"ra3", metric&nbsp;=&nbsp;"pianka", nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, saveSeed&nbsp;=&nbsp;FALSE, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list(), suppressProg&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a data frame in which each row is a species, each column is a resource utilization category, and the entries represent the quantity of the resource used by each species. Examples might be the amount of time a species spends foraging in different microhabitats, the biomass of different prey types, or counts of the number of times an adult female oviposits eggs on different species of a host plant.</dd>
+      <dt>algo</dt>
+      <dd>the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"</dd>
+      <dt>metric</dt>
+      <dd>the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka</dd>
+      <dt>nReps</dt>
+      <dd>the number of replicates to run the null model.</dd>
+      <dt>rowNames</dt>
+      <dd>Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names</dd>
+      <dt>saveSeed</dt>
+      <dd>TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
+      <dt>suppressProg</dt>
+      <dd>a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create a niche overlap null models, choices of algorithm and metric are constrained to be valid for niche null models.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# ## Load MacAruthur warbler data
+# data(dataMacWarb)
+# 
+# ## Run the null model
+# warbMod &lt;- niche_null_model(dataMacWarb,nReps=100000)
+# ## Summary and plot info
+# summary(warbMod)
+# plot(warbMod)
+# plot(warbMod,type=&quot;niche&quot;)
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>niche_null_model</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

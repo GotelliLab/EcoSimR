@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>null_model_engine. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+<li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Run null model</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>null_model_engine(speciesData, algo, metric, nReps&nbsp;=&nbsp;1000, rowNames&nbsp;=&nbsp;TRUE, saveSeed&nbsp;=&nbsp;FALSE, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list(), type&nbsp;=&nbsp;NULL, suppressProg&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a dataframe of data that will work with metrics and algorithms.</dd>
+      <dt>algo</dt>
+      <dd>the algorithm to use</dd>
+      <dt>metric</dt>
+      <dd>the metric used to caluclate the null model</dd>
+      <dt>nReps</dt>
+      <dd>the number of replicates to run the null model.</dd>
+      <dt>rowNames</dt>
+      <dd>Does your dataframe have row names? If yes, they are stripped, otherwise FALSE for data that has no row names</dd>
+      <dt>saveSeed</dt>
+      <dd>Should the existing random seed be saved to make the model reproducible?</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing options for a supplied alogrithm</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing options for a supplied metric</dd>
+      <dt>type</dt>
+      <dd>The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models and a generic null model will be returned.</dd>
+      <dt>suppressProg</dt>
+      <dd>a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# # User defined function
+# 
+# 
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>null_model_engine</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>
