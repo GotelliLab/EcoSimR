@@ -17,7 +17,8 @@
 #' plot(rodentMod,type="size")
 #' 
 #' ##  Uniform Size model with user inputs
-#' rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",algoOpts = list(userLow = 3,userHigh=15))
+#' rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",
+#' algoOpts = list(userLow = 3,userHigh=15))
 #' summary(rodentMod2)
 #' plot(rodentMod2,type="hist")
 #' plot(rodentMod2,type="size")
