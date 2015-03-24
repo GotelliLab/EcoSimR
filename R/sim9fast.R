@@ -73,10 +73,10 @@ sim9 <- function (speciesData,algo,metric, nReps = 1000 , saveSeed = FALSE,burn_
   close(bi_pb)
   # run sequential swap for simulated series
   if(suppressProg){
-    cat("Swap Progress \n")
     stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3, file = stderr())
   } else{
-    cat("Burn-in Progress \n")
+    cat("Swap Progress \n")
+    
     stat_pb <- txtProgressBar(min = 0, max = nReps, style = 3)
   }
   for (i in 1: nReps)
