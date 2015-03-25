@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{var_diff}
 \alias{var_diff}
-\title{Variance in size differences}
+\title{VarDiff Size Overlap Ratio Metric}
 \usage{
 var_diff(m = runif(20))
 }

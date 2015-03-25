@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{pianka}
 \alias{pianka}
-\title{Pianka niche overlap}
+\title{Pianka Niche Overlap Metric}
 \usage{
 pianka(m = matrix(rpois(80, 1), nrow = 10))
 }

@@ -11,22 +11,22 @@ niche_null_model(speciesData, algo = "ra3", metric = "pianka",
 \arguments{
 \item{speciesData}{a data frame in which each row is a species, each column is a resource utilization category, and the entries represent the quantity of the resource used by each species. Examples might be the amount of time a species spends foraging in different microhabitats, the biomass of different prey types, or counts of the number of times an adult female oviposits eggs on different species of a host plant.}
 
-\item{algo}{the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"}
+\item{algo}{the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"; default is "ra3".}
 
-\item{metric}{the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka}
+\item{metric}{the metric used to calculate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is "pianka".}
 
-\item{nReps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicate null assemblages to create; default is 1000 replicates.}
 
-\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
+\item{saveSeed}{TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.}
 
-\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
+\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.}
 
-\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
+\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.}
 
-\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
+\item{suppressProg}{TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.}
 }
 \description{
-Create a niche overlap null models, choices of algorithm and metric are constrained to be valid for niche null models.
+Create a null model for niche overlap; choices of algorithm and metric are constrained to be valid for niche null models.
 }
 \examples{
 \dontrun{

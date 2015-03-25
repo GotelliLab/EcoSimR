@@ -1,14 +1,14 @@
 #'Run null model
-#'@description This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.
-#'@param speciesData a dataframe of data that will work with metrics and algorithms.
-#'@param algo the algorithm to use
-#'@param metric the metric used to caluclate the null model
-#'@param nReps the number of replicates to run the null model.
-#'@param saveSeed Should the existing random seed be saved to make the model reproducible? 
-#'@param algoOpts a list containing options for a supplied alogrithm
-#'@param metricOpts a list containing options for a supplied metric
-#'@param type The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models and a generic null model will be returned.
-#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
+#'@description This function drives all the different kinds of null models that can be run. It is the underlying engine.
+#'@param speciesData a dataframe for analysis that is compatable with the metrics and algorithms used. 
+#'@param algo the algorithm used to randomize the data.
+#'@param metric the metric used to quantify pattern in the data.
+#'@param nReps the number of null assemblages to simulate.
+#'@param saveSeed Save the existing random seed to allow the user to reproduce the exact model results. The default value is FALSE, in which case the random number seed that is created is not stored in the output. 
+#'@param algoOpts a list containing options for a supplied alogrithm.
+#'@param metricOpts a list containing options for a supplied metric.
+#'@param type The type of null model being run. If the null model is intended to be used with one of the existing modules, the type should be "size","niche", or "cooc". If the user is creating an entirely new null model, type should be set to NULL (the default value).
+#'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
 #'@examples \dontrun{
 #' # User defined function
 #' 
@@ -103,9 +103,10 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, saveSeed 
 
 
 #' Generic function for calculating null model summary statistics
-#' @description Takes a null model object and prints a nice summary.
-#' @param object the null model object to print a summary of. 
-#' @param ... Extra parameters for summary
+#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+#' @param object the null model object to print a summary of.
+#' @param ... Extra parameters for summary.
+#' @details The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values. 
 #' @export
 
 summary.nullmod <- function(object,...)
@@ -150,10 +151,12 @@ summary.nullmod <- function(object,...)
 
 
 #' plot a histogram null model
-#' @description plot a histogram of a generic null model object
-#' @param x the null model to plot
-#' @param ... Other variables to be passed on to base plotting
-#' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+#' @description Plot a null model object.
+#' @param x the null model object to plot.
+#' @param type the type of null model plot to display.  See details for more information.
+#' @param ... Other variables to be passed on to base plotting.
+#' @details The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+#' 
 #' @export
 
 

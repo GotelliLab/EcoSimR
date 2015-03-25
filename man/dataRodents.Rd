@@ -3,9 +3,14 @@
 \docType{data}
 \name{dataRodents}
 \alias{dataRodents}
-\title{Desert rodent data set}
+\title{Desert rodent data set
+This data vector is from Brown's (1975) study of the coexistence of desert rodent species. Each entry is the average adult body mass in grams of six co-occurring species of Sonoran Desert rodents.}
 \description{
 Desert rodent data set
+This data vector is from Brown's (1975) study of the coexistence of desert rodent species. Each entry is the average adult body mass in grams of six co-occurring species of Sonoran Desert rodents.
+}
+\references{
+Brown, J.H. 1975. Geographical ecology of desert rodents. p. 314-341 in: Ecology and Evolution of Communities. M.L. Cody and J.M. Diamond (eds.). Harvard University Press, Cambridge.
 }
 \keyword{data}
 \keyword{datasets}

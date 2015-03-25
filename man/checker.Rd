@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{checker}
 \alias{checker}
-\title{Number of checkerboard species pairs}
+\title{Checker Co-occurrence Metric}
 \usage{
 checker(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }

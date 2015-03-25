@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{pianka_var}
 \alias{pianka_var}
-\title{Pianka variance}
+\title{PiankaVariance Niche Overlap Metric}
 \usage{
 pianka_var(m = matrix(rpois(80, 1), nrow = 10))
 }

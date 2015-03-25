@@ -3,14 +3,14 @@
 #'@param speciesData a dataframe in which rows are species, columns are sites,
 #' and the entries indicate the absence (0) or presence (1) of a species in a 
 #' site. Empty rows and empty columns should not be included in the matrix.
-#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"
-#'@param metric the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"
-#'@param nReps the number of replicates to run the null model.
-#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
-#'@param burn_in The number of burn_in iterations to use with the simFast algorithm
-#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
-#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
-#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
+#'@param algo the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"; default is "sim9".
+#'@param metric the metric used to calculate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score".
+#'@param nReps the number of replicate null assemblages to create; default is 1000 replicates.
+#'@param saveSeed TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.
+#'@param burn_in The number of burn_in iterations to use with the simFast algorithm; default is 500 burn-in replicates.
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
+#'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
 #'@examples \dontrun{
 #' 
 #' ## Run the null model
@@ -68,10 +68,11 @@ cooc_null_model <- function(speciesData, algo = "sim9", metric = "c_score", nRep
 }
 
 
-#' Generic function for calculating null model summary statistics
-#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+#' Generic function for calculating null model summary statistics.
+#' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values.
 #' @param object the null model object to print a summary.
 #' @param ... extra parameters
+#' @details The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values. 
 #' @export
 
 summary.coocnullmod <- function(object,...)
@@ -115,12 +116,19 @@ summary.coocnullmod <- function(object,...)
 
 
 
-#' Co-Occurrence Model Plot function
+#' Co-Occurrence Model Plot Function
 #' @description Plot co-occurrence null model object.
-#' @param x the null model to plot
-#' @param type the type of null plot to make.  See details for more information
-#' @param ... Other variables to be passed on to base plotting
-#' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+#' @param x the null model object to plot.
+#' @param type the type of null plot to make. See details for more information.
+#' @param ... Other variables to be passed on to base plotting.
+#' @details the valid types for the Co-occurrence module are "hist" to display a histogram of the simulated metric values, "cooc" to display the observed data matrix and one simulated matrix, and (for sim9 only), "burn_in" to display a trace of the metric values during the burn-in period.
+#' 
+#' The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+#' 
+#' The "cooc" plot type illustrates the binary presence-absence data (observed = red, simulated = blue). Each row in the grid is a species, each column is a site, and the entries represent the presence (color-filled) or absence (empty) of a species in a site. The rows and columns are illustrated with the same ordering as the original data matrix.
+#' 
+#' The "burn_in" plot type illustrates the trace values of the metric generated for sim9 during the burn-in period. The x axis is the replicate number and the y axis is the value of the metric. The metric for the original data matrix is illustrated as a horizontal red line. Consecutive simulated metric values are illustrated with a blue line, and the gray line is a simple loess fit to the simulated values. If the burn_in period is sufficiently long, the trace should be stable, indicating that a stationary distribution has probably been reached.
+#' 
 #' @export
 
 

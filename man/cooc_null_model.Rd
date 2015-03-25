@@ -13,21 +13,21 @@ cooc_null_model(speciesData, algo = "sim9", metric = "c_score",
 and the entries indicate the absence (0) or presence (1) of a species in a
 site. Empty rows and empty columns should not be included in the matrix.}
 
-\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"}
+\item{algo}{the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"; default is "sim9".}
 
-\item{metric}{the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"}
+\item{metric}{the metric used to calculate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score".}
 
-\item{nReps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicate null assemblages to create; default is 1000 replicates.}
 
-\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
+\item{saveSeed}{TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.}
 
-\item{burn_in}{The number of burn_in iterations to use with the simFast algorithm}
+\item{burn_in}{The number of burn_in iterations to use with the simFast algorithm; default is 500 burn-in replicates.}
 
-\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
+\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.}
 
-\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
+\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.}
 
-\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
+\item{suppressProg}{TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.}
 }
 \description{
 Create a Co-Occurrence null model

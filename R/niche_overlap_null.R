@@ -1,13 +1,13 @@
 #'Niche overlap null models 
-#'@description Create a niche overlap null models, choices of algorithm and metric are constrained to be valid for niche null models.
+#'@description Create a null model for niche overlap; choices of algorithm and metric are constrained to be valid for niche null models.
 #'@param speciesData a data frame in which each row is a species, each column is a resource utilization category, and the entries represent the quantity of the resource used by each species. Examples might be the amount of time a species spends foraging in different microhabitats, the biomass of different prey types, or counts of the number of times an adult female oviposits eggs on different species of a host plant.
-#'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"
-#'@param metric the metric used to caluclate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is pianka
-#'@param nReps the number of replicates to run the null model.
-#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
-#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
-#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
-#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
+#'@param algo the algorithm to use, must be "ra1", "ra2", "ra3", "ra4"; default is "ra3".
+#'@param metric the metric used to calculate the null model: choices are "pianka", "czekanowski", "pianka_var", "czekanowski_var", "pianka_skew", "czekanowski_skew"; default is "pianka".
+##'@param nReps the number of replicate null assemblages to create; default is 1000 replicates.
+#'@param saveSeed TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
+#'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
 #'@examples \dontrun{
 #' ## Load MacAruthur warbler data
 #' data(dataMacWarb)
@@ -39,7 +39,8 @@ niche_null_model <- function(speciesData, algo = "ra3", metric = "pianka", nReps
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
 #' @param object the null model object to print a summary of.
-#' @param ... Extra parameters for summary 
+#' @param ... Extra parameters for summary .
+#' @details The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values. 
 #' @export
 
 summary.nichenullmod <- function(object,...)
@@ -86,11 +87,16 @@ summary.nichenullmod <- function(object,...)
 
 
 #' Niche Null Model Plot function
-#' @description Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values
-#' @param x the null model to plot
-#' @param type the type of null plot to make.  See details for more information
-#' @param ... Other variables to be passed on to base plotting
-#' @details the valid types for size are "hist" to show a histogram and "niche" to show a sample draw from the null model.
+#' @description Plot niche overlap null model object.
+#' @param x the null model object to plot.
+#' @param type the type of null model plot to display.  See details for more information.
+#' @param ... Other variables to be passed on to base plotting.
+#' @details the valid types for the Niche Overlap module are "hist" to display a histogram of the simulated metric values, and "niche" to display the observed data matrix and one simulated matrix.
+#' 
+#' The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+#' 
+#' The "niche" plot type illustrates the utilization data (observed = red, simulated = blue). Each row in the figure is a species, and each column is a resource utilization category. The area of each circle depicted is proportional to the utilization of a resoruce category by a species. Empty positions indicate a resource utilization of 0.0. The rows and columns are illustrated with the same ordering as the original data matrix.
+#' 
 #' @export
 
 

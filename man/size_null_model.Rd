@@ -9,24 +9,24 @@ size_null_model(speciesData, algo = "size_uniform", metric = "var_ratio",
   metricOpts = list(), suppressProg = FALSE)
 }
 \arguments{
-\item{speciesData}{a dataframe <put some guidelines in here>}
+\item{speciesData}{a data vector in which each entry is the measured trait (such as body size or flowering date) for each species in the assemblage.}
 
-\item{algo}{the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma"}
+\item{algo}{the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma".}
 
-\item{metric}{the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio}
+\item{metric}{the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is "var_ratio".}
 
-\item{nReps}{the number of replicates to run the null model.}
+\item{nReps}{the number of replicate null assemblages to create; default is 1000 replicates.}
 
-\item{saveSeed}{TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated}
+\item{saveSeed}{TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.}
 
-\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument}
+\item{algoOpts}{a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.}
 
-\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument}
+\item{metricOpts}{a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.}
 
-\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
+\item{suppressProg}{TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.}
 }
 \description{
-Create a size Ratio null model
+Create a Size Ratio null model
 }
 \examples{
 \dontrun{

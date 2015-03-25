@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{czekanowski_skew}
 \alias{czekanowski_skew}
-\title{Czekanowski skew}
+\title{CzekanowskiSkew Niche Overlap Metric}
 \usage{
 czekanowski_skew(m = matrix(rpois(80, 1), nrow = 10))
 }

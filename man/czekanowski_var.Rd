@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{czekanowski_var}
 \alias{czekanowski_var}
-\title{Czekanowski variance}
+\title{CzekanowskiVariance Niche Overlap Metric}
 \usage{
 czekanowski_var(m = matrix(rpois(80, 1), nrow = 10))
 }

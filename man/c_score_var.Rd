@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{c_score_var}
 \alias{c_score_var}
-\title{C-score variance}
+\title{CScoreVariance Co-occurrence Metric}
 \usage{
 c_score_var(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }

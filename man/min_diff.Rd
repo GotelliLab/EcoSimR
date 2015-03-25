@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{min_diff}
 \alias{min_diff}
-\title{Minimum size difference}
+\title{MinDiff Size Overlap Metric}
 \usage{
 min_diff(m = runif(20))
 }

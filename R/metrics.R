@@ -1,5 +1,5 @@
 
-#' Pianka niche overlap
+#' Pianka Niche Overlap Metric
 #' @description Takes a resource utilization matrix as input and
 #' returns the average pairwise Pianka's niche overlap index.
 #' @details Pianka's niche overlap index is averaged 
@@ -40,7 +40,7 @@ return(mean(pairwise[,3]))
 }
 
 
-#' Czekanowski niche overlap
+#' Czekanowski Niche Overlap Metric
 #' @description Takes a resource utilization matrix as input and
 #' returns the average pairwise Czekanowki niche overlap index.
 #' @details The Czekanowski niche overlap index is averaged 
@@ -82,7 +82,7 @@ return(mean(pairwise[,3]))
 }
 
 
-#' Pianka variance 
+#' PiankaVariance Niche Overlap Metric
 #' @description Takes a niche utilization matrix as in put and 
 #' returns the variance of Pianka's niche overlap index.
 #' @details A large value for variance implies that some species pairs show high
@@ -118,7 +118,7 @@ pianka_var <- function(m=matrix(rpois(80,1),nrow=10))
 
 ##
 ##
-#' Czekanowski variance 
+#' CzekanowskiVariance Niche Overlap Metric
 #' @description Takes a niche utilization matrix returns the variance of the 
 #' Czekanowski niche overlap index
 #' 
@@ -154,7 +154,7 @@ czekanowski_var <- function(m=matrix(rpois(80,1),nrow=10))
 }
 
 
-#' Pianka skew 
+#' PiankaSkew Niche Overlap Metric
 #' @description Takes a niche utilization matrix returns the skewness of the 
 #' Pianka pairwise niche overlap index.
 #' 
@@ -195,7 +195,7 @@ pianka_skew <- function(m=matrix(rpois(80,1),nrow=10))
 }
 
 
-#' Czekanowski skew
+#' CzekanowskiSkew Niche Overlap Metric
 #' @description Takes a niche utilization matrix returns the skew of the 
 #' Czekanowski pairwise niche overlap index.
 #' 
@@ -234,7 +234,7 @@ czekanowski_skew <- function(m=matrix(rpois(80,1),nrow=10))
   return(czekanowskiSkew)
 }
 
-#' Number of species combinations
+#' SpeciesCombo Co-occurrence Metric
 #' @description Function to calculate number of unique species combinations in a matrix
 #' @details In Diamond's (1975) assembly rules model, species interactions lead to 
 #' certain "forbidden combinations" of species. A set of communities structured 
@@ -270,7 +270,7 @@ species_combo <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' Number of checkerboard species pairs 
+#' Checker Co-occurrence Metric
 #' @description Function to calculate number of unique pairs of species 
 #' that never co-occur and form a "checkerboard pair".
 #' @details In Diamond's (1975) assembly rules model, pairs of species that 
@@ -314,7 +314,7 @@ checker <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' C-score
+#' CScore Co-occurrence Metric
 #' @description Takes a binary presence-absence matrix and returns 
 #' Stone and Roberts' (1990) C-score.
 #' @details For each unique pair of species, the C-score is calculated as
@@ -364,7 +364,7 @@ c_score <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 
 
-#' C-score variance
+#' CScoreVariance Co-occurrence Metric
 #' @description Takes a binary presence-absence matrix and returns 
 #' the variance of the Stone and Roberts' (1990) C-score.
 #' @details A large value of this variance implies that some species pairs 
@@ -408,7 +408,7 @@ c_score_var <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 
 
-#' C-score skew
+#' CScoreSkew Co-occurrence Metric
 #' @description Takes a binary presence-absence matrix and returns 
 #' the skewness of the Stone and Roberts' (1990) C-score.
 #' @details A large positive value of skewness implies a preponderance of species pairs 
@@ -459,7 +459,7 @@ c_score_skew <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
   
 }
 
-#' Schluter's V-ratio 
+#' SchlutersVRatio Co-occurrence Metric
 #' @description Takes a binary presence-absence matrix or a matrix of 
 #' abundances and returns Schluter's (1984) variance ratio. 
 #' @details The variance ratio is the ratio of the variance in species number 
@@ -500,7 +500,7 @@ v_ratio <- function(m=matrix(rbinom(100,1,0.5),nrow=10))
 }
 
 
-#' Minimum size difference
+#' MinDiff Size Overlap Metric
 #' @description Function to calculate the minimum absolute size difference
 #' between species within an assemblage.
 #' @details Although this index is typically used to examine body size differences
@@ -524,7 +524,7 @@ min_diff <- function(m=runif(20)) {
   return(md)
 }
 
-#' Minimum size ratio
+#' MinRatio Size Overlap Ratio Metric
 #' @description Function to calculate the minimum size ratio (larger/next larger)
 #' between species within an assemblage.
 #' @details This index is based on the minimum size ratio (larger/next larger) difference between
@@ -549,7 +549,7 @@ min_ratio <- function(m=runif(20)) {
 
 
 
-#' Variance in size differences
+#' VarDiff Size Overlap Ratio Metric
 #' @description Function to calculate the variance in size differences
 #' between adjacent, ordered species. If there is a tendency towards a
 #' constant absolute size difference between adjacent species, this 
@@ -577,7 +577,7 @@ var_diff <- function(m=runif(20)){
   return(vd)
 }
 
-#' Variance in size ratios
+#' VarRatio Size Overlap Ratio Metric
 #' @description  Function to calculate the variance in size ratios
 #' between adjacent, ordered species. If there is a tendency towards a
 #' constant size ratio between adjacent species, this 
