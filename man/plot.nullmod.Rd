@@ -10,8 +10,6 @@
 \item{x}{the null model object to plot.}
 
 \item{...}{Other variables to be passed on to base plotting.}
-
-\item{type}{the type of null model plot to display.  See details for more information.}
 }
 \description{
 Plot a null model object.
