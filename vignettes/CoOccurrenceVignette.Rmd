@@ -91,7 +91,7 @@ Of these 10 algorithms, only 2 have acceptable performance in benchmark tests an
 
 ## Graphics
 The co-occurrence module offers three graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
-```{r, echo=FALSE}
+```{r, echo=FALSE,fig.height=4,fig.width=4,fig.align='center'}
 myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
 plot(myModel,type="hist")
 
@@ -100,7 +100,7 @@ plot(myModel,type="hist")
 
 The second graphic, `plot(myModel,type="cooc")`, illustrates graphically one simulated matrix (left panel, blue) and the original data matrix (right panel, red). The data are portrayed as a grid with colored cells (species presences) and empty cells (species absences). A careful comparison of these two matrices should confirm the behavior of the chosen randomization algorithm.
 
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
+```{r, echo=FALSE,message=FALSE,warning=FALSE,fig.height=4,fig.width=6,fig.align='center'}
 myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
 plot(myModel,type="cooc")
 
@@ -109,7 +109,7 @@ plot(myModel,type="cooc")
 
 If the algorithm is `sim9`, a third graphic option is available in the co-occurrence module. in this case, `plot(myModel,type="burn_in")` will show the trace value for the burn in period of the Markov chain. This can be useful for determining how many burn-in iterations are necessary to ensure that the distribution is approximately stationary. The plot shows the number of burn-in iterations on the *x*-axis and the metric value on the *y*-axis. The observed index is shown as a horizontal red line, the simulated values are shown as a blue line, and a grey spline curve is fit through the simulated sequence. For example, the default analysis uses a burn-in of 500 interations, and generates this plot:
 
-```{r, echo=FALSE,message=FALSE,warning=FALSE}
+```{r, echo=FALSE,message=FALSE,warning=FALSE,fig.height=4,fig.width=4,fig.align='center'}
 plot(myModel,type='burn_in')
 ```
 
@@ -130,18 +130,18 @@ suppressProg= FALSE  # suppress printing of progress bar (for creating markdown 
 ```
 
 ## Examples
-```{r}
+```{r,fig.height=4,fig.width=4,fig.align='center'}
 # run default settings and show all output
 myModel <- cooc_null_model(speciesData=dataWiFinches,suppressProg=TRUE)
 summary(myModel)
 plot(myModel,type = "hist")
 ```
 
-```{r}
+```{r,fig.height=4,fig.width=6,fig.align='center'}
 plot(myModel,type = "cooc") 
 ```
 
-```{r}
+```{r,fig.height=4,fig.width=4,fig.align='center'}
 plot(myModel,type = "burn_in")
 
 # create a model with sim10 and user-supplied species and site weights
@@ -153,7 +153,7 @@ plot(myModel,type="hist")
 
 ```
 
-```{r}
+```{r,fig.height=4,fig.width=6,fig.align='center'}
 plot(myModel,type="cooc")
 ```
 
