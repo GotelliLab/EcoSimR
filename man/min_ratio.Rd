@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{min_ratio}
 \alias{min_ratio}
-\title{Minimum size ratio}
+\title{MinRatio Size Overlap Ratio Metric}
 \usage{
 min_ratio(m = runif(20))
 }

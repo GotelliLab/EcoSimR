@@ -7,9 +7,12 @@
 sim9_single(speciesData = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }
 \arguments{
-\item{speciesData}{binary presence-absence matrix}
+\item{speciesData}{binary presence-absence matrix.}
 }
 \description{
-Function for a single iteration of the sequential swap
+Function for a single iteration of the sequential swap.
+}
+\details{
+See details for sim9.
 }
 

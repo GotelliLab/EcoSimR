@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{species_combo}
 \alias{species_combo}
-\title{Number of species combinations}
+\title{SpeciesCombo Co-occurrence Metric}
 \usage{
 species_combo(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }

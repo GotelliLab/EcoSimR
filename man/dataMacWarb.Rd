@@ -3,9 +3,14 @@
 \docType{data}
 \name{dataMacWarb}
 \alias{dataMacWarb}
-\title{MacArthur Warbler data warbler data}
+\title{MacArthur's (1958) warbler data
+This data matrix is from MacArthur's classic (1958) paper on the coexistence of 5 species of New England warbler. Each row of the data matrix is a different species of warbler, and each column is one of 16 different subregions of a coniferous tree. Each entry is the percentage of time that each species was observed foraging in a different subregion of the tree (see Figures 2-4 in MacArthur 1958). Zeroes indicate subregions of the tree in which a species was not recorded foraging.}
 \description{
-MacArthur Warbler data warbler data
+MacArthur's (1958) warbler data
+This data matrix is from MacArthur's classic (1958) paper on the coexistence of 5 species of New England warbler. Each row of the data matrix is a different species of warbler, and each column is one of 16 different subregions of a coniferous tree. Each entry is the percentage of time that each species was observed foraging in a different subregion of the tree (see Figures 2-4 in MacArthur 1958). Zeroes indicate subregions of the tree in which a species was not recorded foraging.
+}
+\references{
+MacArthur, R.H. 1958. Population ecology of some warblers of northeastern coniferous forests. Ecology 39: 599-699.
 }
 \keyword{data}
 \keyword{datasets}

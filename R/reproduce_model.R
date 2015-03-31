@@ -1,7 +1,7 @@
 #' Reproduce a result
-#' @description Helps reproduce the result of a simulation by restoring the RNG to the state of a given null model object
-#' @param model the model result you would like to reproduce
-#' @details Works by resetting the RNG state to what it was for a given EcoSimR simulation.  This only works if you saved the seed with the saveSeed parameter
+#' @description Helps reproduce the result of a simulation by restoring the RNG to the state of a supplied null model object.
+#' @param model the model object containing the result to be reproduced.
+#' @details Works by resetting the RNG state to what it was for a given EcoSimR simulation.  This only works if the user saved the seed with the saveSeed parameter.
 #' @examples \dontrun{
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 #' ## Check model output

@@ -1,6 +1,6 @@
 Package: EcoSimR
 Type: Package
-Title: Fit ecological null models.
+Title: Null model analysis of ecological data.
 Version: 0.1.0
 Date: 2014-02-16
 BugReports: https://github.com/GotelliLab/EcoSimR/issues
@@ -12,7 +12,7 @@ Authors@R: c(person("Nick", "Gotelli", role = c("aut"),
     email = "aellison@fas.harvard.edu") )
 LazyLoad: yes
 LazyData: yes
-Description: Fit ecological null models for three of three major types: niche-overlap, body size ratio and co-occurrence. See full documentation at http://ecosimr.org
+Description: Algorithms and metrics for null model analysis. Current modules for niche-overlap, body size ratios and species co-occurrence. See full documentation at http://ecosimr.org
 License: MIT + file LICENSE
 Depends:
     MASS

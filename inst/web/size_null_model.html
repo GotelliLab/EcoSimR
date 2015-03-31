@@ -48,27 +48,27 @@
     <h2>Arguments</h2>
     <dl>
       <dt>speciesData</dt>
-      <dd>a dataframe <put some guidelines in here></dd>
+      <dd>a data vector in which each entry is the measured trait (such as body size or flowering date) for each species in the assemblage.</dd>
       <dt>algo</dt>
-      <dd>the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma"</dd>
+      <dd>the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma".</dd>
       <dt>metric</dt>
-      <dd>the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio</dd>
+      <dd>the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is "var_ratio".</dd>
       <dt>nReps</dt>
-      <dd>the number of replicates to run the null model.</dd>
+      <dd>the number of replicate null assemblages to create; default is 1000 replicates.</dd>
       <dt>saveSeed</dt>
-      <dd>TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated</dd>
+      <dd>TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.</dd>
       <dt>algoOpts</dt>
-      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.</dd>
       <dt>metricOpts</dt>
-      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.</dd>
       <dt>suppressProg</dt>
-      <dd>a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr</dd>
+      <dd>TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.</dd>
     </dl>
     
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Create a size Ratio null model</p>
+      <p>Create a Size Ratio null model</p>
   
     </div>
     

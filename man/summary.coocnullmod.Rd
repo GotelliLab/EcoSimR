@@ -2,7 +2,7 @@
 % Please edit documentation in R/coccurrence_null.R
 \name{summary.coocnullmod}
 \alias{summary.coocnullmod}
-\title{Generic function for calculating null model summary statistics}
+\title{Generic function for calculating null model summary statistics.}
 \usage{
 \method{summary}{coocnullmod}(object, ...)
 }
@@ -12,6 +12,9 @@
 \item{...}{extra parameters}
 }
 \description{
-Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values.
+}
+\details{
+The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values.
 }
 

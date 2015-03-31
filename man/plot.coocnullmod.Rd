@@ -2,21 +2,27 @@
 % Please edit documentation in R/coccurrence_null.R
 \name{plot.coocnullmod}
 \alias{plot.coocnullmod}
-\title{Co-Occurrence Model Plot function}
+\title{Co-Occurrence Model Plot Function}
 \usage{
 \method{plot}{coocnullmod}(x, type = "hist", ...)
 }
 \arguments{
-\item{x}{the null model to plot}
+\item{x}{the null model object to plot.}
 
-\item{type}{the type of null plot to make.  See details for more information}
+\item{type}{the type of null plot to make. See details for more information.}
 
-\item{...}{Other variables to be passed on to base plotting}
+\item{...}{Other variables to be passed on to base plotting.}
 }
 \description{
 Plot co-occurrence null model object.
 }
 \details{
-the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+the valid types for the Co-occurrence module are "hist" to display a histogram of the simulated metric values, "cooc" to display the observed data matrix and one simulated matrix, and (for sim9 only), "burn_in" to display a trace of the metric values during the burn-in period.
+
+The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+
+The "cooc" plot type illustrates the binary presence-absence data (observed = red, simulated = blue). Each row in the grid is a species, each column is a site, and the entries represent the presence (color-filled) or absence (empty) of a species in a site. The rows and columns are illustrated with the same ordering as the original data matrix.
+
+The "burn_in" plot type illustrates the trace values of the metric generated for sim9 during the burn-in period. The x axis is the replicate number and the y axis is the value of the metric. The metric for the original data matrix is illustrated as a horizontal red line. Consecutive simulated metric values are illustrated with a blue line, and the gray line is a simple loess fit to the simulated values. If the burn_in period is sufficiently long, the trace should be stable, indicating that a stationary distribution has probably been reached.
 }
 

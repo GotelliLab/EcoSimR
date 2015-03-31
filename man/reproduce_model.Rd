@@ -7,13 +7,13 @@
 reproduce_model(model)
 }
 \arguments{
-\item{model}{the model result you would like to reproduce}
+\item{model}{the model object containing the result to be reproduced.}
 }
 \description{
-Helps reproduce the result of a simulation by restoring the RNG to the state of a given null model object
+Helps reproduce the result of a simulation by restoring the RNG to the state of a supplied null model object.
 }
 \details{
-Works by resetting the RNG state to what it was for a given EcoSimR simulation.  This only works if you saved the seed with the saveSeed parameter
+Works by resetting the RNG state to what it was for a given EcoSimR simulation.  This only works if the user saved the seed with the saveSeed parameter.
 }
 \examples{
 \dontrun{

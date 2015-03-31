@@ -128,6 +128,8 @@ These models carry the usual restrictions on the analysis of body size patterns 
 
 ## Literature
 
+Brown, J.H. 1975. Geographical ecology of desert rodents. p. 314-341 in: Ecology and Evolution of Communities. M.L. Cody and J.M. Diamond (eds.). Harvard University Press, Cambridge.
+
 Brown, J.H. 1998. The desert granivory experiments at Portal. Pages 71-95 in W.J. Resetarits, Jr. and J. Bernardo, eds. Experimental ecology: issues and perspectives. Oxford University Press, New York. 
 
 Brown, J.H., D.W. Davidson, J.C. Munger, and R.S. Inouye. 1986. Experimental community ecology: the desert granivore system. Pages 41-61 in J. Diamond and T. J. Case, eds. Community ecology. Harper and Row, New York. 
@@ -139,7 +141,8 @@ Graves, G.R. and N.J. Gotelli. 1983. Neotropical land-bridge avifaunas: new appr
 Hutchinson, G.E. 1959. Homage to Santa Rosalia or why are there so many kinds of animals? The American Naturalist 93: 145-159. 
 
 Losos, J.B. 1990. A phylogenetic analysis of character displacement in Caribbean Anolis lizards. Evolution 44: 558-569. 
-Poole and Rathcke 1979
+
+Poole R.W. and B.J. Rathcke. 1979. Regularity, randomness, and aggregation in flowering phenologies. Science 203: 470-471.
 
 Simberloff, D., and W. Boecklen. 1981. Santa Rosalia reconsidered: size ratios and competition. Evolution 35: 1206-1228. 
 

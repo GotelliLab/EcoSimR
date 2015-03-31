@@ -4,8 +4,10 @@
 \name{EcoSimR}
 \alias{EcoSimR}
 \alias{EcoSimR-package}
-\title{EcoSimR}
+\title{EcoSimR
+EcoSimR is a collection of functions for calculating community metrics and algorithms for randomizing community data for null model analysis. Current modules are included for the analysis of niche overlap, body size overlap, and species co-occurrence. EcoSimR also allows users to define their own functions and algorithms to develop new null models.}
 \description{
 EcoSimR
+EcoSimR is a collection of functions for calculating community metrics and algorithms for randomizing community data for null model analysis. Current modules are included for the analysis of niche overlap, body size overlap, and species co-occurrence. EcoSimR also allows users to define their own functions and algorithms to develop new null models.
 }
 

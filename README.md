@@ -13,8 +13,7 @@ QuickStart
 First install the dev branch
 ```r
 library(devtools)
-## use dev_mode() if you want to just play with this in a sandbox
-install_github("EcoSimR","gotellilab",ref="dev")
+install_github("gotellilab/EcoSimR")
 ```
 Currently null models can be run on niche data, co-occurrence data, and size ratio data
  

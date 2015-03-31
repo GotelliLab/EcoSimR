@@ -3,9 +3,14 @@
 \docType{data}
 \name{dataWiFinches}
 \alias{dataWiFinches}
-\title{West Indian Finches data}
+\title{West Indian Finches data
+This data frame is a binary presence-absence matrix for West Indies finches (Fringillidae). Each row is a different species of finch and each column is one of the 19 major islands in the West Indies. Entries indicate the presence (1) or absence (0) of a species on an island. Data from Gotelli and Abele (1982).}
 \description{
 West Indian Finches data
+This data frame is a binary presence-absence matrix for West Indies finches (Fringillidae). Each row is a different species of finch and each column is one of the 19 major islands in the West Indies. Entries indicate the presence (1) or absence (0) of a species on an island. Data from Gotelli and Abele (1982).
+}
+\references{
+Gotelli, N.J. and L.G. Abele. 1982. Statistical distributions of West Indian land bird families. Journal of Biogeography 9: 421-435.
 }
 \keyword{data}
 \keyword{datasets}

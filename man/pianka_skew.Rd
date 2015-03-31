@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{pianka_skew}
 \alias{pianka_skew}
-\title{Pianka skew}
+\title{PiankaSkew Niche Overlap Metric}
 \usage{
 pianka_skew(m = matrix(rpois(80, 1), nrow = 10))
 }

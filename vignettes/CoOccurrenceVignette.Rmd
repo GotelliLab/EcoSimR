@@ -11,21 +11,30 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-## Theoretical Background
+```{r, warning=FALSE, message=FALSE}
+library(EcoSimR)    # load EcoSimR library
+set.seed(56)        # for reproducible results
+```
+
+## Theory
 Diamond (1975) proposed that communities are comprised of species whose occurrences (and morphology) are shaped primarily by interspecific competition for shared resources. When "replicated" communities such as island assemblages are compared, recurrent patterns emerge that reflect this competition, which Diamond (1975) designated as "assembly rules". Two such rules are
 
 - Of the 2^*S*^ - 1 possible species combinations that can be can be formed from a set of *S* species, some combinations will never be found in nature because they represent "forbidden combinations" that do not persist because of interspecific interactions.
 
 - Particular pairs of species may never co-occur, so that replicate communities will contain species *A* or species *B*, but never both together. These "checkerboard pairs" reflect interspecific competition and priority effects that can allow one species to exclude a later arrival.
 
-Connor and Simberloff (1979) challenged these interpretations by asking what patterns of co-occurrence would be expected by in the absence of such interactions. They introduced an important class of null models to ecology, and triggered a debate that continues to this day (Collins et al., Pimm & Sanderson). 
+Connor and Simberloff (1979) challenged these interpretations by asking what patterns of co-occurrence would be expected by in the absence of such interactions. They introduced an important class of null models to ecology, and triggered a debate that continues to this day (Sanderson et al. 2010, Connor et al. 2013). 
 
 This module of EcoSimR includes metrics and algorithms for testing for patterns of community co-occurrence. This literature remains controversial and continues to evolve. EcoSimR contains a variety of randomization algorithms that were developed for co-occurrence analyses, but may be applicable to other kinds of problems. Not all of these algorithms and metrics are recommended, because most of them are vulnerable to Type I statistical errors (incorrectly rejecting a null hypothesis for a purely random data set). We have recommended particular tools based on previous benchmark analyses with artificial data sets (Gotelli 2000).
 
 ## Data
-The data for co-occurrence analysis consist of a binary presence-absence matrix in which each row is a species, each column is a site (or sample), and the entries represent the presence (1) or absence (0) of a species in a site. `NA` values and negative values are not allowed. Positive real numbers should be converted to 1s before analysis. As in other EcoSimR modules, these data should be organized into a data frame, with optional species and/or site names in the first column. For one of the algorithms, `sim10` users can supply an additional vector of row and/or column weights, which would reflect the relative occurrence probability of the different species (row weights) and/or the relative suitability of the different sites for species occurrence (column weights). 
+The data for co-occurrence analysis consist of a binary presence-absence matrix in which each row is a species, each column is a site (or sample), and the entries represent the presence (1) or absence (0) of a species in a site. `NA` values and negative values are not allowed. Positive real numbers should be converted to 1s before analysis. As in other EcoSimR modules, these data should be organized into a data frame, with optional species and/or site names in the first column and/or first row. For one of the algorithms, `sim10` users can supply an additional vector of row and/or column weights, which would reflect the relative occurrence probability of the different species (row weights) and/or the relative suitability of the different sites for species occurrence (column weights). 
 
 The sample data set for this analysis is `dataWiFinches`, the occurrence records for the 17 species of finches (Fringillidae) recorded from the 19 major islands of the West Indies (Gotelli and Abele 1982). 
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(dataWiFinches[,1:6], caption='Occurrence matrix of West Indies finches. Data from Gotelli & Abele (1982)')
+```
 
 ## Metrics
 EcoSimR offers 4 basic metrics for co-occurrence analysis. Two of these (`v_ratio` and `c_score`) quantify the average degree of co-occurrence (which can range from segregated through random to aggregated) for all possible pairs of species. The other two (`checker` and `species_combo`) count the number of checkerboard species pairs and the number of unique species combinations in the matrix, which directly address two of Diamond's (1975) original assembly rules.
@@ -54,78 +63,132 @@ EcoSimR allows for 3 basic strategies to randomize a presence-absence matrix bas
 
 Applying these 3 strategies to both row and column marginals yields a set of 9 possible null model algorithms (`sim1` to `sim9`). A tenth algorithm is to supply vectors of external weights for rows and columns. These vectors represent independent data about the relative occurrence potential of the different species (row weights) and/or the relative suitability of the different sites for species occupancy (column weights). 
 
-TABLE HERE TO BE CONSTRUCTED
+```{r, echo=FALSE, results='asis'}
+Algorithm <- (paste("sim",1:10,sep=""))
+E <- "Equiprobable"
+P <- "Proportional"
+f <- "Fixed"
 
-Of these 10 algorithms, only 3 have acceptable performance in benchmark tests and do not have high frequencies of Type I error when tested with random matrices. These algorithms are 
+RowSums <- c(E,f,E,f,P,E,P,P,f,"External Weights")
+ColSums <- c(E,E,f,P,f,P,E,P,f, "External Weights")
+Notes <- rep("not recommended",9)
+Notes[2] <- "recommended"
+Notes[9] <- "recommended (DEFAULT)"
+Notes[10] <- "recommended"
+AlgoTable <- as.data.frame(cbind(Algorithm,
+             RowSums, ColSums, Notes))
+knitr::kable(AlgoTable, caption='Randomization algorithms for co-occurrence (Gotelli 2000).')
 
-- `sim9` This algorithm preserves the observed row and column totals, conforming to the field biologist's intuition that there are marked differences in the commonness and rarity of species, and variation in species richness among sites. This algorithm measures non-random above and beyond those introduced by heterogeneity in the marginal totals. It is conservative, but it performs fairly well with a variety of different kinds of random matrices. This is the default algorithm for co-occurrence in EcoSimR.^[Unlike all of the other algorithms so far introduced into EcoSimR, `sim9` is a Markov chain, in which each algorithm is derived by altering the one before it in a sequence. To eliminate transient behavior as the simulated algorithms move away from the original matrix, `sim9` allows you to specify a burn-in period and lets you inspect the trace of the index during the burn-in. 
+```
 
-It is not a trivial problem to draw a random matrix from the large set of all possible matrices with fixed row and column sums. The original Connor and Simberloff (1979) method was to randomly draw two rows and two columns, swap the elements if they formed a checkerboard unit, and replace them to create a new matrix. This method gives acceptable results, but it is slow and introduces a small bias by only retaining solutions that can be swapped. The version we have implemented in EcoSimR draws two random rows to create a sub-matrix, reshuffles all of the columns in the submatrix that can be swapped, and then replaces it. This is much more efficient, eliminates the bias in the original swap, and requires a shorter burn-in to achieve stationarity. Especially for large matrices (> 100 x 100), there is still substantial autocorrelation in the sequential matrices, and future versions of EcoSimR will contain a thinning option to select a subset of the sequential matrices. See more details in the `sim9` documentation.]. 
+Of these 10 algorithms, only 2 have acceptable performance in benchmark tests and do not have high frequencies of Type I error when tested with random matrices. These algorithms are 
+
+- `sim9` This algorithm preserves the observed row and column totals, conforming to the field biologist's intuition that there are marked differences in the commonness and rarity of species, and variation in species richness among sites. This algorithm measures non-random above and beyond those introduced by heterogeneity in the marginal totals. It is conservative, but it performs fairly well with a variety of different kinds of random matrices. This is the default algorithm for co-occurrence in EcoSimR.^[Unlike all of the other algorithms so far introduced into EcoSimR, `sim9` is a Markov chain, in which each algorithm is derived by altering the one before it in a sequence. To eliminate transient behavior as the simulated algorithms move away from the original matrix, `sim9` allows you to specify a burn-in period and lets you inspect the trace of the index during the burn-in. It is not a trivial computational problem to draw a random matrix from the large set of all possible matrices with fixed row and column sums. The original Connor and Simberloff (1979) method was to randomly draw two rows and two columns, swap the elements if they formed a checkerboard unit, and replace them to create a new matrix. This method gives acceptable results, but it is slow and introduces a small bias by only retaining solutions that can be swapped. The version we have implemented in EcoSimR draws two random rows to create a sub-matrix, reshuffles all of the columns in the submatrix that can be swapped, and then replaces it. This is much more efficient, eliminates the bias in the original swap, and requires a shorter burn-in to achieve stationarity. Strona et al. (2014) recently described this as the "Curveball algorithm".  Especially for large matrices (> 100 x 100), there is still substantial autocorrelation in the sequential matrices, and future versions of EcoSimR will contain a thinning option to select a subset of the sequential matrices. See more details in the `sim9` documentation.]
 
 - `sim2` By reshuffling elements within each row of the matrix, `sim2` preserves the differences among species in incidence, but assumes that all sites are equiprobable. This algorithm is typically used with `v_ratio`, which often yields aggregated or random patterns (Schluter 1984). If the column totals of the matrix differ considerably (e.g., sites are islands that differ greatly in area), when the `c-score` is used with `sim2` it may yield a random or an aggregated pattern, but when it is used with `sim9`, it may yield a segregated pattern. In such a case, the aggregated pattern of a few sites with a great number of species would be improbable with `sim2`, which assumes sites are equiprobable.
 
-- `sim10` This algorithm offers the greatest chance to inject ecological realism into the model because it incorporates information beyond what is contained in the data matrix itself. Sites can be conditioned on resources, area, or isolation, and species can be conditioned on body size, population size, or geographic range placement. The only caveat is that, if there is too much heterogeneity in the species weights, the simulated matrices may contain empty rows or columns.  
+- `sim10` This algorithm is also recommended because it offers the greatest chance to inject ecological realism into the model because it incorporates information beyond what is contained in the data matrix itself. Sites can be conditioned on resources, area, or isolation, and species can be conditioned on body size, population size, or geographic range placement (Jenkins 2006, Gotelli et al. 2010). The only caveat is that, if there is too much heterogeneity in the species weights, the simulated matrices may contain empty rows or columns.  
 
 ## Graphics
-The co-occurrence module offers three graphic outputs. `plot(type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
+The co-occurrence module offers three graphic outputs. `plot(myModel, type="hist")` generates a standard histogram of simulated metric values (blue bars) based on the selected algorithm and metric. The vertical red line indicates the observed metric for the original data, the pair of vertical long-dash lines indicate the 95% one-tailed cutpoints, and the short-dash lines indicate the 95% two-tailed cutpoints. The latter would constitute a proper 95% confidence interval for the null distribution. Note that these intervals are not based on a normal or other parametric distribution. Instead, they are always estimated directly from the histogram, which means they could be asymmetric, and will be sensitive to the number of replicates used.
+```{r, echo=FALSE}
+myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
+plot(myModel,type="hist")
 
-The second graphic, `plot(type="cooc"), illustrates graphically one simulated matrix (left panel, blue) and the original data matrix (right panel, red). The data are portrayed as a grid with colored cells (species presences) and empty cells (species absences). A careful comparison of these two matrices should confirm the behavior of the chosen randomization algorithm.
+```
+
+
+The second graphic, `plot(myModel,type="cooc")`, illustrates graphically one simulated matrix (left panel, blue) and the original data matrix (right panel, red). The data are portrayed as a grid with colored cells (species presences) and empty cells (species absences). A careful comparison of these two matrices should confirm the behavior of the chosen randomization algorithm.
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+myModel <- cooc_null_model(dataWiFinches,suppressProg=TRUE)
+plot(myModel,type="cooc")
+
+```
+
+
+If the algorithm is `sim9`, a third graphic option is available in the co-occurrence module. in this case, `plot(myModel,type="burn_in")` will show the trace value for the burn in period of the Markov chain. This can be useful for determining how many burn-in iterations are necessary to ensure that the distribution is approximately stationary. The plot shows the number of burn-in iterations on the *x*-axis and the metric value on the *y*-axis. The observed index is shown as a horizontal red line, the simulated values are shown as a blue line, and a grey spline curve is fit through the simulated sequence. For example, the default analysis uses a burn-in of 500 interations, and generates this plot:
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+plot(myModel,type='burn_in')
+```
 
 ## Defaults
 
+```{r, eval=FALSE}
+
+speciesData          # user must supply a data frame; speciesData=dataWiFinches for default run
+algo = "sim9"        # randomize occurrences but preserve observed row and columns sums
+metric = "c_score"   # Stone and Roberts (1990) C-score
+nReps = 1000         # number of null assemblage created
+rowNames=TRUE        # reads speciesData as a data frame wtih row labels in the first column
+saveSeed=FALSE       # if TRUE, saves random number seed
+burn_in=500          # number of burn-in iterations for sim9
+algoOpts=list()      # list of other specific options for the algorithm (used for sim10)
+metricOpts=list()    # list of other specific options for the metric
+suppressProg= FALSE  # suppress printing of progress bar (for creating markdown files)
+```
+
 ## Examples
+```{r}
+# run default settings and show all output
+myModel <- cooc_null_model(speciesData=dataWiFinches,suppressProg=TRUE)
+summary(myModel)
+plot(myModel,type = "hist")
+```
+
+```{r}
+plot(myModel,type = "cooc") 
+```
+
+```{r}
+plot(myModel,type = "burn_in")
+
+# create a model with sim10 and user-supplied species and site weights
+myModel <- cooc_null_model(speciesData=dataWiFinches,algo="sim10",
+                           suppressProg=TRUE,algoOpts=list(rowWeights
+                           =(1:17),colWeights=(1:19)))
+summary(myModel)
+plot(myModel,type="hist")
+
+```
+
+```{r}
+plot(myModel,type="cooc")
+```
 
 ## Caveats
 
+`sim9` used with the `c_score` has been tested repeatedly and has satisfactory performance with most kinds of random matrices (= low Type I errors). However, the C-score is an average across hundreds or even thousands of unique species pairs. Highly non-random matrices will always have a mixture of aggregated, random, or segregated species pairs. In future versions of EcoSimR, we hope to provide algorithms for Werner Ulrich's [PAIRS](http://www.keib.umk.pl/pairs/?lang=en) program, which uses an empirical Bayes approach to test all individual species pairs and screen for false positives (see Gotelli and Ulrich 2010 for details). 
+
+Although co-occurrence analyses arose from the controversy over assembly rules and interspecific competition, these null model analyses can only establish that a matrix or species pair is significantly aggregated or segregated. The causes of such segregation can include species interactions, habitat assocations, and dispersal limitations. Bloise et al. (2014) use additional data layers (geo-referenced sites and measures of environmental conditions in each site) to construct a logic tree with 9 possible branch tips for interpreting the outcomes of species co-occurrence analyses.
+
 ## Literature
 
+Blois, J.L., N.J. Gotelli, A.K. Behrensmeyer, J.T. Faith, S.K. Lyons, J.W. Williams, K.L. Amatangelo, A. Bercovici, A. Du, J.T. Eronen, G.R. Graves, N. Jud, C. Labandeira, C.V. Looy, B. McGill, D. Patterson, R. Potts, B. Riddle, R. Terry, A. Toth, A. Villasenor, and S. Wing. 2014. A framework for evaluating the influence of climate, dispersal limitation, and biotic interactions using fossil pollen associations across the late Quaternary. Ecography 37:1095-1108.
+
+Connor, E.F. and D. Simberloff. 1979. The assembly of species communities: chance or competition? Ecology 60: 1132-1140.
+
+Connor, E.F., M.D. Collins, and D. Simberloff. 2013. The checkered history of checkerboard distributions. Ecology 94: 2403-2414
+
+Diamond, J.M. 1975. Assembly of species communities. p. 342-444 in: Ecology and Evolution of Communities. M.L. Cody and J.M. Diamond (eds.). Harvard University Press, Cambridge.
+
+Gotelli, N.J. 2000. Null model analysis of species co-occurrence patterns. Ecology 81: 2606-2621.
+
+Gotelli, N.J. and L.G. Abele. 1982. Statistical distributions of West Indian land bird families. Journal of Biogeography 9: 421-435.
+
+Gotelli, N.J. and W. Ulrich. 2010. The empirical Bayes approach as a tool to identify non-random species associations. Oecologia 162:463-477.
+
+Gotelli, N.J., G.R. Graves, and C. Rahbek. 2010. Macroecological signals of species interactions in the Danish avifauna. Proceedings of the National Academy of Sciences, U.S.A. 107: 530-535.
+
+Jenkins, D.G. 2006. In search of quorum effects in metacommunity structure: species co-occurrence analyses. Ecology 87:1523-1531
+
+Sanderson, J.G., J.M. Diamond, and S.L. Pimm. 2010. Pairwise co-existence of Bismarck and Solomon landbird species. Evolutionary Ecology Research pp. 771-786 
+
+Schluter, D. 1984. A variance test for detecting species associations, with some example applications. Ecology 65: 998-1005.
+
+Stone. L. and A. Roberts. 1990. The checkerboard score and species distributions. Oecologia 85: 74-79.
+
+Strona. G., D. Nappo, F. Boccacci, S. Fattorini, and J. San-Miguel-Ayanz. 2014. A fast and unbiased procedure to randomize ecological binary matrices with fixed row and column totals. Nature Communications 5:4114 | DOI: 10.1038/ncomms5114.
 
 
-
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
-
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
-
-## Vignette Info
-
-Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
-```
-
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))

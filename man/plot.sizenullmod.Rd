@@ -2,21 +2,25 @@
 % Please edit documentation in R/sizeratio_null.R
 \name{plot.sizenullmod}
 \alias{plot.sizenullmod}
-\title{plot a size null model}
+\title{Size Ratio Plot Function}
 \usage{
 \method{plot}{sizenullmod}(x, type = "hist", ...)
 }
 \arguments{
-\item{x}{the null model to plot}
+\item{x}{the null model object to plot.}
 
-\item{type}{the type of null plot to make.  See details for more information}
+\item{type}{the type of null model plot to display.  See details for more information.}
 
-\item{...}{Other variables to be passed on to base plotting}
+\item{...}{Other variables to be passed on to base plotting.}
 }
 \description{
-plot a variety of size null models
+Plot Size Ratio null model object.
 }
 \details{
-the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+the valid types for the Size Overlap module are "hist" to display a histogram of the simulated metric values, and "size" to display the observed data matrix and one simulated matrix.
+
+The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+
+The "size" plot type illustrates the trait data (observed = red, simulated = blue). Each circle in the number line represents the trait value of a different species. For the observed and simulated data, a histogram of the ordered size differences is also illustrated.
 }
 

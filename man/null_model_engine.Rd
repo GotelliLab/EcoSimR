@@ -9,26 +9,26 @@ null_model_engine(speciesData, algo, metric, nReps = 1000, saveSeed = FALSE,
   suppressProg = FALSE)
 }
 \arguments{
-\item{speciesData}{a dataframe of data that will work with metrics and algorithms.}
+\item{speciesData}{a dataframe for analysis that is compatable with the metrics and algorithms used.}
 
-\item{algo}{the algorithm to use}
+\item{algo}{the algorithm used to randomize the data.}
 
-\item{metric}{the metric used to caluclate the null model}
+\item{metric}{the metric used to quantify pattern in the data.}
 
-\item{nReps}{the number of replicates to run the null model.}
+\item{nReps}{the number of null assemblages to simulate.}
 
-\item{saveSeed}{Should the existing random seed be saved to make the model reproducible?}
+\item{saveSeed}{Save the existing random seed to allow the user to reproduce the exact model results. The default value is FALSE, in which case the random number seed that is created is not stored in the output.}
 
-\item{algoOpts}{a list containing options for a supplied alogrithm}
+\item{algoOpts}{a list containing options for a supplied alogrithm.}
 
-\item{metricOpts}{a list containing options for a supplied metric}
+\item{metricOpts}{a list containing options for a supplied metric.}
 
-\item{type}{The type of null model you are running,  if it's meant to integrate with existing null models the type should be "size","niche!","cooc", or leave it NULL if you it's not meant to be compatible with existing null models and a generic null model will be returned.}
+\item{type}{The type of null model being run. If the null model is intended to be used with one of the existing modules, the type should be "size","niche", or "cooc". If the user is creating an entirely new null model, type should be set to NULL (the default value).}
 
-\item{suppressProg}{a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr}
+\item{suppressProg}{TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.}
 }
 \description{
-This drives the null models for all the different kinds of null models that can be run. It is the underlying engine.
+This function drives all the different kinds of null models that can be run. It is the underlying engine.
 }
 \examples{
 \dontrun{

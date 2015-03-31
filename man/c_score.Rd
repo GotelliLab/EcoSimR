@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{c_score}
 \alias{c_score}
-\title{C-score}
+\title{CScore Co-occurrence Metric}
 \usage{
 c_score(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }

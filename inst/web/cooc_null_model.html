@@ -52,21 +52,21 @@
 and the entries indicate the absence (0) or presence (1) of a species in a
 site. Empty rows and empty columns should not be included in the matrix.</dd>
       <dt>algo</dt>
-      <dd>the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"</dd>
+      <dd>the algorithm to use, must be "sim1", "sim2", "sim3", "sim4", "sim5", "sim6", "sim7", "sim8", "sim9", "sim10"; default is "sim9".</dd>
       <dt>metric</dt>
-      <dd>the metric used to caluclate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score"</dd>
+      <dd>the metric used to calculate the null model: choices are "species_combo", "checker", "c_score", "c_score_var", "c_score_skew", "v_ratio"; default is "c_score".</dd>
       <dt>nReps</dt>
-      <dd>the number of replicates to run the null model.</dd>
+      <dd>the number of replicate null assemblages to create; default is 1000 replicates.</dd>
       <dt>saveSeed</dt>
-      <dd>TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated</dd>
+      <dd>TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.</dd>
       <dt>burn_in</dt>
-      <dd>The number of burn_in iterations to use with the simFast algorithm</dd>
+      <dd>The number of burn_in iterations to use with the simFast algorithm; default is 500 burn-in replicates.</dd>
       <dt>algoOpts</dt>
-      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument</dd>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.</dd>
       <dt>metricOpts</dt>
-      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument</dd>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.</dd>
       <dt>suppressProg</dt>
-      <dd>a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr</dd>
+      <dd>TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.</dd>
     </dl>
     
     <div class="Description">

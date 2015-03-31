@@ -1,13 +1,13 @@
 #'Size Ratio 
-#'@description Create a size Ratio null model
-#'@param speciesData a dataframe <put some guidelines in here>
-#'@param algo the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma"
-#'@param metric the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is Var.Ratio
-#'@param nReps the number of replicates to run the null model.
-#'@param saveSeed TRUE or FALSE.  If TRUE the current seed is saved so the simulation can be repeated
-#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument
-#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument
-#'@param suppressProg a parameter to suppress the progress bar. Mostly this is just used for creating documentation with knitr
+#'@description Create a Size Ratio null model
+#'@param speciesData a data vector in which each entry is the measured trait (such as body size or flowering date) for each species in the assemblage.
+#'@param algo the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma".
+#'@param metric the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is "var_ratio".
+#'@param nReps the number of replicate null assemblages to create; default is 1000 replicates.
+#'@param saveSeed TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.
+#'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
+#'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
+#'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
 #'@examples \dontrun{
 #' ## Run the null model
 #' rodentMod <- size_null_model(dataRodents)
@@ -54,8 +54,9 @@ size_null_model <- function(speciesData, algo = "size_uniform", metric = "var_ra
 
 #' Generic function for calculating null model summary statistics
 #' @description Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
-#' @param object the null model object to print a summary of. 
-#' @param ... Extra parameters for summary
+#' @param object the null model object to print a summary of.
+#' @param ... Extra parameters for summary.
+#' @details The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values. 
 #' @export
 
 summary.sizenullmod <- function(object,...)
@@ -100,12 +101,17 @@ summary.sizenullmod <- function(object,...)
 
 
 
-#' plot a size null model
-#' @description plot a variety of size null models
-#' @param x the null model to plot
-#' @param type the type of null plot to make.  See details for more information
-#' @param ... Other variables to be passed on to base plotting
-#' @details the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+#' Size Ratio Plot Function
+#' @description Plot Size Ratio null model object.
+#' @param x the null model object to plot.
+#' @param type the type of null model plot to display.  See details for more information.
+#' @param ... Other variables to be passed on to base plotting.
+#' @details the valid types for the Size Overlap module are "hist" to display a histogram of the simulated metric values, and "size" to display the observed data matrix and one simulated matrix.
+#' 
+#' The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
+#' 
+#' The "size" plot type illustrates the trait data (observed = red, simulated = blue). Each circle in the number line represents the trait value of a different species. For the observed and simulated data, a histogram of the ordered size differences is also illustrated.
+#' 
 #' @export
 
 plot.sizenullmod <- function(x, type = "hist",...)

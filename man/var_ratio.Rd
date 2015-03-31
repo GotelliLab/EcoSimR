@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{var_ratio}
 \alias{var_ratio}
-\title{Variance in size ratios}
+\title{VarRatio Size Overlap Ratio Metric}
 \usage{
 var_ratio(m = runif(20))
 }

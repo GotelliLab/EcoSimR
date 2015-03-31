@@ -7,14 +7,14 @@
 \method{plot}{nullmod}(x, ...)
 }
 \arguments{
-\item{x}{the null model to plot}
+\item{x}{the null model object to plot.}
 
-\item{...}{Other variables to be passed on to base plotting}
+\item{...}{Other variables to be passed on to base plotting.}
 }
 \description{
-plot a histogram of a generic null model object
+Plot a null model object.
 }
 \details{
-the valid types for size are "hist" to show a histogram and "size" to show a sample size null model.
+The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95% confidence exact confidence intervals of the simulated data.
 }
 

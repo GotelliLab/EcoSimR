@@ -48,24 +48,28 @@
     <h2>Arguments</h2>
     <dl>
       <dt>x</dt>
-      <dd>the null model to plot</dd>
+      <dd>the null model object to plot.</dd>
       <dt>type</dt>
-      <dd>the type of null plot to make.  See details for more information</dd>
+      <dd>the type of null model plot to display.  See details for more information.</dd>
       <dt>...</dt>
-      <dd>Other variables to be passed on to base plotting</dd>
+      <dd>Other variables to be passed on to base plotting.</dd>
     </dl>
     
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Generic function for plotting a histogram of simulated values Takes as input a list of Null.Model.Out, with Obs and Sim values</p>
+      <p>Plot niche overlap null model object.</p>
   
     </div>
 
     <div class="Details">
       <h2>Details</h2>
 
-      <p>the valid types for size are "hist" to show a histogram and "niche" to show a sample draw from the null model.</p>
+      <p>the valid types for the Niche Overlap module are "hist" to display a histogram of the simulated metric values, and "niche" to display the observed data matrix and one simulated matrix.</p>
+  
+      <p>The "hist" plot type is common to all EcoSimR modules. The blue histogram represents the NRep values of the metric for the simulated assemblages. The red vertical line represents the metric value for the real assemblage. The two pairs of vertical dashed black lines represent the one-tailed (long dash) and two-tailed (short dash) 95</p>
+  
+      <p>The "niche" plot type illustrates the utilization data (observed = red, simulated = blue). Each row in the figure is a species, and each column is a resource utilization category. The area of each circle depicted is proportional to the utilization of a resoruce category by a species. Empty positions indicate a resource utilization of 0.0. The rows and columns are illustrated with the same ordering as the original data matrix.</p>
   
     </div>
       </div>

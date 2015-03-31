@@ -9,9 +9,12 @@
 \arguments{
 \item{object}{the null model object to print a summary of.}
 
-\item{...}{Extra parameters for summary}
+\item{...}{Extra parameters for summary .}
 }
 \description{
 Takes as input a list of Null.Model.Out, with Obs, Sim, Elapsed Time, and Time Stamp values
+}
+\details{
+The summary output includes a timestamp and complete statistics on the simulated values of the metric, including the mean, variance, and one and two-tailed 95% confidence intervals. The lower and upper tails for the observed value are given, as is the standardized effect size (SES), which is calculated as the (Metric(obs) - average(Metric(sim)))/(standard deviation(Metric(sim))). Large positive values (or negative) values indicate that the observed metric is significantly larger (or smaller) than predicted by the null model. If the distribution of errors is approximately normal, then non-significant values will fall roughly within +- two SES values.
 }
 

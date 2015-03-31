@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{v_ratio}
 \alias{v_ratio}
-\title{Schluter's V-ratio}
+\title{SchlutersVRatio Co-occurrence Metric}
 \usage{
 v_ratio(m = matrix(rbinom(100, 1, 0.5), nrow = 10))
 }

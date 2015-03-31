@@ -2,7 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{czekanowski}
 \alias{czekanowski}
-\title{Czekanowski niche overlap}
+\title{Czekanowski Niche Overlap Metric}
 \usage{
 czekanowski(m = matrix(rpois(80, 1), nrow = 10))
 }
