@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>size_null_model. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://ecosimr.org">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+
+  <body>
+    
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Size Ratio</h1>
+<div class="row">
+  <div class="col-md-9">
+    <h2>Usage</h2>
+    <pre><div>size_null_model(speciesData, algo&nbsp;=&nbsp;"size_uniform", metric&nbsp;=&nbsp;"var_ratio", nReps&nbsp;=&nbsp;1000, saveSeed&nbsp;=&nbsp;FALSE, algoOpts&nbsp;=&nbsp;list(), metricOpts&nbsp;=&nbsp;list(), suppressProg&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a data vector in which each entry is the measured trait (such as body size or flowering date) for each species in the assemblage.</dd>
+      <dt>algo</dt>
+      <dd>the algorithm to use, must be "size_uniform", "size_uniform_user", "size_source_pool", "size_gamma".</dd>
+      <dt>metric</dt>
+      <dd>the metric used to caluclate the null model: choices are "min_diff", "min_ratio", "var_diff", "var_ratio"; default is "var_ratio".</dd>
+      <dt>nReps</dt>
+      <dd>the number of replicate null assemblages to create; default is 1000 replicates.</dd>
+      <dt>saveSeed</dt>
+      <dd>TRUE or FALSE. If TRUE the current seed is saved so the simulation can be repeated; default is FALSE.</dd>
+      <dt>algoOpts</dt>
+      <dd>a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.</dd>
+      <dt>metricOpts</dt>
+      <dd>a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.</dd>
+      <dt>suppressProg</dt>
+      <dd>TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Create a Size Ratio null model</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
+# ## Run the null model
+# rodentMod &lt;- size_null_model(dataRodents)
+# ## Summary and plot info
+# summary(rodentMod)
+# plot(rodentMod,type=&quot;hist&quot;)
+# plot(rodentMod,type=&quot;size&quot;)
+# 
+# ##  Uniform Size model with user inputs
+# rodentMod2 &lt;- size_null_model(dataRodents,algo=&quot;size_uniform_user&quot;,
+# algoOpts = list(userLow = 3,userHigh=15))
+# summary(rodentMod2)
+# plot(rodentMod2,type=&quot;hist&quot;)
+# plot(rodentMod2,type=&quot;size&quot;)
+# 
+# ### Source pool model
+# 
+# rodentMod_sp &lt;- size_null_model(dataRodents,algo=&quot;size_source_pool&quot;,
+# algoOpts = list(sourcePool = runif(dim(dataRodents)[1],1,15)))
+# 
+# summary(rodentMod_sp)
+# plot(rodentMod_sp,type=&quot;hist&quot;)
+# plot(rodentMod_sp,type=&quot;size&quot;)
+# 
+# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
+</div></pre>
+  </div>
+  <div class="col-md-3">
+    <!-- <ul>
+      <li>size_null_model</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

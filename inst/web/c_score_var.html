@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>c_score_var. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://ecosimr.org">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+
+  <body>
+    
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>CScoreVariance Co-occurrence Metric</h1>
+<div class="row">
+  <div class="col-md-9">
+    <h2>Usage</h2>
+    <pre><div>c_score_var(m&nbsp;=&nbsp;matrix(rbinom(100, 1, 0.5), nrow&nbsp;=&nbsp;10))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a binary presence-absence matrix in which rows are species and columns
+are sites.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns the variance of the C-score calculated across all possible
+species pairs in the matrix.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Takes a binary presence-absence matrix and returns
+the variance of the Stone and Roberts' (1990) C-score.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>A large value of this variance implies that some species pairs
+in the matrix are strongly segregated (large C-score) and other species pairs
+are random or aggregated.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>The matrix-wide C-score is not calculated for missing species, so empty
+rows in the matrix do not affect the result. This index has not been
+thoroughly tested with real data sets.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Stone, L. and A. Roberts. 1990. The checkerboard score and species
+distributions. Oecologia 85: 74-79.</p>
+  
+      <p>Stone, L. and A. Roberts. 1992. Competitive exclusion, or species aggregation?
+An aid in deciding. Oecologia 91: 419-424.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>varCScore &lt;- c_score_var(m=matrix(rbinom(100,1,0.5),nrow=10))
+</div></pre>
+  </div>
+  <div class="col-md-3">
+    <!-- <ul>
+      <li>c_score_var</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='c_score.html'>c_score</a></code> co-occurrence index.
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

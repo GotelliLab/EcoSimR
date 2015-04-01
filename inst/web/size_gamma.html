@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>size_gamma. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://ecosimr.org">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+
+  <body>
+    
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>SizeGamma Size Overlap Randomization Algorithm</h1>
+<div class="row">
+  <div class="col-md-9">
+    <h2>Usage</h2>
+    <pre><div>size_gamma(speciesData&nbsp;=&nbsp;rnorm(50, mean&nbsp;=&nbsp;100, sd&nbsp;=&nbsp;1))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a vector of body sizes or other trait measurements of
+species. All values must be positive real numbers.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a vector of simulated body sizes as the same length as speciesData.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Function to generate a random distribution of body sizes by
+drawing from a gamma distribution. Shape and rate parameters of the gamma
+are estimated from the empirical data.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>The shape and rate parameters are estimated from the real data using
+the maximum likelihood estimators generated from the fitdr function in
+the MASS library. The flexible gamma distribution can be fit to a variety of
+normal, log-normal, and exponential distributions that are typical for trait
+data measured on a continuous non-negative scale.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>obsOverlap &lt;- size_gamma(speciesData=rnorm(50,mean=100,sd=1))
+</div></pre>
+  </div>
+  <div class="col-md-3">
+    <!-- <ul>
+      <li>size_gamma</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='http://www.inside-r.org/r-doc/MASS/fitdistr'>fitdistr</a></code> in the MASS library.
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

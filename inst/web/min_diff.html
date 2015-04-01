@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>min_diff. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://ecosimr.org">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+
+  <body>
+    
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>MinDiff Size Overlap Metric</h1>
+<div class="row">
+  <div class="col-md-9">
+    <h2>Usage</h2>
+    <pre><div>min_diff(m&nbsp;=&nbsp;runif(20))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>m</dt>
+      <dd>a vector of non-negative trait measures, one for each species</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns the minimum difference between adjacent, ordered values.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Function to calculate the minimum absolute size difference
+between species within an assemblage.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Although this index is typically used to examine body size differences
+in an animal assemblage, it could be used for any morphological index,
+such as beak size, or for a phenological "trait", such as peak flowering time in a plant
+assemblage.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Simberloff, D. and W.J. Boecklen. 1981. Santa Rosalia reconsidered: size
+ratios and competition. Evolution 35: 1206-1228.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>MinSizeDif &lt;- min_diff(rgamma(20,shape=3,scale=2))
+</div></pre>
+  </div>
+  <div class="col-md-3">
+    <!-- <ul>
+      <li>min_diff</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>

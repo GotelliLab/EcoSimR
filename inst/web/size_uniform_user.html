@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>size_uniform_user. EcoSimR 0.1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://ecosimr.org">EcoSimR 0.1.0</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+
+        <li><a href="index.html"><i class="icon-home icon-white"></i><span class="glyphicon glyphicon-home">  </span>  Home</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+  </head>
+
+  <body>
+    
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>SizeUser Size Overlap Randomization Algorithm</h1>
+<div class="row">
+  <div class="col-md-9">
+    <h2>Usage</h2>
+    <pre><div>size_uniform_user(speciesData&nbsp;=&nbsp;runif(n&nbsp;=&nbsp;20), userLow&nbsp;=&nbsp;0.9 * min(speciesData), userHigh&nbsp;=&nbsp;1.1 * max(speciesData))</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>speciesData</dt>
+      <dd>a vector of observed body sizes.</dd>
+      <dt>userLow</dt>
+      <dd>a user-defined lower limit.</dd>
+      <dt>userHigh</dt>
+      <dd>a user-defined upper limit.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a vector of randomized body sizes.
+</dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Observed body sizes are randomized with a uniform distribution
+for which the user has defined the minimum and maximum possible body size.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Within the user-defined limits, body sizes of all n species are
+randomized, whereas uniform_size randomizes only n - 2 of the body
+sizes and uses the extreme values to set the endpoints.</p>
+  
+    </div>
+
+    <div class="Note">
+      <h2>Note</h2>
+
+      <p>As the difference between the lower and upper boundaries is increased
+the test will yield results that are random or aggregated, even though the
+same data might yield a segregated pattern when the uniform_size algorithm
+is used. For this reason, this algorithm is not recommended for size ratio
+analyses.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>nullSizes &lt;- size_uniform_user(speciesData=runif(20,min=10,max=20),userLow=8,userHigh=24)
+</div></pre>
+  </div>
+  <div class="col-md-3">
+    <!-- <ul>
+      <li>size_uniform_user</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    <h2>See also</h2>
+    
+<code><a href='size_uniform.html'>size_uniform</a></code> size distribution algorithm.
+
+        
+  </div>
+</div>
+      
+      <footer>
+      <hr>
+<p class="pull-right"><a href="#">Back to top</a></p>
+<p class = "pull-left">Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a> </p>
+<p class = "text-center"> <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Li
+cense" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a> 
+</p>
+      </footer>
+    </div>
+  </body>
+</html>
