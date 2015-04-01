@@ -12,7 +12,7 @@ Authors@R: c(person("Nick", "Gotelli", role = c("aut"),
     email = "aellison@fas.harvard.edu") )
 LazyLoad: yes
 LazyData: yes
-Description: Algorithms and metrics for null model analysis. Current modules for niche-overlap, body size ratios and species co-occurrence. See full documentation at http://ecosimr.org
+Description: EcoSimR is a package to fit null models of ecological data. It provides algorithms and metrics for niche-overlap, body size ratios and species co-occurrence. Users can also integrate their own algorithms and metrics within these frameworks or completely novel null models. See full documentation at http://ecosimr.org
 License: MIT + file LICENSE
 Depends:
     MASS
