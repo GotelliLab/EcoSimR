@@ -5,7 +5,7 @@
 EcoSimR
 =======
 
-Repository for EcoSimR, by Gotelli, N.J. and A.M. Ellison. 2013. EcoSimR 0.1.0  http://www.uvm.edu/~ngotelli/EcoSim/EcoSim.html
+Repository for EcoSimR, by Gotelli, N.J. and A.M. Ellison. 2015. EcoSimR 0.1.0  http://ecosimr.org
 
 QuickStart
 =======
