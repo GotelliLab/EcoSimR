@@ -3,8 +3,6 @@
 #' Vector Sample Function
 #' @description Takes an input binary vector and a weight vector.
 #' Reassigns 1s randomly in proportion to vector weights.
-#' @export
-
 #' @details This function takes an input vector of binary presence-absence
 #' values and a vector of non-negative probability weights. Both vectors
 #' must be of identical length. 

@@ -21,12 +21,12 @@ finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 ## Check model output
 mean(finchMod$Sim)
 
-reproduce_model(finchMod$Sim)
+reproduce_model(finchMod)
 
 finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 ## Check model output is the same as before
 mean(finchMod$Sim)
-reproduce_model(finchMod$Sim)
+reproduce_model(finchMod)
 }
 }
 
