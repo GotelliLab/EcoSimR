@@ -12,7 +12,7 @@ Authors@R: c(person("Nick", "Gotelli", role = c("aut"),
     email = "aellison@fas.harvard.edu") )
 LazyLoad: yes
 LazyData: yes
-Description: This is a package to fit null models of ecological data. It provides algorithms and metrics for niche-overlap, body size ratios and species co-occurrence. Users can also integrate their own algorithms and metrics within these frameworks or completely novel null models. 
+Description: Given a site by species interaction matrix, users can make inferences about species interactions by performance hypothesis comparing test statistics against a null distribution. The current package provides algorithms and metrics for niche-overlap, body size ratios and species co-occurrence. Users can also integrate their own algorithms and metrics within these frameworks or completely novel null models. Detailed explanations about the underlying assumptions of null model analysis in ecology can be found at http://ecosimr.org. 
 License: MIT + file LICENSE
 Depends:
     MASS
