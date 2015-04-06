@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+.travis.yml
+appveyor.yml
+.Rhistory
+.RData
+.gitignore
+README.md
+

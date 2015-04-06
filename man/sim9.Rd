@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim9fast.R
 \name{sim9}
 \alias{sim9}
-\title{sim9.fast}
+\title{Sim9 Co-occurrence Randomization Algorithm}
 \usage{
 sim9(speciesData, algo, metric, nReps = 1000, saveSeed = FALSE,
   burn_in = 0, algoOpts = list(), metricOpts = list(),

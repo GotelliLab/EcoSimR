@@ -63,7 +63,7 @@ null_model_engine <- function(speciesData, algo, metric, nReps = 1000, saveSeed 
 
   algoOpts[["speciesData"]] <- speciesData
   metricOpts[["m"]] <- speciesData
-  obs <- do.call(metricF,metricOpts)
+  obs <- as.vector(do.call(metricF,metricOpts))
   
   
   for(i in 1:nReps){

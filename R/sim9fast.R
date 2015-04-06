@@ -1,4 +1,4 @@
-#'sim9.fast
+#'Sim9 Co-occurrence Randomization Algorithm
 #'@description An improved implementation of the sequential swap algorithm.
 #'@param speciesData a dataframe in which rows are species, columns are sites,
 #' and the entries indicate the absence (0) or presence (1) of a species in a 

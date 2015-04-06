@@ -1,0 +1,12 @@
+
+citEntry(entry = "Manual",
+  title   = "EcoSimR: Null model analysis for ecological data",
+  author  = "Nicholas J. Gotelli and Edmund M. Hart and Aaron M. Ellison",
+  year    = "2015",
+  note    = "R package version 0.1.0",
+  url     = "http://github.com/gotellilab/EcoSimR",
+  doi     = "10.5281/zenodo.16522",
+
+  textVersion =
+  paste("Nicholas J. Gotelli, Edmund M. Hart and Aaron M. Ellison (2015) EcoSimR:  Null model analysis for ecological data. R package version 0.1.0. http://github.com/gotellilab/EcoSimR DOI: 10.5281/zenodo.16522")
+)
