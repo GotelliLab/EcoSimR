@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/GotelliLab/EcoSimR.svg?branch=master)](https://travis-ci.org/GotelliLab/EcoSimR)
 [![Build status](https://ci.appveyor.com/api/projects/status/fc5qpu8v3b1ku4ud?svg=true)](https://ci.appveyor.com/project/emhart/ecosimr)
 [![Coverage Status](https://coveralls.io/repos/GotelliLab/EcoSimR/badge.svg?branch=master)](https://coveralls.io/r/GotelliLab/EcoSimR?branch=master)
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16522.svg)](http://dx.doi.org/10.5281/zenodo.16522)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16636.svg)](http://dx.doi.org/10.5281/zenodo.16636)
 EcoSimR
 =======
 
