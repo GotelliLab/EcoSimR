@@ -85,54 +85,48 @@
   
       <p>The user specifies the percent fill of the matrix, and this number of cells are randomly selected without replacement using the cojoint probabilities calculated from each marginal distribution. If the user has requested a presence-absence matrix (`abun = 0'), these cells are assigned a value of 1. If the user has reqested an abundance matrix ('abun > 0'), then the value of abundance specifies the summed abundance of all individuals in the matrix. The value of `abun` is used to set the lambda parameter for each occupied cell, and then a single draw from a Poisson distribution is used for the abundance in that cell. Small conjoint marginal probabilities can lead to empty rows or columns and the user can specify whether or not to retain empty rows and columns. The matrix rows and columns are sorted in descending order according to the marginal frequencies, and these are returned (matrix$rowMarg and matrix$colMarg) along with the matrix (matrix$m) in list form.</p>
   
-      <p>`aBetaRow`, `bBetaRow`, `aBetaCol`, and `bBetaCol` specify the two shape parameters for the row and column marginals. The marginal values are created by a single random draw from these beta distributions, and then are rescaled so they sum to 1.0. Thus, the mean parameter value specified by the beta distribution does not matter in the calculation. Instead, it is the size of the variance that determines the amount of heterogeneity among row or column margins. Small values for the two shape parameters generate greater heterogeneity among the rows or columns marginals of the matrix.</p>
+      <p>aBetaRow, bBetaRow, aBetaCol, and bBetaCol specify the two shape parameters for the row and column marginals. The marginal values are created by a single random draw from these beta distributions, and then are rescaled so they sum to 1.0. Thus, the mean parameter value specified by the beta distribution does not matter in the calculation. Instead, it is the size of the variance that determines the amount of heterogeneity among row or column margins. Small values for the two shape parameters generate greater heterogeneity among the rows or columns marginals of the matrix.</p>
   
-      <p>Thus, a distribution with `aBetaRow=1000` and `bBetaRow=1000` will generate marginal probabilities that are virtually identical for the different species (=rows), whereas `aBetaRow=1` and `bBetaRow=1` will generate uniform probabilities. These default values applied to both rows and columns will generate a typical presence-absence matrix, with some common and some sparse species, and some species-rich and species-poor sites.</p>
+      <p>Thus, a distribution with aBetaRow=1000 and bBetaRow=1000 will generate marginal probabilities that are virtually identical for the different species (=rows), whereas aBetaRow=1` and bBetaRow=1 will generate uniform probabilities. These default values applied to both rows and columns will generate a typical presence-absence matrix, with some common and some sparse species, and some species-rich and species-poor sites.</p>
   
-      <p>Setting `numRows`, `numCols`, and `mFill` allow the test matrix to be tailored to match the observed matrix. However, it may be necessary to increase `numRows` and `nCols` if the parameters often generate empty rows or columns.</p>
+      <p>Setting numRows, numCols, and mFill allow the test matrix to be tailored to match the observed matrix. However, it may be necessary to increase numRows and nCols if the parameters often generate empty rows or columns.</p>
   
-      <p>If low values of `abun` are specified, some occupied cells may be set to 0 because of a random draw from the Poisson distribution for that matrix cell.</p>
+      <p>If low values of abun are specified, some occupied cells may be set to 0 because of a random draw from the Poisson distribution for that matrix cell.</p>
   
-      <p>Once the test matrix is created, it can be used to explore any of the combinations of algorithm and matrix that are available in EcoSimR.</p>
+      <p>Once the test matrix is created, it can be used to explore any of the combinations of algorithm and matrix that are available in EcoSimR.
+## Create a null matrix similar to MacArthur's warblers
+testMatrix <- ranMatGen(aBetaCol=1000,bBetaCol=1000,
+                        aBetaRow=1,bBetaRow=1,
+                        numRows=5,numCols=16,
+                        mFill=0.75, abun=1000,
+                        emptyRow=FALSE,emptyCol=TRUE)$m</p>
+  
+      <p>## Run the null model
+testMod <- niche_null_model(testMatrix)</p>
+  
+      <p>## Summary and niche utilization plot
+summary(testAnalysis)
+plot(testMod,type="niche")</p>
+  
+      <p>## Create a null matrix similar to West Indies Finches
+testMatrix <- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
+                        aBetaRow=0.5,bBetaRow=0.5,
+                        numRows=30,numCols=30,
+                        mFill=0.25,abun=0,emptyRow=FALSE,
+                        emptyCol=FALSE)$m</p>
+  
+      <p>## Run the null model
+testMod <- cooc_null_model(testMatrix$m,
+                           algo="simFast",
+                           burnin=10000,n.reps=1000)</p>
+  
+      <p>## Summary and matrix, burn-in plots
+summary(testMod)
+plot(testMod,type="cooc")
+plot(testMod,type="burnin")</p>
   
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# ## Create a null matrix similar to MacArthur&#39;s warblers
-# testMatrix &lt;- ranMatGen(aBetaCol=1000,bBetaCol=1000,
-#                         aBetaRow=1,bBetaRow=1,
-#                         numRows=5,numCols=16,
-#                         mFill=0.75, abun=1000,
-#                         emptyRow=FALSE,emptyCol=TRUE)$m
-# 
-# ## Run the null model
-# testMod &lt;- niche_null_model(testMatrix)
-# 
-# ## Summary and niche utilization plot
-# summary(testAnalysis)
-# plot(testMod,type=&quot;niche&quot;)
-# 
-# 
-# ## Create a null matrix similar to West Indies Finches
-# testMatrix &lt;- ranMatGen(aBetaCol=0.5,bBetaCol=0.5,
-#                         aBetaRow=0.5,bBetaRow=0.5,
-#                         numRows=30,numCols=30,
-#                         mFill=0.25,abun=0,emptyRow=FALSE,
-#                         emptyCol=FALSE)$m
-# 
-# ## Run the null model
-# testMod &lt;- cooc_null_model(testMatrix$m,
-#                            algo=&quot;simFast&quot;,
-#                            burnin=10000,n.reps=1000)
-# 
-# ## Summary and matrix, burn-in plots
-# summary(testMod)
-# plot(testMod,type=&quot;cooc&quot;)
-# plot(testMod,type=&quot;burnin&quot;)
-# ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
-</div></pre>
-  </div>
+      </div>
   <div class="col-md-3">
     <!-- <ul>
       <li>ranMatGen</li>

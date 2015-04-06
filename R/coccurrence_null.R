@@ -11,8 +11,8 @@
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
 #'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
-#'@examples \dontrun{
-#' 
+#'@examples 
+#' \dontrun{
 #' ## Run the null model
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim9",nReps=10000,burn_in = 500)
 #' ## Summary and plot info
@@ -30,15 +30,15 @@
 #' ## Check model output
 #' mean(finchMod$Sim)
 #' 
-#' reproduce_model(finchMod$Sim)
+#' reproduce_model(finchMod)
 #' 
 #' finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 #' ## Check model output is the same as before
 #' mean(finchMod$Sim)
-#' reproduce_model(finchMod$Sim)
+#' reproduce_model(finchMod)
 #' 
-#' 
-#'}
+#' }
+#'
 #'
 #'@export
 

@@ -60,18 +60,6 @@
 #'@export
 
 
-# function ranMatGen
-#
-# NJG
-# 2 August 2014
-# Creates a random matrix (binary or integer)
-# The user specifies the matrix dimensions and fill
-# and gives parameters to specify beta distributions
-# for row and column sums.
-#
-# The function returns a random matrix,
-# and the marginal weights from which it was constructed
-
 ranMatGen <- function (aBetaRow = 1, bBetaRow = 1,
                    aBetaCol = 1, bBetaCol = 1,
                    numRows = 20, numCols = 5,
@@ -79,7 +67,7 @@ ranMatGen <- function (aBetaRow = 1, bBetaRow = 1,
                    emptyRow=FALSE, emptyCol=FALSE)
 {
 
-  
+
 # set the marginal distributions, sort them, and rescale
 rowMarg <- sort(rbeta(n=numRows,shape1=aBetaRow,shape2=bBetaRow),decreasing=TRUE)
 rowMarg <- rowMarg/(sum(rowMarg))

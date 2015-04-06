@@ -75,7 +75,7 @@
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
 # ## Run the null model
-# rodentMod &lt;- size_null_model(dataRodents)
+# rodentMod &lt;- size_null_model(dataRodents,suppressProg=T)
 # ## Summary and plot info
 # summary(rodentMod)
 # plot(rodentMod,type=&quot;hist&quot;)
@@ -83,7 +83,7 @@
 # 
 # ##  Uniform Size model with user inputs
 # rodentMod2 &lt;- size_null_model(dataRodents,algo=&quot;size_uniform_user&quot;,
-# algoOpts = list(userLow = 3,userHigh=15))
+# algoOpts = list(userLow = 3,userHigh=15),suppressProg=T)
 # summary(rodentMod2)
 # plot(rodentMod2,type=&quot;hist&quot;)
 # plot(rodentMod2,type=&quot;size&quot;)
@@ -96,7 +96,6 @@
 # summary(rodentMod_sp)
 # plot(rodentMod_sp,type=&quot;hist&quot;)
 # plot(rodentMod_sp,type=&quot;size&quot;)
-# 
 # ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
 </div></pre>
   </div>

@@ -39,18 +39,15 @@ Row and column marginal distributions are described from a beta distribution, wi
 
 The user specifies the percent fill of the matrix, and this number of cells are randomly selected without replacement using the cojoint probabilities calculated from each marginal distribution. If the user has requested a presence-absence matrix (`abun = 0'), these cells are assigned a value of 1. If the user has reqested an abundance matrix ('abun > 0'), then the value of abundance specifies the summed abundance of all individuals in the matrix. The value of `abun` is used to set the lambda parameter for each occupied cell, and then a single draw from a Poisson distribution is used for the abundance in that cell. Small conjoint marginal probabilities can lead to empty rows or columns and the user can specify whether or not to retain empty rows and columns. The matrix rows and columns are sorted in descending order according to the marginal frequencies, and these are returned (matrix$rowMarg and matrix$colMarg) along with the matrix (matrix$m) in list form.
 
-`aBetaRow`, `bBetaRow`, `aBetaCol`, and `bBetaCol` specify the two shape parameters for the row and column marginals. The marginal values are created by a single random draw from these beta distributions, and then are rescaled so they sum to 1.0. Thus, the mean parameter value specified by the beta distribution does not matter in the calculation. Instead, it is the size of the variance that determines the amount of heterogeneity among row or column margins. Small values for the two shape parameters generate greater heterogeneity among the rows or columns marginals of the matrix.
+aBetaRow, bBetaRow, aBetaCol, and bBetaCol specify the two shape parameters for the row and column marginals. The marginal values are created by a single random draw from these beta distributions, and then are rescaled so they sum to 1.0. Thus, the mean parameter value specified by the beta distribution does not matter in the calculation. Instead, it is the size of the variance that determines the amount of heterogeneity among row or column margins. Small values for the two shape parameters generate greater heterogeneity among the rows or columns marginals of the matrix.
 
-Thus, a distribution with `aBetaRow=1000` and `bBetaRow=1000` will generate marginal probabilities that are virtually identical for the different species (=rows), whereas `aBetaRow=1` and `bBetaRow=1` will generate uniform probabilities. These default values applied to both rows and columns will generate a typical presence-absence matrix, with some common and some sparse species, and some species-rich and species-poor sites.
+Thus, a distribution with aBetaRow=1000 and bBetaRow=1000 will generate marginal probabilities that are virtually identical for the different species (=rows), whereas aBetaRow=1` and bBetaRow=1 will generate uniform probabilities. These default values applied to both rows and columns will generate a typical presence-absence matrix, with some common and some sparse species, and some species-rich and species-poor sites.
 
-Setting `numRows`, `numCols`, and `mFill` allow the test matrix to be tailored to match the observed matrix. However, it may be necessary to increase `numRows` and `nCols` if the parameters often generate empty rows or columns.
+Setting numRows, numCols, and mFill allow the test matrix to be tailored to match the observed matrix. However, it may be necessary to increase numRows and nCols if the parameters often generate empty rows or columns.
 
-If low values of `abun` are specified, some occupied cells may be set to 0 because of a random draw from the Poisson distribution for that matrix cell.
+If low values of abun are specified, some occupied cells may be set to 0 because of a random draw from the Poisson distribution for that matrix cell.
 
 Once the test matrix is created, it can be used to explore any of the combinations of algorithm and matrix that are available in EcoSimR.
-}
-\examples{
-\dontrun{
 ## Create a null matrix similar to MacArthur's warblers
 testMatrix <- ranMatGen(aBetaCol=1000,bBetaCol=1000,
                         aBetaRow=1,bBetaRow=1,
@@ -82,6 +79,5 @@ testMod <- cooc_null_model(testMatrix$m,
 summary(testMod)
 plot(testMod,type="cooc")
 plot(testMod,type="burnin")
-}
 }
 

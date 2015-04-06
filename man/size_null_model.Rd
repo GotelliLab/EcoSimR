@@ -31,7 +31,7 @@ Create a Size Ratio null model
 \examples{
 \dontrun{
 ## Run the null model
-rodentMod <- size_null_model(dataRodents)
+rodentMod <- size_null_model(dataRodents,suppressProg=T)
 ## Summary and plot info
 summary(rodentMod)
 plot(rodentMod,type="hist")
@@ -39,7 +39,7 @@ plot(rodentMod,type="size")
 
 ##  Uniform Size model with user inputs
 rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",
-algoOpts = list(userLow = 3,userHigh=15))
+algoOpts = list(userLow = 3,userHigh=15),suppressProg=T)
 summary(rodentMod2)
 plot(rodentMod2,type="hist")
 plot(rodentMod2,type="size")
@@ -52,7 +52,6 @@ algoOpts = list(sourcePool = runif(dim(dataRodents)[1],1,15)))
 summary(rodentMod_sp)
 plot(rodentMod_sp,type="hist")
 plot(rodentMod_sp,type="size")
-
 }
 }
 

@@ -4,6 +4,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/fc5qpu8v3b1ku4ud?svg=true)](https://ci.appveyor.com/project/emhart/ecosimr)
 [![Coverage Status](https://coveralls.io/repos/GotelliLab/EcoSimR/badge.svg?branch=master)](https://coveralls.io/r/GotelliLab/EcoSimR?branch=master)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16522.svg)](http://dx.doi.org/10.5281/zenodo.16522)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16636.svg)](http://dx.doi.org/10.5281/zenodo.16636)
 
 EcoSimR is a software package to fit null models to ecological data.  Currently three different types of models are supported: co-occurrence, niche overlap, and size ratio. The software comes with existing alogrithms and metrics, but individual users can also integrate their own algorithms, or use the null model engine to create new null models. 

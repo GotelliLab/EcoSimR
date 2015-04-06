@@ -8,9 +8,10 @@
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
 #'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
-#'@examples \dontrun{
+#'@examples
+#'\dontrun{
 #' ## Run the null model
-#' rodentMod <- size_null_model(dataRodents)
+#' rodentMod <- size_null_model(dataRodents,suppressProg=T)
 #' ## Summary and plot info
 #' summary(rodentMod)
 #' plot(rodentMod,type="hist")
@@ -18,7 +19,7 @@
 #' 
 #' ##  Uniform Size model with user inputs
 #' rodentMod2 <- size_null_model(dataRodents,algo="size_uniform_user",
-#' algoOpts = list(userLow = 3,userHigh=15))
+#' algoOpts = list(userLow = 3,userHigh=15),suppressProg=T)
 #' summary(rodentMod2)
 #' plot(rodentMod2,type="hist")
 #' plot(rodentMod2,type="size")
@@ -31,8 +32,8 @@
 #' summary(rodentMod_sp)
 #' plot(rodentMod_sp,type="hist")
 #' plot(rodentMod_sp,type="size")
-#' 
 #'}
+#'
 #'
 #'@export
 

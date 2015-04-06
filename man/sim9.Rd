@@ -39,9 +39,8 @@ EcoSimR uses an unbiased and more efficient algorithm, which Strona et al. (2014
 }
 \examples{
 \dontrun{
-
 ## Run the null model
-finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=1000000,burn_in = 500)
+finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=5000,burn_in = 500)
 ## Summary and plot info
 summary(finchMod)
 plot(finchMod,type="burn_in")

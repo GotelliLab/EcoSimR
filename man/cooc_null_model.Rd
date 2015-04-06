@@ -34,7 +34,6 @@ Create a Co-Occurrence null model
 }
 \examples{
 \dontrun{
-
 ## Run the null model
 finchMod <- cooc_null_model(dataWiFinches, algo="sim9",nReps=10000,burn_in = 500)
 ## Summary and plot info
@@ -52,13 +51,12 @@ finchMod <- cooc_null_model(dataWiFinches, algo="sim1",saveSeed=T)
 ## Check model output
 mean(finchMod$Sim)
 
-reproduce_model(finchMod$Sim)
+reproduce_model(finchMod)
 
 finchMod <- cooc_null_model(dataWiFinches, algo="sim1")
 ## Check model output is the same as before
 mean(finchMod$Sim)
-reproduce_model(finchMod$Sim)
-
+reproduce_model(finchMod)
 
 }
 }

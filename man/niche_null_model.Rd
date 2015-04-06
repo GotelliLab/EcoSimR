@@ -30,9 +30,6 @@ Create a null model for niche overlap; choices of algorithm and metric are const
 }
 \examples{
 \dontrun{
-## Load MacAruthur warbler data
-data(dataMacWarb)
-
 ## Run the null model
 warbMod <- niche_null_model(dataMacWarb,nReps=1000)
 ## Summary and plot info

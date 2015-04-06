@@ -8,10 +8,8 @@
 #'@param algoOpts a list containing all the options for the specific algorithm you want to use.  Must match the algorithm given in the `algo` argument.
 #'@param metricOpts a list containing all the options for the specific metric you want to use.  Must match the metric given in the `metric` argument.
 #'@param suppressProg TRUE or FALSE. If true, display of the progress bar in the console is suppressed; default is FALSE. This setting is useful for creating markdown documents with `knitr`.
-#'@examples \dontrun{
-#' ## Load MacAruthur warbler data
-#' data(dataMacWarb)
-#' 
+#'@examples 
+#'\dontrun{
 #' ## Run the null model
 #' warbMod <- niche_null_model(dataMacWarb,nReps=1000)
 #' ## Summary and plot info

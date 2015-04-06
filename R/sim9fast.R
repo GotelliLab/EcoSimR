@@ -25,10 +25,10 @@
 #' Strona. G., D. Nappo, F. Boccacci, S. Fattorini, and J. San-Miguel-Ayanz. 2014. A fast and unbiased procedure to randomize ecological binary matrices with fixed row and column totals. Nature Communications 5:4114 | DOI: 10.1038/ncomms5114.
 
 #'
-#'@examples \dontrun{
-#' 
+#'@examples 
+#' \dontrun{
 #' ## Run the null model
-#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=1000000,burn_in = 500)
+#' finchMod <- cooc_null_model(dataWiFinches, algo="sim1",nReps=5000,burn_in = 500)
 #' ## Summary and plot info
 #' summary(finchMod)
 #' plot(finchMod,type="burn_in")

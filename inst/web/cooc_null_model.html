@@ -78,7 +78,6 @@ site. Empty rows and empty columns should not be included in the matrix.</dd>
     
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'>## &lt;strong&gt;Not run&lt;/strong&gt;: 
-# 
 # ## Run the null model
 # finchMod &lt;- cooc_null_model(dataWiFinches, algo=&quot;sim9&quot;,nReps=10000,burn_in = 500)
 # ## Summary and plot info
@@ -96,13 +95,12 @@ site. Empty rows and empty columns should not be included in the matrix.</dd>
 # ## Check model output
 # mean(finchMod$Sim)
 # 
-# reproduce_model(finchMod$Sim)
+# reproduce_model(finchMod)
 # 
 # finchMod &lt;- cooc_null_model(dataWiFinches, algo=&quot;sim1&quot;)
 # ## Check model output is the same as before
 # mean(finchMod$Sim)
-# reproduce_model(finchMod$Sim)
-# 
+# reproduce_model(finchMod)
 # 
 # ## &lt;strong&gt;End(Not run)&lt;/strong&gt;
 </div></pre>
