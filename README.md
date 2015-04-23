@@ -2,9 +2,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/fc5qpu8v3b1ku4ud?svg=true)](https://ci.appveyor.com/project/emhart/ecosimr)
 [![Coverage Status](https://coveralls.io/repos/GotelliLab/EcoSimR/badge.svg?branch=master)](https://coveralls.io/r/GotelliLab/EcoSimR?branch=master)
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.16636.svg)](http://dx.doi.org/10.5281/zenodo.16636)
+![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)
+![Downloads](http://cranlogs.r-pkg.org/badges/EcoSimR)
+
 EcoSimR
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)]
-[![Downloads](http://cranlogs.r-pkg.org/badges/EcoSimR)]
 =======
 
 Repository for EcoSimR, by Gotelli, N.J. and A.M. Ellison. 2015. EcoSimR 0.1.0  http://ecosimr.org
